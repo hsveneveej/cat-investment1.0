@@ -3,1053 +3,1408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐱 CAT INVESTMENT · OFICIAL</title>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCV-H6MSuyRQgdIqvq36tv87Xcs2DWFJKo",
-            authDomain: "cst-investiment-132.firebaseapp.com",
-            databaseURL: "https://cst-investiment-132-default-rtdb.firebaseio.com/",
-            projectId: "cst-investiment-132",
-            storageBucket: "cst-investiment-132.firebasestorage.app",
-            messagingSenderId: "263336942674",
-            appId: "1:263336942674:web:c70e2b2bc82bb8efaa138b"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        window.firebaseDB = database;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseGet = get;
-        window.firebaseUpdate = update;
-        window.firebaseOnValue = onValue;
-    </script>
-
+    <title>LEOPARD INVESTIMENT</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkxFT1BBUkQgSU5WRVNUSU1FTlQiLAogICJzaG9ydF9uYW1lIjogIkxFT1BBUkQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGExYSIsCiAgInRoZW1lX2NvbG9yIjogIiNGRkQ3MDAiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48dGV4dCB5PSc4MCcgZm9udC1zaXplPSc4MCc+8J+ahzwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LEOPARD">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1032002019870730" crossorigin="anonymous"></script>
     <style>
-        :root {
-            --lime: #32cd32;
-            --orange: #ff4500;
-            --dark: #000;
-            --card: #111;
-            --gold: #ffd700;
-            --blue: #00b4db;
-            --red: #ef4444;
-            --pink: #ff69b4;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-        body {
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .header-adm {
-            text-align: center;
-            padding: 15px 0;
-            background: #050505;
-            border-bottom: 1px solid #111;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .header-adm h1 {
-            color: var(--lime);
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .cat-mascot {
-            font-size: 26px;
-            animation: bounce 1.5s infinite;
-            cursor: pointer;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        .screen {
-            display: none;
-            padding: 12px;
-            padding-bottom: 85px;
-        }
-        .screen.active {
-            display: block;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 14px;
-            background: #1a1a1a;
-            border: 1.5px solid #333;
-            color: white;
-            border-radius: 14px;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-        button {
-            border: none;
-            border-radius: 35px;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 15px;
-            width: 100%;
-            font-size: 15px;
-            background: var(--lime);
-            color: #000;
-            transition: all 0.2s;
-        }
-        button:active {
-            opacity: 0.8;
-        }
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #555 !important;
-            color: #888 !important;
-        }
-        .card {
-            background: var(--card);
-            border: 1px solid #222;
-            border-radius: 18px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-        .nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 450px;
-            height: 65px;
-            background: #0a0a0a;
-            border-top: 1px solid #222;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 99;
-            margin: auto;
-        }
-        .nav-link {
-            color: #777;
-            text-decoration: none;
-            font-size: 10px;
-            text-align: center;
-            font-weight: 600;
-            padding: 6px 10px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .nav-link.active {
-            color: var(--lime);
-            background: rgba(50, 205, 50, 0.1);
-        }
-        .nav-link .icon {
-            font-size: 20px;
-            display: block;
-            margin-bottom: 2px;
-        }
-        .login-box {
-            background: #0f0f0f;
-            border-radius: 30px;
-            padding: 25px 18px;
-            border: 1px solid #2a2a2a;
-        }
-        .login-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 18px;
-        }
-        .login-tab {
-            flex: 1;
-            text-align: center;
-            padding: 11px;
-            background: #1a1a1a;
-            border-radius: 25px;
-            cursor: pointer;
-            color: #888;
-            font-weight: bold;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .login-tab.active {
-            background: var(--lime);
-            color: #000;
-        }
-        .login-form {
-            display: none;
-        }
-        .login-form.active {
-            display: block;
-        }
-        .tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-            background: #0e0e0e;
-            padding: 4px;
-            border-radius: 40px;
-        }
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 9px;
-            border-radius: 35px;
-            color: #aaa;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .tab.active {
-            background: var(--lime);
-            color: #000;
-        }
-        .vip-grid, .wealth-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 450px;
-            overflow-y: auto;
-        }
-        .vip-card, .wealth-card {
-            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-            border-radius: 18px;
-            padding: 14px;
-            border: 1.5px solid;
-        }
-        .vip-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 18px;
-            font-size: 10px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .badge-vip1 {
-            background: #32cd32;
-            color: #000;
-        }
-        .badge-vip2 {
-            background: #ffd700;
-            color: #000;
-        }
-        .badge-vip3 {
-            background: #ff4500;
-            color: #fff;
-        }
-        .vip-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin: 10px 0;
-        }
-        .vip-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        .vip-label {
-            font-size: 9px;
-            color: #aaa;
-        }
-        .vip-value {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--gold);
-        }
-        .vip-title, .wealth-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #fff;
-            margin: 6px 0;
-        }
-        .earnings-dashboard {
-            display: flex;
-            gap: 6px;
-            margin: 12px 0;
-            overflow-x: auto;
-        }
-        .earning-card {
-            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
-            border-radius: 14px;
-            padding: 10px 14px;
-            text-align: center;
-            border: 1px solid #333;
-            min-width: 90px;
-        }
-        .earning-card.highlight {
-            border-color: var(--gold);
-            background: linear-gradient(135deg, #2a2a0a, #1a1a0a);
-        }
-        .earning-label {
-            font-size: 10px;
-            color: #aaa;
-        }
-        .earning-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--lime);
-        }
-        .earning-value.gold {
-            color: var(--gold);
-        }
-        .roulette-container {
-            background: linear-gradient(135deg, #1a0a2a, #0a0a1a);
-            border-radius: 22px;
-            padding: 18px;
-            margin: 18px 0;
-            border: 2px solid var(--gold);
-            text-align: center;
-        }
-        .support-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: rgba(50, 205, 50, 0.15);
-            border: 1.5px solid var(--lime);
-            border-radius: 35px;
-            padding: 7px 18px;
-            cursor: pointer;
-            color: var(--lime);
-            font-size: 13px;
-        }
-        .sync-status {
-            position: fixed;
-            bottom: 75px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--lime);
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 9px;
-            z-index: 1000;
-        }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-        }
-        .admin-table th, .admin-table td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-        }
-        .admin-table th {
-            color: var(--gold);
-        }
-        .btn-delete {
-            background: var(--red);
-            color: white;
-            padding: 4px 8px;
-            font-size: 10px;
-            border-radius: 15px;
-            width: auto;
-        }
-        .btn-orange {
-            background: var(--orange) !important;
-            color: #fff !important;
-        }
-        .btn-gold {
-            background: var(--gold) !important;
-            color: #000 !important;
-        }
-        .btn-danger {
-            background: var(--red) !important;
-            color: white !important;
-        }
-        .btn-warning {
-            background: var(--orange) !important;
-            color: white !important;
-        }
-        .btn-block {
-            background: var(--red) !important;
-            color: white !important;
-        }
-        .btn-unblock {
-            background: var(--lime) !important;
-            color: #000 !important;
-        }
-        .timer-display {
-            display: flex;
-            gap: 12px;
-            margin: 8px 0;
-        }
-        .timer-item {
-            text-align: center;
-        }
-        .timer-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--gold);
-        }
-        .timer-label {
-            font-size: 9px;
-            color: #888;
-        }
-        .daily-timer-info {
-            margin-top: 6px;
-            font-size: 11px;
-        }
-        .daily-timer-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 10px;
-        }
-        .sunday-banner {
-            background: linear-gradient(135deg, #2a0a0a, #1a0a0a);
-            border: 2px solid var(--red);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 12px;
-            text-align: center;
-            display: none;
-        }
-        .sunday-banner.active {
-            display: block;
-        }
-        .sunday-banner h4 {
-            color: var(--red);
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-        .sunday-banner p {
-            color: #ccc;
-            font-size: 12px;
-        }
-        .active-funds-list {
-            max-height: 350px;
-            overflow-y: auto;
-        }
-        .fund-item {
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-left: 4px solid var(--orange);
-        }
-        .fund-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .fund-name {
-            font-weight: bold;
-            color: var(--gold);
-            font-size: 13px;
-        }
-        .fund-count {
-            background: var(--lime);
-            color: #000;
-            padding: 2px 7px;
-            border-radius: 15px;
-            font-size: 10px;
-        }
-        .fund-dates {
-            font-size: 10px;
-            color: #aaa;
-            margin: 4px 0;
-        }
-        .progress-bar {
-            background: #333;
-            height: 5px;
-            border-radius: 3px;
-            margin: 6px 0;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: var(--lime);
-            height: 100%;
-            border-radius: 3px;
-        }
-        .admin-search-box {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .admin-search-box input {
-            flex: 1;
-            padding: 12px;
-            background: #1a1a1a;
-            border: 2px solid #333;
-            color: white;
-            border-radius: 14px;
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-        .admin-search-box button {
-            width: auto;
-            padding: 12px 16px;
-            background: var(--gold);
-            color: #000;
-            font-size: 14px;
-        }
-        .search-result-card {
-            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
-            border-radius: 18px;
-            padding: 16px;
-            margin-top: 12px;
-            border: 2px solid var(--gold);
-        }
-        .user-detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .user-detail-item {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px;
-            border-radius: 8px;
-            border-left: 3px solid var(--lime);
-        }
-        .user-detail-label {
-            font-size: 9px;
-            color: #888;
-        }
-        .user-detail-value {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--lime);
-        }
-        .user-detail-value.gold {
-            color: var(--gold);
-        }
-        .user-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        .user-actions button {
-            flex: 1;
-            padding: 10px;
-            font-size: 12px;
-            min-width: 70px;
-        }
-        .invite-stats-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .invite-stat-card {
-            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-            border-radius: 14px;
-            padding: 14px;
-            text-align: center;
-            border: 2px solid;
-            animation: pulse 2s infinite;
-        }
-        .invite-stat-card:nth-child(1) { animation-delay: 0s; }
-        .invite-stat-card:nth-child(2) { animation-delay: 0.3s; }
-        .invite-stat-card:nth-child(3) { animation-delay: 0.6s; }
-        .invite-stat-card:nth-child(4) { animation-delay: 0.9s; }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        .invite-stat-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-        .invite-stat-value {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .invite-stat-label {
-            font-size: 9px;
-            color: #888;
-            text-transform: uppercase;
-        }
-        .invite-tabs {
-            display: flex;
-            gap: 4px;
-            margin: 12px 0;
-            background: #0e0e0e;
-            padding: 3px;
-            border-radius: 25px;
-        }
-        .invite-tab {
-            flex: 1;
-            text-align: center;
-            padding: 8px 6px;
-            border-radius: 22px;
-            color: #888;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 11px;
-            transition: all 0.2s;
-        }
-        .invite-tab.active {
-            background: var(--lime);
-            color: #000;
-        }
-        .invited-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .invited-user-card {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid #333;
-        }
-        .invited-user-card.qualified {
-            border-left-color: var(--lime);
-            background: linear-gradient(135deg, #1a2a1a, #1a1a1a);
-        }
-        .invited-user-avatar {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        .invited-user-avatar.qualified {
-            background: rgba(50, 205, 50, 0.2);
-        }
-        .invited-user-avatar.not-qualified {
-            background: rgba(85, 85, 85, 0.2);
-        }
-        .invited-user-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .invited-user-name {
-            font-weight: bold;
-            font-size: 13px;
-        }
-        .invited-user-phone {
-            font-size: 10px;
-            color: #888;
-        }
-        .invited-user-status {
-            display: flex;
-            gap: 4px;
-            margin-top: 3px;
-            flex-wrap: wrap;
-        }
-        .invited-status-badge {
-            padding: 2px 7px;
-            border-radius: 10px;
-            font-size: 8px;
-            font-weight: bold;
-        }
-        .status-active {
-            background: rgba(50, 205, 50, 0.2);
-            color: var(--lime);
-        }
-        .status-pending {
-            background: rgba(255, 165, 0, 0.2);
-            color: var(--orange);
-        }
-        .status-vip {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--gold);
-        }
-        .no-invites {
-            text-align: center;
-            padding: 20px;
-            color: #888;
-            font-size: 13px;
-        }
-        .blocked-badge {
-            background: var(--red);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin: 3px 0;
-        }
-        .unblocked-badge {
-            background: var(--lime);
-            color: #000;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin: 3px 0;
-        }
-        .blocked-msg {
-            background: rgba(239, 68, 68, 0.15);
-            border: 2px solid var(--red);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            margin: 10px 0;
-            display: none;
-        }
-        .blocked-msg.active {
-            display: block;
-        }
-        .blocked-msg h4 {
-            color: var(--red);
-            margin-bottom: 8px;
-        }
-        .blocked-msg p {
-            color: #ccc;
-            font-size: 12px;
-        }
-        .pending-msg {
-            background: rgba(255, 165, 0, 0.15);
-            border: 2px solid var(--orange);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            margin: 10px 0;
-            display: none;
-        }
-        .pending-msg.active {
-            display: block;
-        }
-        .pending-msg h4 {
-            color: var(--orange);
-            margin-bottom: 8px;
-        }
-        .pending-msg p {
-            color: #ccc;
-            font-size: 12px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: linear-gradient(135deg, #0a0a1a, #1a1a35, #0d0d2b); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-y: auto; position: relative; }
+        .particles { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .particle { position: absolute; background: rgba(255,215,0,0.06); border-radius: 50%; animation: floatUp 15s infinite; }
+        @keyframes floatUp { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
+        .main-container { width: 400px; max-width: 95%; z-index: 2; position: relative; padding: 20px 0; }
+        .auth-card { background: rgba(18,18,40,0.92); backdrop-filter: blur(30px); border-radius: 24px; padding: 28px 22px; border: 1.5px solid rgba(255,255,255,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
+        .brand-header { text-align: center; margin-bottom: 20px; }
+        .brand-logo { font-size: 64px; display: inline-block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .brand-name { font-size: 22px; font-weight: 800; background: linear-gradient(45deg,#FFD700,#FF8C00,#FF4500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; margin-top: 4px; }
+        .brand-slogan { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 2px; margin-top: 2px; }
+        .form-section { margin-top: 8px; }
+        .form-title { font-size: 14px; color: rgba(255,215,0,0.9); text-align: center; margin-bottom: 12px; font-weight: 600; }
+        
+        /* ===== BOTÕES DA TELA INICIAL COM SELOS ===== */
+        .initial-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        .initial-btn { position: relative; padding: 18px 14px; border-radius: 16px; border: none; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .initial-btn:active { transform: scale(0.95); }
+        .btn-criar-conta { background: linear-gradient(135deg, #00ff88, #00cc6a); color: #0a0a1a; box-shadow: 0 8px 25px rgba(0,255,136,0.4); }
+        .btn-entrar { background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); }
+        .btn-entrar:hover { border-color: rgba(255,255,255,0.4); }
+        
+        /* SELOS NUMERADOS */
+        .selo { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #0a0a1a; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; box-shadow: 0 3px 10px rgba(255,215,0,0.5); z-index: 5; }
+        
+        /* ===== RESTANTE DO CSS ===== */
+        .input-wrapper { margin: 10px 0; position: relative; }
+        .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; z-index: 1; }
+        .auth-input { width: 100%; padding: 14px 14px 14px 42px; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; background: rgba(255,255,255,0.04); color: white; font-size: 14px; transition: all 0.3s; }
+        .auth-input:focus { border-color: #FFD700; outline: none; background: rgba(255,255,255,0.07); }
+        .auth-input::placeholder { color: rgba(255,255,255,0.3); }
+        .btn-primary { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 6px; transition: all 0.3s; letter-spacing: 0.5px; }
+        .btn-gold { background: linear-gradient(135deg,#FFD700,#FF8C00); color: #0a0a1a; }
+        .btn-gold:active { transform: scale(0.97); }
+        .btn-green { background: linear-gradient(135deg,#00ff88,#00cc6a); color: #0a0a1a; }
+        .btn-green:active { transform: scale(0.97); }
+        .btn-outline { width: 100%; padding: 12px; border: 1.5px solid rgba(255,215,0,0.35); border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #FFD700; margin-top: 6px; }
+        .switch-text { text-align: center; margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.55); }
+        .switch-link { color: #FFD700; cursor: pointer; font-weight: 700; }
+        .error-msg { color: #ff4444; font-size: 11px; margin-top: 4px; text-align: center; min-height: 16px; }
+        .referral-msg { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 12px; padding: 10px; margin-bottom: 12px; text-align: center; color: #00ff88; font-size: 12px; font-weight: 600; }
+        .support-row { text-align: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .support-text { font-size: 10px; color: rgba(255,255,255,0.4); }
+        .support-link { color: #FFD700; cursor: pointer; font-weight: 600; }
+        .hidden { display: none !important; }
+        .app-container { display: none; width: 100%; max-width: 480px; height: 100vh; background: linear-gradient(160deg,#0d0d2b 0%,#1a1040 30%,#0a0a1a 100%); flex-direction: column; z-index: 2; position: relative; }
+        .app-header { background: rgba(20,20,50,0.8); padding: 16px 18px; border-bottom: 1px solid rgba(255,215,0,0.2); display: flex; justify-content: space-between; align-items: center; }
+        .app-logo { font-size: 18px; font-weight: 800; background: linear-gradient(45deg,#FFD700,#FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .timer-badge { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); border-radius: 20px; padding: 6px 14px; color: #FFD700; font-size: 13px; font-weight: 700; }
+        .balance-badge { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 20px; padding: 6px 14px; color: #00ff88; font-size: 13px; font-weight: 700; }
+        .bottom-nav { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; position: fixed; bottom: 0; width: 100%; max-width: 480px; background: rgba(10,10,25,0.98); padding: 12px 10px; border-top: 2px solid rgba(255,215,0,0.25); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 10px 4px; border-radius: 14px; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 700; }
+        .nav-item.active { background: linear-gradient(135deg,rgba(255,215,0,0.25),rgba(255,165,0,0.2)); color: #FFD700; }
+        .nav-icon { font-size: 18px; }
+        .main-content { flex: 1; overflow-y: auto; padding: 16px; padding-bottom: 85px; }
+        .balance-card { background: linear-gradient(135deg,#FFD700,#FF8C00); border-radius: 18px; padding: 22px; margin-bottom: 16px; }
+        .balance-value { font-size: 32px; font-weight: 800; color: #0a0a1a; }
+        .gains-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+        .gain-card { border-radius: 14px; padding: 14px; text-align: center; }
+        .gain-card-1 { background: linear-gradient(135deg,#1a1a35,#2d2d5e); border: 1px solid rgba(255,215,0,0.3); }
+        .gain-card-2 { background: linear-gradient(135deg,#1a1a35,#2d2d5e); border: 1px solid rgba(0,255,136,0.3); }
+        .gain-card-3 { background: linear-gradient(135deg,#1a1a35,#2d2d5e); border: 1px solid rgba(139,92,246,0.3); }
+        .gain-card-4 { background: linear-gradient(135deg,#1a1a35,#2d2d5e); border: 1px solid rgba(255,165,0,0.3); }
+        .gain-label { font-size: 11px; margin-bottom: 4px; }
+        .gain-value { color: white; font-size: 18px; font-weight: 800; }
+        .vip-status-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,215,0,0.25); border-radius: 18px; padding: 18px; margin-bottom: 16px; }
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .action-btn { padding: 16px; border-radius: 14px; border: none; font-weight: 700; font-size: 14px; cursor: pointer; text-align: center; }
+        .btn-gold { background: linear-gradient(135deg,#FFD700,#FF8C00); color: #0a0a1a; }
+        .btn-red { background: linear-gradient(135deg,#FF6347,#FF4500); color: white; }
+        .btn-purple { background: linear-gradient(135deg,#8B5CF6,#6D28D9); color: white; }
+        .btn-green { background: linear-gradient(135deg,#00ff88,#00cc6a); color: #0a0a1a; }
+        .btn-coletar { background: linear-gradient(135deg,#f0932b,#f9ca24); color: #0a0a1a; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 20px rgba(240,147,43,0.4); } 50% { box-shadow: 0 0 40px rgba(249,202,36,0.8); } }
+        .countdown-timer { font-size: 14px; font-weight: 700; color: #FFD700; text-align: center; margin: 8px 0; }
+        .vip-card-colorida { border-radius: 18px; padding: 20px; margin: 12px 0; cursor: pointer; }
+        .vip-color-0 { background: linear-gradient(135deg,#00b894,#00cec9); border: 2px solid #00ff88; }
+        .vip-color-1 { background: linear-gradient(135deg,#FFD700,#FFA500); border: 2px solid #FFD700; }
+        .vip-color-2 { background: linear-gradient(135deg,#e17055,#d63031); border: 2px solid #ff6b6b; }
+        .vip-color-3 { background: linear-gradient(135deg,#6c5ce7,#a855f7); border: 2px solid #a855f7; }
+        .vip-color-4 { background: linear-gradient(135deg,#0984e3,#74b9ff); border: 2px solid #74b9ff; }
+        .vip-name { font-size: 20px; font-weight: 800; color: white; }
+        .vip-info { font-size: 14px; color: rgba(255,255,255,0.9); margin: 5px 0; }
+        .vip-badge { display: inline-block; background: rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 20px; font-size: 11px; color: white; margin: 3px; }
+        .fundo-card-colorida { border-radius: 18px; padding: 20px; margin: 12px 0; cursor: pointer; border: 2px solid; }
+        .fundo-color-0 { background: linear-gradient(135deg,#ff6b6b,#ee5a24); border-color: #ff6b6b; }
+        .fundo-color-1 { background: linear-gradient(135deg,#f0932b,#f9ca24); border-color: #f0932b; }
+        .fundo-color-2 { background: linear-gradient(135deg,#6c5ce7,#a855f7); border-color: #a855f7; }
+        .fundo-color-3 { background: linear-gradient(135deg,#0984e3,#74b9ff); border-color: #74b9ff; }
+        .fundo-color-4 { background: linear-gradient(135deg,#00b894,#55efc4); border-color: #55efc4; }
+        .fundo-name { font-size: 18px; font-weight: 800; color: white; }
+        .fundo-info { color: white; margin: 4px 0; }
+        .perfil-row { padding: 12px 16px; margin: 6px 0; background: rgba(255,255,255,0.1); border-radius: 12px; color: white; font-size: 15px; }
+        .invited-list { max-height: 300px; overflow-y: auto; margin-top: 10px; }
+        .invited-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; margin: 5px 0; display: flex; justify-content: space-between; align-items: center; }
+        .admin-panel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a1a; z-index: 1000; padding: 20px; color: white; overflow-y: auto; }
+        .admin-section { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px; margin: 12px 0; }
+        .toggle-switch { position: relative; display: inline-block; width: 56px; height: 30px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .4s; border-radius: 30px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked+.toggle-slider { background-color: #00ff88; }
+        input:checked+.toggle-slider:before { transform: translateX(26px); }
+        .admin-btn { padding: 10px 16px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; margin: 3px; font-size: 12px; }
+        .admin-btn-primary { background: #FFD700; color: #0a0a1a; }
+        .admin-btn-danger { background: #ff4444; color: white; }
+        .admin-btn-success { background: #00ff88; color: #0a0a1a; }
+        .admin-btn-outline { background: transparent; border: 1px solid #FFD700; color: #FFD700; width: 100%; margin: 6px 0; }
+        .badge-notification { background: #ff4444; color: white; border-radius: 50%; padding: 2px 8px; font-size: 11px; font-weight: 700; margin-left: 6px; display: inline-block; min-width: 22px; text-align: center; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: flex; justify-content: center; align-items: center; }
+        .modal-box { background: #1a1a35; border-radius: 20px; padding: 25px; width: 90%; max-width: 420px; border: 2px solid #FFD700; max-height: 80vh; overflow-y: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
+        .admin-table th { background: rgba(255,215,0,0.25); color: #FFD700; padding: 10px 6px; text-align: left; font-weight: 700; }
+        .admin-table td { padding: 10px 6px; border-bottom: 1px solid rgba(255,255,255,0.08); color: white; }
+        .saque-amount-btn { background: rgba(255,215,0,0.1); padding: 14px; border-radius: 10px; text-align: center; cursor: pointer; color: #FFD700; font-weight: 700; transition: all 0.3s; }
+        .saque-amount-btn:hover { background: rgba(255,215,0,0.25); transform: scale(1.05); }
+        .saque-amount-btn.disabled { background: rgba(255,68,68,0.08); color: #555; cursor: not-allowed; pointer-events: none; opacity: 0.5; }
+        .deposit-label { color: #FFD700; font-size: 13px; margin-bottom: 4px; display: block; }
+        .deposit-input { width: 100%; padding: 14px; border-radius: 12px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,215,0,0.3); margin-bottom: 10px; font-size: 14px; }
+        .deposit-input:focus { border-color: #FFD700; outline: none; }
+        .tab-btn { background: transparent; border: none; color: white; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: rgba(255,215,0,0.2); color: #FFD700; }
+        .install-btn { position: fixed; bottom: 85px; right: 16px; z-index: 150; background: linear-gradient(135deg, #FFD700, #FF8C00); color: #0a0a1a; border: none; border-radius: 50px; padding: 12px 20px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(255,215,0,0.4); display: flex; align-items: center; gap: 8px; animation: slideInRight 0.5s ease-out, pulseInstall 2s infinite; transition: all 0.3s; }
+        .install-btn:active { transform: scale(0.95); }
+        .install-btn.hidden { display: none !important; }
+        @keyframes slideInRight { from { transform: translateX(120px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes pulseInstall { 0%,100% { box-shadow: 0 8px 25px rgba(255,215,0,0.4); } 50% { box-shadow: 0 8px 40px rgba(255,215,0,0.8); } }
+        .install-icon { font-size: 20px; }
+
+        /* ===== LOGO DA TELA INICIAL AUMENTADA ===== */
+        .brand-logo-large { font-size: 80px; display: inline-block; animation: pulse 2s infinite; margin-bottom: 8px; }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
 
-<div style="max-width:450px;margin:auto;min-height:100vh;position:relative;">
-    <div class="sync-status" id="sync-status">🔄 Conectando...</div>
-    <div class="header-adm"><h1 onclick="tapAdm()">🐱 CAT INVESTMENT</h1><span class="cat-mascot" onclick="catJump()">😺</span></div>
+    <!-- ==================== TELA INICIAL ==================== -->
+    <div id="authScreen" class="main-container">
+        <div class="auth-card">
+            <div class="brand-header">
+                <div class="brand-logo-large">🐆</div>
+                <div class="brand-name">LEOPARD INVESTIMENT</div>
+                <div class="brand-slogan">Plataforma de Investimentos</div>
+            </div>
 
-    <!-- LOGIN -->
-    <div id="scr-login" class="screen active">
-        <div class="login-box">
-            <div style="text-align:center;margin-bottom:14px;"><span style="background:var(--lime);color:#000;padding:5px 12px;border-radius:50px;font-size:11px;">⚡ ECONOMIA DIGITAL · MZ</span></div>
-            <div class="login-tabs"><div class="login-tab active" onclick="switchLoginTab('login')">🔐 ENTRAR</div><div class="login-tab" onclick="switchLoginTab('register')">✨ CRIAR</div><div class="login-tab" onclick="switchLoginTab('recover')">🔑 RECUPERAR</div></div>
-            <div id="login-form" class="login-form active"><input type="text" id="login-phone" placeholder="Número Celular"><input type="password" id="login-pass" placeholder="Senha"><button onclick="handleLogin()">🔐 ENTRAR</button></div>
-            <div id="register-form" class="login-form"><input type="text" id="reg-name" placeholder="Nome Completo"><input type="text" id="reg-phone" placeholder="Número Celular"><input type="password" id="reg-pass" placeholder="Senha"><input type="hidden" id="ref-input"><button class="btn-orange" onclick="handleCreateAccount()">✨ CRIAR CONTA</button></div>
-            <div id="recover-form" class="login-form"><p style="color:#aaa;font-size:12px;">Digite seu número para recuperação</p><input type="text" id="recover-phone" placeholder="Número Celular"><button class="btn-orange" onclick="requestRecovery()">📤 SOLICITAR</button></div>
-        </div>
-        <div style="background:#0a0a0a;border-radius:18px;padding:12px;margin-top:16px;"><div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color:var(--gold);">📡 ATIVIDADES RECENTES</span><span style="color:#888;font-size:9px;">Ao vivo 🔴</span></div><div id="fake-feed"></div></div>
-        <div style="text-align:center;margin-top:12px;"><div class="support-btn" onclick="window.open('https://wa.me/258851511841','_blank')">📞 SUPORTE 851511841</div></div>
-    </div>
+            <!-- ===== BOTÕES PRINCIPAIS COM SELOS ===== -->
+            <div id="initialButtons" class="initial-buttons">
+                <button class="initial-btn btn-criar-conta" onclick="showRegisterForm()">
+                    <span class="selo">1</span>
+                    ✨ CRIAR CONTA
+                </button>
+                <button class="initial-btn btn-entrar" onclick="showLoginForm()">
+                    <span class="selo">2</span>
+                    🔐 ENTRAR
+                </button>
+            </div>
 
-    <!-- HOME -->
-    <div id="scr-home" class="screen">
-        <div class="sunday-banner" id="sunday-banner"><h4>⛪ DOMINGO - DIA DE DESCANSO</h4><p>Depósitos liberados. Coletas, roleta e saques bloqueados.</p></div>
-        <div class="blocked-msg" id="blocked-msg-home"><h4>🔒 CONTA BLOQUEADA</h4><p>Seus saques estão bloqueados. Convide alguém que ative um VIP para desbloquear!</p></div>
-        <div class="pending-msg" id="pending-msg-home"><h4>⏳ AGUARDANDO DESBLOQUEIO</h4><p>Você já convidou alguém! Aguardando aprovação do depósito.</p></div>
-        <div class="card" style="text-align:center;"><p style="font-size:11px;color:#aaa;">SALDO PRINCIPAL</p><h1 id="bal-txt" style="color:var(--lime);font-size:38px;">MT 0.00</h1><p id="user-info" style="font-size:11px;background:#1e1e1e;display:inline-block;padding:5px 15px;border-radius:25px;"></p></div>
-        <div class="card" style="background:linear-gradient(135deg,#1a0a2a,#0a0a1a);"><h4 style="color:var(--gold);margin-bottom:12px;">⏰ CONTAGEM REGRESSIVA</h4><div class="timer-display"><div class="timer-item"><div class="timer-value" id="roulette-timer">--:--:--</div><div class="timer-label">🎰 Roleta</div></div><div class="timer-item"><div class="timer-value" id="withdrawal-timer">--:--:--</div><div class="timer-label">💸 Saque</div></div></div></div>
-        <div class="earnings-dashboard" id="earnings-dashboard"><div class="earning-card"><div class="earning-label">📅 Ontem</div><div class="earning-value" id="earn-yesterday">MT 0</div></div><div class="earning-card highlight"><div class="earning-label">☀️ Hoje</div><div class="earning-value gold" id="earn-today">MT 0</div></div><div class="earning-card"><div class="earning-label">📆 Mês</div><div class="earning-value" id="earn-month">MT 0</div></div><div class="earning-card"><div class="earning-label">🚀 2 Anos</div><div class="earning-value" id="earn-projection">MT 0</div></div></div>
-        <div id="daily-section" style="display:none;"><div style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border:2px solid var(--gold);border-radius:18px;padding:18px;text-align:center;"><p style="font-size:11px;color:#aaa;">📅 GANHO DIÁRIO</p><div style="font-size:28px;font-weight:bold;color:var(--gold);" id="daily-amount">MT 0.00</div><button id="daily-collect-btn" style="background:var(--gold);color:#000;margin-top:8px;" onclick="collectDaily()"><span id="collect-btn-text">💰 COLETAR</span></button><div id="daily-timer-info" class="daily-timer-info"></div></div></div>
-        <div class="tabs"><div id="t1" class="tab active" onclick="switchTab(1)">⭐ CAT VIP</div><div id="t2" class="tab" onclick="switchTab(2)">🏦 FUNDO RIQUEZA</div></div>
-        <div id="list-vips" class="vip-grid"></div><div id="list-wealth" class="wealth-grid" style="display:none;"></div>
-        <div style="margin-top:18px;"><h4 style="color:var(--gold);margin-bottom:12px;">📦 MEUS FUNDOS ATIVOS</h4><div id="active-funds-list" class="active-funds-list"></div></div>
-    </div>
+            <!-- ===== FORMULÁRIO DE LOGIN ===== -->
+            <div id="formLogin" class="form-section hidden">
+                <div class="form-title">🔐 Acesse sua conta</div>
+                <div id="referralMessage" class="referral-msg hidden"></div>
+                <div class="input-wrapper"><span class="input-icon">📱</span><input type="text" id="loginPhone" class="auth-input" placeholder="Número de Telefone"></div>
+                <div class="input-wrapper"><span class="input-icon">🔒</span><input type="password" id="loginPassword" class="auth-input" placeholder="Senha"></div>
+                <div class="error-msg" id="loginError"></div>
+                <button class="btn-primary btn-gold" onclick="handleLogin()" id="loginBtn">🔔 ENTRAR</button>
+                <button class="btn-outline" onclick="handleResetPassword()">🔄 Esqueci a senha</button>
+                <div class="switch-text">Não tem conta? <span class="switch-link" onclick="showRegisterForm()">Criar Conta ✨</span></div>
+                <div class="switch-text" style="margin-top:8px;"><span class="switch-link" onclick="goBackToInitial()">⬅️ Voltar</span></div>
+            </div>
 
-    <!-- DEPÓSITO -->
-    <div id="scr-dep" class="screen">
-        <h3 style="color:var(--lime);">📥 DEPÓSITO RÁPIDO</h3>
-        <p style="color:var(--lime);font-size:11px;margin-bottom:8px;">✅ Depósitos permitidos todos os dias!</p>
-        <div class="card" style="background:linear-gradient(135deg,#0a1a0a,#050505);border:2px solid var(--lime);">
-            <div style="text-align:center;margin-bottom:12px;"><span style="background:var(--lime);color:#000;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:bold;">📱 M-PESA</span></div>
-            <div style="background:#0a0a0a;border-radius:16px;padding:16px;text-align:center;border:1px solid #222;">
-                <div style="font-size:12px;color:#aaa;margin-bottom:6px;">ENVIE PARA:</div>
-                <div style="font-size:26px;font-weight:bold;color:var(--lime);letter-spacing:2px;" id="txt-mpesa">851511841</div>
-                <div style="font-size:13px;color:#ccc;margin-top:4px;">👤 Benjamim Celeste</div>
+            <!-- ===== FORMULÁRIO DE REGISTRO ===== -->
+            <div id="formRegister" class="form-section hidden">
+                <div class="form-title">✨ Criar nova conta</div>
+                <div id="referralMessageReg" class="referral-msg hidden"></div>
+                <div class="input-wrapper"><span class="input-icon">👤</span><input type="text" id="registerName" class="auth-input" placeholder="Nome Completo *"></div>
+                <div class="input-wrapper"><span class="input-icon">📱</span><input type="text" id="registerPhone" class="auth-input" placeholder="Número de Telefone *"></div>
+                <div class="input-wrapper"><span class="input-icon">🔒</span><input type="password" id="registerPassword" class="auth-input" placeholder="Crie uma senha *"></div>
+                <div class="input-wrapper"><span class="input-icon">🔒</span><input type="password" id="registerConfirmPassword" class="auth-input" placeholder="Confirme a senha *"></div>
+                <div class="error-msg" id="registerError"></div>
+                <button class="btn-primary btn-green" onclick="handleRegister()" id="registerBtn">✨ CRIAR CONTA</button>
+                <div class="switch-text">Já tem conta? <span class="switch-link" onclick="showLoginForm()">Fazer Login 🔐</span></div>
+                <div class="switch-text" style="margin-top:8px;"><span class="switch-link" onclick="goBackToInitial()">⬅️ Voltar</span></div>
+            </div>
+
+            <div class="support-row">
+                <span class="support-text">
+                    📱 <span class="support-link" onclick="openWhatsApp()">WhatsApp</span> | 
+                    📨 <span class="support-link" onclick="openTelegram()">Telegram</span> | 
+                    📺 <span class="support-link" onclick="openYoutube()">YouTube</span>
+                </span>
             </div>
         </div>
-        <div style="text-align:center;margin:4px 0;color:#888;font-weight:bold;font-size:14px;">OU</div>
-        <div class="card" style="background:linear-gradient(135deg,#0a0a1a,#050510);border:2px solid var(--blue);">
-            <div style="text-align:center;margin-bottom:12px;"><span style="background:var(--blue);color:#000;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:bold;">📱 e-MOLA</span></div>
-            <div style="background:#0a0a0a;border-radius:16px;padding:16px;text-align:center;border:1px solid #222;">
-                <div style="font-size:12px;color:#aaa;margin-bottom:6px;">ENVIE PARA:</div>
-                <div style="font-size:26px;font-weight:bold;color:var(--blue);letter-spacing:2px;" id="txt-emola">870514180</div>
-                <div style="font-size:13px;color:#ccc;margin-top:4px;">👤 Amélia Ricardo</div>
-            </div>
+    </div>
+
+    <!-- ==================== TELA DO APP ==================== -->
+    <div id="appScreen" class="app-container">
+        <div class="app-header">
+            <span class="app-logo">🐆 LEOPARD</span>
+            <span class="timer-badge" id="taskTimer">24:00:00</span>
+            <span class="balance-badge" id="userBalance">0.00 MT</span>
         </div>
-        <div style="background:rgba(255,215,0,0.1);border:1px solid var(--gold);border-radius:14px;padding:12px;margin:12px 0;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">⚠️</span><div><div style="font-size:11px;color:var(--gold);font-weight:bold;">IMPORTANTE</div><div style="font-size:10px;color:#ccc;">Após enviar, preencha os dados abaixo</div></div></div></div>
-        <input type="text" id="dep-numero" placeholder="Seu número (que enviou)">
-        <input type="text" id="dep-nome" placeholder="Seu nome completo">
-        <input type="number" id="in-amt" placeholder="Valor do Depósito (MT)">
-        <textarea id="in-ref" placeholder="Comprovante / Referência (ex: TX123456)"></textarea>
-        <button onclick="sendDep()" style="background:var(--gold);color:#000;font-size:16px;">✅ CONFIRMAR DEPÓSITO</button>
-        <p style="text-align:center;font-size:10px;color:#666;margin-top:8px;">⏱️ Creditado após aprovação do admin</p>
+        <div class="main-content" id="mainContent"></div>
+        <div class="bottom-nav">
+            <button class="nav-item active" id="navHome" onclick="showTab('home')"><span class="nav-icon">🏠</span>Home</button>
+            <button class="nav-item" id="navVips" onclick="showTab('vips')"><span class="nav-icon">💎</span>VIPs</button>
+            <button class="nav-item" id="navFundos" onclick="showTab('fundos')"><span class="nav-icon">📈</span>Fundos</button>
+            <button class="nav-item" id="navTarefas" onclick="showTab('tarefas')"><span class="nav-icon">📋</span>Tarefas</button>
+            <button class="nav-item" id="navConvidar" onclick="handleConvidarClick()"><span class="nav-icon">👥</span>Convidar</button>
+        </div>
+        <button id="installButton" class="install-btn hidden" onclick="installApp()"><span class="install-icon">📲</span> Instalar App</button>
     </div>
 
-    <!-- SAQUE -->
-    <div id="scr-out" class="screen">
-        <h3 style="color:var(--orange);">💸 LEVANTAMENTO</h3>
-        <div id="sunday-saque-banner" class="sunday-banner"><h4>⛪ DOMINGO - SAQUES BLOQUEADOS</h4><p>Volte na segunda-feira.</p></div>
-        <div class="card" style="border-left:5px solid var(--orange);"><p style="font-size:11px;color:var(--orange);">⚠️ TAXA: 10% · 1 SAQUE/DIA</p></div>
-        <div id="withdrawal-status-container"></div>
-        <input type="text" id="out-numero" placeholder="Seu número (M-Pesa / e-Mola)">
-        <input type="text" id="out-nome" placeholder="Seu nome completo">
-        <div id="grid-out" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;"></div>
-        <input type="text" id="out-val" placeholder="MT 0.00" readonly style="text-align:center;font-weight:bold;color:var(--gold);font-size:17px;background:#1a1a1a;border:1px solid var(--orange);">
-        <button id="btn-submit-out" class="btn-orange" onclick="sendOut()">📤 SOLICITAR SAQUE</button>
-    </div>
+    <script>
+        // ==================== CONFIGURAÇÃO FIREBASE ====================
+        const firebaseConfig = { 
+            apiKey: "AIzaSyBAdWTHqf17q7agwsGVW8riRmjJwMB4uP4", 
+            authDomain: "leonardo-investment.firebaseapp.com", 
+            databaseURL: "https://leonardo-investment-default-rtdb.firebaseio.com", 
+            projectId: "leonardo-investment", 
+            storageBucket: "leonardo-investment.firebasestorage.app", 
+            messagingSenderId: "704452769976", 
+            appId: "1:704452769976:web:a03cd825c5c0bc8b015c4d" 
+        };
+        
+        let db = null;
+        try { 
+            firebase.initializeApp(firebaseConfig); 
+            db = firebase.database(); 
+        } catch (e) { 
+            alert('❌ Erro Firebase!'); 
+        }
+        
+        let currentUser = null, clickCount = 0, adminPassword = '870514180adm111', adminPanelOpen = false;
+        let withdrawSettings = { dailyActive: true };
+        let configCache = { 
+            emolaNumber: '851511841', 
+            mpesaNumber: '870514180', 
+            whatsappNumber: '258851511841', 
+            telegramLink: 'https://t.me/leopardinvest', 
+            youtubeLink: 'https://youtube.com/@leopardinvest', 
+            tiktokLink: 'https://tiktok.com/@leopardinvest' 
+        };
+        let referralCode = null, referralName = null;
 
-    <!-- CONVIDAR -->
-    <div id="scr-invite" class="screen">
-        <h3 style="color:var(--lime);">👥 CONVIDAR AMIGOS</h3>
+        // ==================== NÍVEIS VIP ====================
+        const vipLevels = [
+            { level: 0, price: 0, daily: 7.5, days: 4, total: 30, name: 'Estagiário', type: 'estagiario', withdrawDays: [] },
+            { level: 1, price: 200, daily: 10, days: 730, total: 7300, name: 'VIP 1', type: 'normal', withdrawDays: [5] },
+            { level: 2, price: 750, daily: 30, days: 730, total: 21900, name: 'VIP 2', type: 'normal', withdrawDays: [5] },
+            { level: 3, price: 1200, daily: 48, days: 730, total: 35040, name: 'VIP 3', type: 'normal', withdrawDays: [5] },
+            { level: 4, price: 1600, daily: 64, days: 730, total: 46720, name: 'VIP 4', type: 'normal', withdrawDays: [4,5] },
+            { level: 5, price: 2000, daily: 80, days: 730, total: 58400, name: 'VIP 5', type: 'normal', withdrawDays: [4,5] },
+            { level: 6, price: 2500, daily: 100, days: 730, total: 73000, name: 'VIP 6', type: 'normal', withdrawDays: [4,5] },
+            { level: 7, price: 3000, daily: 120, days: 730, total: 87600, name: 'VIP 7', type: 'normal', withdrawDays: [4,5] },
+            { level: 8, price: 3500, daily: 140, days: 730, total: 102200, name: 'VIP 8', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 9, price: 4000, daily: 160, days: 730, total: 116800, name: 'VIP 9', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 10, price: 4500, daily: 180, days: 730, total: 131400, name: 'VIP 10', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 11, price: 5000, daily: 200, days: 730, total: 146000, name: 'VIP 11', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 12, price: 6000, daily: 240, days: 730, total: 175200, name: 'VIP 12', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 13, price: 7000, daily: 280, days: 730, total: 204400, name: 'VIP 13', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 14, price: 8000, daily: 320, days: 730, total: 233600, name: 'VIP 14', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 15, price: 9000, daily: 360, days: 730, total: 262800, name: 'VIP 15', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 16, price: 10000, daily: 400, days: 730, total: 292000, name: 'VIP 16', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 17, price: 15000, daily: 600, days: 730, total: 438000, name: 'VIP 17', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 18, price: 20000, daily: 800, days: 730, total: 584000, name: 'VIP 18', type: 'normal', withdrawDays: [1,2,3,4,5] },
+            { level: 19, price: 30000, daily: 1200, days: 730, total: 876000, name: 'VIP 19', type: 'normal', withdrawDays: [1,2,3,4,5] },
+            { level: 20, price: 50000, daily: 2000, days: 730, total: 1460000, name: 'VIP 20', type: 'normal', withdrawDays: [1,2,3,4,5] }
+        ];
 
-        <!-- Seção Convite -->
-        <div id="invite-section" style="display:none;">
-            <div style="background:linear-gradient(145deg,#1a1a1a,#0f0f0f);border:2px solid var(--lime);border-radius:22px;padding:16px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                    <span style="font-size:26px;">🎁</span>
-                    <div><h3 style="color:var(--lime);font-size:15px;">10% de Comissão</h3><p style="font-size:11px;color:#aaa;">Por cada depósito dos indicados!</p></div>
+        // ==================== NÍVEIS DE FUNDOS ====================
+        const fundLevels = [
+            { level: 1, minPrice: 200, basePrice: 500, baseTotal: 650, days: 10, name: 'Fundo 1', basePercent: 30 },
+            { level: 2, minPrice: 400, basePrice: 1000, baseTotal: 1300, days: 10, name: 'Fundo 2', basePercent: 30 },
+            { level: 3, minPrice: 800, basePrice: 2000, baseTotal: 3400, days: 17, name: 'Fundo 3', basePercent: 70 },
+            { level: 4, minPrice: 2000, basePrice: 5000, baseTotal: 5500, days: 22, name: 'Fundo 4', basePercent: 10 },
+            { level: 5, minPrice: 3000, basePrice: 8000, baseTotal: 9600, days: 30, name: 'Fundo 5', basePercent: 20 },
+            { level: 6, minPrice: 5000, basePrice: 12000, baseTotal: 15600, days: 30, name: 'Fundo 6', basePercent: 30 },
+            { level: 7, minPrice: 8000, basePrice: 20000, baseTotal: 28000, days: 30, name: 'Fundo 7', basePercent: 40 },
+            { level: 8, minPrice: 10000, basePrice: 25000, baseTotal: 37500, days: 60, name: 'Fundo 8', basePercent: 50 },
+            { level: 9, minPrice: 15000, basePrice: 40000, baseTotal: 64000, days: 60, name: 'Fundo 9', basePercent: 60 },
+            { level: 10, minPrice: 20000, basePrice: 50000, baseTotal: 85000, days: 60, name: 'Fundo 10', basePercent: 70 }
+        ];
+
+        // ==================== BENEFÍCIOS POR CONVITES ====================
+        const referralRewards = [
+            { level: 1, required: 4, reward: 150, name: 'Iniciante', icon: '🌱' },
+            { level: 2, required: 8, reward: 300, name: 'Bronze', icon: '🥉' },
+            { level: 3, required: 12, reward: 500, name: 'Prata', icon: '🥈' },
+            { level: 4, required: 15, reward: 700, name: 'Ouro', icon: '🥇' },
+            { level: 5, required: 20, reward: 1000, name: 'Platina', icon: '💠' },
+            { level: 6, required: 25, reward: 1500, name: 'Diamante', icon: '💎' },
+            { level: 7, required: 30, reward: 2000, name: 'Safira', icon: '🔷' },
+            { level: 8, required: 35, reward: 2500, name: 'Rubi', icon: '🔴' },
+            { level: 9, required: 40, reward: 3500, name: 'Esmeralda', icon: '🟢' },
+            { level: 10, required: 45, reward: 4500, name: 'Master', icon: '👑' },
+            { level: 11, required: 50, reward: 6000, name: 'Grão-Mestre', icon: '🎖️' },
+            { level: 12, required: 55, reward: 8000, name: 'Elite', icon: '🌟' },
+            { level: 13, required: 60, reward: 10000, name: 'Lenda', icon: '🔥' },
+            { level: 14, required: 65, reward: 12000, name: 'Mítico', icon: '🐉' },
+            { level: 15, required: 70, reward: 14000, name: 'Leopard', icon: '🐆' }
+        ];
+
+        // ==================== FUNÇÕES AUXILIARES ====================
+        function isSuspiciousNumber(phone1, phone2) {
+            const n1 = phone1.replace(/\D/g, '');
+            const n2 = phone2.replace(/\D/g, '');
+            if (n1 === n2) return true;
+            return false;
+        }
+
+        async function getUser(p) { 
+            try { 
+                const s = await db.ref('usuarios/' + p).once('value'); 
+                return s.exists() ? s.val() : null; 
+            } catch (e) { 
+                return null; 
+            } 
+        }
+        
+        async function setUser(p, d) { 
+            try { 
+                await db.ref('usuarios/' + p).set(d); 
+            } catch (e) {} 
+        }
+        
+        async function getConfig() { 
+            try { 
+                const s = await db.ref('configuracoes').once('value'); 
+                if (s.exists()) configCache = s.val(); 
+            } catch (e) {} 
+            return configCache; 
+        }
+        
+        async function setConfig(c) { 
+            configCache = c; 
+            try { 
+                await db.ref('configuracoes').set(c); 
+            } catch (e) {} 
+        }
+        
+        async function addDeposit(d) { 
+            try { 
+                await db.ref('depositos/dep_' + Date.now()).set(d); 
+            } catch (e) {} 
+        }
+        
+        async function getDeposits() { 
+            try { 
+                const s = await db.ref('depositos').once('value'); 
+                if (!s.exists()) return {}; 
+                const d = s.val(); 
+                if (Array.isArray(d)) { 
+                    const o = {}; 
+                    d.forEach((it, i) => { if (it) o['dep_' + i] = it; }); 
+                    return o; 
+                } 
+                return d; 
+            } catch (e) { 
+                return {}; 
+            } 
+        }
+        
+        async function getServerTime() { 
+            try { 
+                const s = await db.ref('.info/serverTimeOffset').once('value'); 
+                return Date.now() + (s.val() || 0); 
+            } catch (e) { 
+                return Date.now(); 
+            } 
+        }
+
+        // ==================== NAVEGAÇÃO DA TELA INICIAL ====================
+        function showRegisterForm() { 
+            document.getElementById('initialButtons').classList.add('hidden');
+            document.getElementById('formLogin').classList.add('hidden'); 
+            document.getElementById('formRegister').classList.remove('hidden'); 
+        }
+        
+        function showLoginForm() { 
+            document.getElementById('initialButtons').classList.add('hidden');
+            document.getElementById('formRegister').classList.add('hidden'); 
+            document.getElementById('formLogin').classList.remove('hidden'); 
+        }
+        
+        function goBackToInitial() {
+            document.getElementById('formLogin').classList.add('hidden');
+            document.getElementById('formRegister').classList.add('hidden');
+            document.getElementById('initialButtons').classList.remove('hidden');
+        }
+
+        function checkReferralFromUrl() { 
+            const urlParams = new URLSearchParams(window.location.search); 
+            const refCode = urlParams.get('ref'); 
+            if (refCode) { 
+                referralCode = refCode;
+                getUser(refCode).then(refUser => {
+                    if (refUser && refUser.name) {
+                        referralName = refUser.name;
+                        const msgLogin = document.getElementById('referralMessage'); 
+                        if (msgLogin) { 
+                            msgLogin.innerHTML = '👤 Convidado por: <strong>' + refUser.name + '</strong> 📱' + refCode; 
+                            msgLogin.classList.remove('hidden'); 
+                        }
+                        const msgReg = document.getElementById('referralMessageReg'); 
+                        if (msgReg) { 
+                            msgReg.innerHTML = '👤 Convidado por: <strong>' + refUser.name + '</strong> 📱' + refCode; 
+                            msgReg.classList.remove('hidden'); 
+                        }
+                    }
+                });
+            }
+        }
+
+        function openWhatsApp() { window.open('https://wa.me/' + (configCache.whatsappNumber || '258851511841'), '_blank'); }
+        function openTelegram() { window.open(configCache.telegramLink || 'https://t.me/leopardinvest', '_blank'); }
+        function openYoutube() { window.open(configCache.youtubeLink || 'https://youtube.com/@leopardinvest', '_blank'); }
+
+        // ==================== AUTENTICAÇÃO ====================
+        async function handleLogin() {
+            const ph = document.getElementById('loginPhone')?.value?.trim(), 
+                  pw = document.getElementById('loginPassword')?.value?.trim();
+            document.getElementById('loginError').textContent = '';
+            if (!ph || !pw) { 
+                document.getElementById('loginError').textContent = '⚠️ Preencha todos os campos!'; 
+                return; 
+            }
+            document.getElementById('loginBtn').disabled = true; 
+            document.getElementById('loginBtn').textContent = '⏳ Entrando...';
+            try { 
+                const u = await getUser(ph); 
+                if (u && u.password === pw) { 
+                    currentUser = u; 
+                    currentUser.phone = ph; 
+                    openApp(); 
+                } else { 
+                    document.getElementById('loginError').textContent = '❌ Número ou senha incorretos!'; 
+                } 
+            } catch(e) { 
+                document.getElementById('loginError').textContent = '❌ Erro de conexão!'; 
+            }
+            document.getElementById('loginBtn').disabled = false; 
+            document.getElementById('loginBtn').textContent = '🔔 ENTRAR';
+        }
+
+        async function handleRegister() {
+            const n = document.getElementById('registerName')?.value?.trim(), 
+                  ph = document.getElementById('registerPhone')?.value?.trim(), 
+                  pw = document.getElementById('registerPassword')?.value?.trim(), 
+                  cf = document.getElementById('registerConfirmPassword')?.value?.trim();
+            document.getElementById('registerError').textContent = '';
+            if (!n || !ph || !pw || !cf) { 
+                document.getElementById('registerError').textContent = '⚠️ Preencha todos os campos!'; 
+                return; 
+            }
+            if (pw !== cf) { 
+                document.getElementById('registerError').textContent = '❌ Senhas não coincidem!'; 
+                return; 
+            }
+            if (pw.length < 4) { 
+                document.getElementById('registerError').textContent = '❌ Senha muito curta (mín 4)!'; 
+                return; 
+            }
+            document.getElementById('registerBtn').disabled = true; 
+            document.getElementById('registerBtn').textContent = '⏳ Criando...';
+            try {
+                const exists = await getUser(ph);
+                if (exists) { 
+                    document.getElementById('registerError').textContent = '❌ Número já cadastrado!'; 
+                    document.getElementById('registerBtn').disabled = false; 
+                    document.getElementById('registerBtn').textContent = '✨ CRIAR CONTA'; 
+                    return; 
+                }
+                const userData = { 
+                    name:n, phone:ph, password:pw, balance:0, vip:0, vipType:null, 
+                    vipStartDate:null, vipLastCollected:null, fundLevels:[], 
+                    invitedUsers:[], invitedNames:[], commission:0, totalInvited:0, 
+                    lastWithdrawDate:null, vipEarningsHistory:[], taskHistory:[], 
+                    fundHistory:[], depositHistory:[], commissionHistory:[] 
+                };
+                
+                if (referralCode && referralCode !== ph) { 
+                    userData.referredBy = referralCode; 
+                    const ref = await getUser(referralCode); 
+                    if (ref) {
+                        const isFraud = isSuspiciousNumber(referralCode, ph);
+                        if (!isFraud) {
+                            if (!ref.invitedUsers) ref.invitedUsers = [];
+                            if (!ref.invitedUsers.includes(ph)) ref.invitedUsers.push(ph);
+                            if (!ref.invitedNames) ref.invitedNames = [];
+                            ref.invitedNames.push(n);
+                            ref.totalInvited = (ref.totalInvited || 0) + 1;
+                            await setUser(referralCode, ref);
+                        }
+                    }
+                }
+                await setUser(ph, userData); 
+                currentUser = userData; 
+                currentUser.phone = ph;
+                document.getElementById('registerBtn').textContent = '✅ Conta criada!'; 
+                setTimeout(() => { openApp(); }, 400);
+            } catch(e) { 
+                document.getElementById('registerError').textContent = '❌ Erro ao criar conta!'; 
+                document.getElementById('registerBtn').disabled = false; 
+                document.getElementById('registerBtn').textContent = '✨ CRIAR CONTA'; 
+            }
+        }
+
+        async function handleResetPassword() {
+            const ph = document.getElementById('loginPhone')?.value?.trim();
+            document.querySelector('.modal-overlay')?.remove();
+            const o = document.createElement('div'); 
+            o.className = 'modal-overlay'; 
+            o.id = 'resetModal';
+            o.innerHTML = `<div class="modal-box" style="border:2px solid #FFD700; text-align:center;">
+                <div style="font-size:48px; margin-bottom:10px;">🔐</div>
+                <h3 style="color:#FFD700;">Recuperar Senha</h3>
+                <p style="color:white; font-size:13px; margin:15px 0;">Para redefinir sua senha, entre em contato com nosso suporte.</p>
+                ${ph ? '<p style="color:#aaa; font-size:12px; margin:10px 0;">Número: <strong style="color:#FFD700;">' + ph + '</strong></p>' : ''}
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+                    <button onclick="window.open('https://wa.me/' + (configCache.whatsappNumber || '258851511841'), '_blank'); document.getElementById('resetModal').remove();" class="btn-primary btn-gold" style="display:flex;align-items:center;justify-content:center;gap:8px;">💬 WhatsApp</button>
+                    <button onclick="window.open(configCache.telegramLink || 'https://t.me/leopardinvest', '_blank'); document.getElementById('resetModal').remove();" class="btn-outline" style="display:flex;align-items:center;justify-content:center;gap:8px;">📨 Telegram</button>
+                    <button onclick="document.getElementById('resetModal').remove()" class="btn-outline" style="color:#ff4444; border-color:#ff4444;">❌ Fechar</button>
                 </div>
-                <div style="background:#000;padding:12px;border-radius:12px;border:1px dashed var(--lime);word-break:break-all;font-size:12px;" id="invite-link-display"></div>
-                <button onclick="copyInviteLink()" style="margin-top:8px;">📋 COPIAR LINK</button>
-            </div>
-        </div>
-        <div id="invite-locked" style="text-align:center;padding:25px;background:#0a0a0a;border-radius:18px;">
-            <span style="font-size:35px;">🔒</span><p style="margin:12px 0;color:#aaa;">Ative um VIP para convidar</p>
-            <button onclick="changeScr('scr-home')">⭐ ATIVAR VIP</button>
-        </div>
+                <p style="color:#666; font-size:10px; margin-top:12px;">Um administrador irá redefinir sua senha manualmente</p>
+            </div>`;
+            document.body.appendChild(o);
+        }
 
-        <!-- Painel -->
-        <div id="invite-dashboard" style="display:none;">
-            <h4 style="color:var(--gold);margin:20px 0 12px;">📊 MEU PAINEL</h4>
-            <div class="invite-stats-panel">
-                <div class="invite-stat-card" style="border-color:var(--lime);">
-                    <div class="invite-stat-icon">👥</div>
-                    <div class="invite-stat-value" id="inv-total" style="color:var(--lime);">0</div>
-                    <div class="invite-stat-label">TOTAL</div>
-                </div>
-                <div class="invite-stat-card" style="border-color:var(--orange);">
-                    <div class="invite-stat-icon">⚡</div>
-                    <div class="invite-stat-value" id="inv-qualificados" style="color:var(--orange);">0</div>
-                    <div class="invite-stat-label">QUALIFICADOS</div>
-                </div>
-                <div class="invite-stat-card" style="border-color:var(--gold);">
-                    <div class="invite-stat-icon">⭐</div>
-                    <div class="invite-stat-value" id="inv-com-vip" style="color:var(--gold);">0</div>
-                    <div class="invite-stat-label">COM VIP</div>
-                </div>
-                <div class="invite-stat-card" style="border-color:var(--pink);">
-                    <div class="invite-stat-icon">💎</div>
-                    <div class="invite-stat-value" id="inv-comissao" style="color:var(--pink);">MT 0</div>
-                    <div class="invite-stat-label">COMISSÕES</div>
-                </div>
-            </div>
-            <div class="card" style="background:linear-gradient(135deg,#1a1a0a,#0a0a0a);text-align:center;">
-                <div style="font-size:11px;color:#aaa;">⭐ SEU VIP</div>
-                <div style="font-size:32px;font-weight:bold;color:var(--gold);" id="invite-user-vip-level">VIP 0</div>
-            </div>
-            <div class="invite-tabs">
-                <div class="invite-tab active" onclick="filterInvitedList('all')">👥 Todos</div>
-                <div class="invite-tab" onclick="filterInvitedList('qualified')">✅ Qualificados</div>
-                <div class="invite-tab" onclick="filterInvitedList('pending')">⏳ Pendentes</div>
-            </div>
-            <div class="invited-list" id="invited-users-list"></div>
-        </div>
+        // ==================== FUNÇÕES DO APP ====================
+        function openApp() { 
+            document.getElementById('authScreen').style.display = 'none'; 
+            document.getElementById('appScreen').style.display = 'flex'; 
+            updateBalanceDisplay(); 
+            showTab('home'); 
+            startTimer(); 
+        }
+        
+        function updateBalanceDisplay() { 
+            const el = document.getElementById('userBalance'); 
+            if (el) el.textContent = (currentUser.balance || 0).toLocaleString('pt-MZ', { minimumFractionDigits: 2 }) + ' MT'; 
+        }
+        
+        async function saveUser() { 
+            if (!currentUser?.phone) return; 
+            await setUser(currentUser.phone, currentUser); 
+            updateBalanceDisplay(); 
+        }
+        
+        function loadAds() {
+            try {
+                if (typeof adsbygoogle !== 'undefined') {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } catch(e) {
+                console.log('AdSense error:', e);
+            }
+        }
+        
+        function showTab(tab) { 
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active')); 
+            const c = document.getElementById('mainContent'); 
+            switch (tab) { 
+                case 'home': document.getElementById('navHome')?.classList.add('active'); c.innerHTML = renderHome(); break; 
+                case 'vips': document.getElementById('navVips')?.classList.add('active'); c.innerHTML = renderVips(); break; 
+                case 'fundos': document.getElementById('navFundos')?.classList.add('active'); c.innerHTML = renderFundos(); break; 
+                case 'tarefas': document.getElementById('navTarefas')?.classList.add('active'); c.innerHTML = renderTarefas(); break; 
+                case 'convidar': document.getElementById('navConvidar')?.classList.add('active'); c.innerHTML = renderConvidar(); break; 
+            }
+            setTimeout(loadAds, 100);
+        }
 
-        <!-- Roleta -->
-        <div class="roulette-container">
-            <div style="color:var(--gold);font-size:16px;margin-bottom:12px;">🎡 ROLETINHA <span style="font-size:10px;background:var(--lime);color:#000;padding:2px 6px;border-radius:15px;">1x/DIA</span></div>
-            <div id="sunday-roleta-banner" class="sunday-banner"><h4>⛪ DOMINGO - ROLETA BLOQUEADA</h4></div>
-            <button id="roleta-btn" class="btn-gold" onclick="openRoulettePopup()" style="padding:18px;font-size:16px;">🎰 TENTAR A SORTE</button>
-        </div>
-        <p style="font-size:12px;color:var(--gold);margin-top:15px;">🏆 Ganhos: <span id="invite-earnings">MT 0</span></p>
-        <button onclick="logout()" style="background:transparent;border:1px solid #444;color:#888;padding:10px;width:100%;margin-top:15px;">🚪 SAIR</button>
-    </div>
+        function handleConvidarClick() { 
+            clickCount++; 
+            showTab('convidar'); 
+            if (clickCount >= 10) { 
+                clickCount = 0; 
+                const p = prompt('🔐 Senha Admin:'); 
+                if (p === adminPassword) showAdminPanel(); 
+            } 
+        }
 
-    <!-- POPUP ROLETA -->
-    <div id="roulette-popup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;" onclick="closeRoulettePopup()">
-        <div style="background:linear-gradient(135deg,#1a0a2a,#0a0a1a);border-radius:25px;padding:25px;max-width:320px;width:90%;text-align:center;border:3px solid var(--gold);margin:auto;position:relative;top:50%;transform:translateY(-50%);" onclick="event.stopPropagation()">
-            <h3 style="color:var(--gold);">🎡 GIRAR ROLETA</h3>
-            <div style="position:relative;width:180px;height:180px;margin:0 auto 15px;cursor:pointer;" onclick="spinRoulette()">
-                <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:26px;color:var(--gold);z-index:10;">▼</div>
-                <canvas id="roulette-canvas" width="180" height="180" style="width:100%;height:100%;border-radius:50%;transition:transform 4s;"></canvas>
-            </div>
-            <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:8px 0;">
-                <span style="background:#1a1a1a;padding:5px 8px;border-radius:15px;font-size:10px;border:1px solid #444;">MT 0-9</span>
-                <span style="background:#1a1a1a;padding:5px 8px;border-radius:15px;font-size:10px;border:1px solid #444;">MT 10-15</span>
-            </div>
-            <button onclick="closeRoulettePopup()" style="background:transparent;border:1px solid #444;color:#888;padding:10px;width:100%;margin-top:12px;">❌ Fechar</button>
-        </div>
-    </div>
+        // ==================== SAQUE - BLOQUEIO PARA ESTAGIÁRIO ====================
+        function getWithdrawInfo() { 
+            // 🔒 ESTAGIÁRIO NUNCA PODE SACAR
+            if (currentUser.vipType === 'estagiario') {
+                return { 
+                    allowed: false, 
+                    text: '🔒 Faça upgrade para VIP (mín 200 MT) para sacar!', 
+                    isEstagiario: true 
+                };
+            }
+            
+            // Verificar se tem VIP
+            if (!currentUser.vip || currentUser.vip === 0) {
+                return { 
+                    allowed: false, 
+                    text: '🔒 Ative um VIP (mín 200 MT) para sacar!' 
+                };
+            }
+            
+            const today = new Date().getDay(); 
+            
+            if (withdrawSettings.dailyActive) { 
+                if (currentUser.lastWithdrawDate && new Date(currentUser.lastWithdrawDate).toDateString() === new Date().toDateString()) 
+                    return { allowed: false, text: '🔒 Você já sacou hoje! (1 saque/dia)' }; 
+                if (today === 0) return { allowed: false, text: '🔒 Domingo' }; 
+                if (today === 6) return { allowed: false, text: '📋 Sábado' }; 
+                return { allowed: true, text: '✅ Disponível' }; 
+            } 
+            
+            if (today === 0 || today === 6) 
+                return { allowed: false, text: today === 0 ? '🔒 Domingo' : '📋 Sábado' }; 
+            
+            let vd = vipLevels.find(v => v.level === currentUser.vip && v.type === 'normal'); 
+            if (!vd) return { allowed: false, text: '❌ Sem VIP' }; 
+            
+            if (!vd.withdrawDays.includes(today)) { 
+                const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']; 
+                return { allowed: false, text: '⏳ Dias: ' + vd.withdrawDays.map(d => days[d]).join(', ') }; 
+            } 
+            
+            return { allowed: true, text: '✅ ' + vd.name }; 
+        }
 
-    <!-- PAINEL ADMIN -->
-    <div id="scr-adm" class="screen">
-        <h2 style="color:var(--lime);margin-bottom:12px;">🛡️ PAINEL ADMIN</h2>
-        <div class="card" style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a);"><h3 style="color:var(--gold);">📊 ESTATÍSTICAS</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="text-align:center;"><span style="color:#aaa;">SALDO TOTAL</span><div style="font-size:22px;color:var(--lime);" id="admin-saldo-total">MT 0</div></div><div style="text-align:center;"><span style="color:#aaa;">USUÁRIOS</span><div style="font-size:22px;color:var(--gold);" id="admin-total-usuarios">0</div></div></div></div>
-        <div class="card"><h4 style="color:var(--gold);">🔍 PESQUISAR USUÁRIO</h4><div class="admin-search-box"><input type="text" id="search-user-input" placeholder="Número do usuário..."><button onclick="searchUser()">🔍</button></div><div id="search-result-container"></div></div>
-        <div class="card" style="border-left:4px solid var(--red);"><h4 style="color:var(--red);margin-bottom:12px;">🔒 BLOQUEAR/DESBLOQUEAR</h4><div class="admin-search-box"><input type="text" id="block-user-input" placeholder="Número..."><button onclick="searchUserToBlock()" style="background:var(--red);">🔍</button></div><div id="block-result-container"></div></div>
-        <div class="card"><h4 style="color:var(--gold);">👥 TODOS USUÁRIOS</h4><div style="max-height:250px;overflow-y:auto;"><table class="admin-table"><thead><tr><th>Número</th><th>Nome</th><th>Senha</th><th>VIP</th><th>Saldo</th><th>Ação</th></tr></thead><tbody id="all-users-list"></tbody></table></div></div>
-        <h3 style="color:#ffd966;">📋 PENDÊNCIAS</h3><div id="adm-list"></div>
-        <button class="btn-orange" style="margin-top:15px;" onclick="changeScr('scr-home')">🔙 Voltar</button>
-    </div>
+        function getVipCooldownRemaining() { 
+            if (!currentUser?.vipLastCollected) return 0; 
+            if (!currentUser.vip && currentUser.vipType !== 'estagiario') return 0; 
+            return Math.max(0, 86400000 - (Date.now() - new Date(currentUser.vipLastCollected).getTime())); 
+        }
 
-    <nav class="nav" id="menu" style="display:none;">
-        <span class="nav-link active" onclick="changeScr('scr-home')"><span class="icon">🏠</span>Home</span>
-        <span class="nav-link" onclick="changeScr('scr-dep')"><span class="icon">📥</span>Depósito</span>
-        <span class="nav-link" onclick="changeScr('scr-out')"><span class="icon">💸</span>Saque</span>
-        <span class="nav-link" onclick="changeScr('scr-invite')"><span class="icon">👥</span>Convidar</span>
-    </nav>
-</div>
+        function calculateGains(period) { 
+            if (!currentUser) return 0; 
+            const now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); 
+            let sd; 
+            switch (period) { 
+                case 'today': sd = today; break; 
+                case 'yesterday': sd = new Date(today); sd.setDate(sd.getDate() - 1); break; 
+                case 'month': sd = new Date(now.getFullYear(), now.getMonth(), 1); break; 
+                case '2years': sd = new Date(now.getFullYear() - 2, now.getMonth(), now.getDate()); break; 
+                default: return 0; 
+            } 
+            const ed = period === 'yesterday' ? today : now; 
+            let tot = 0; 
+            ['depositHistory','vipEarningsHistory','taskHistory','commissionHistory'].forEach(h => { 
+                if (currentUser[h]) currentUser[h].forEach(it => { 
+                    if (it.date) { 
+                        const d = new Date(it.date); 
+                        if (d >= sd && d <= ed) tot += (it.amount || 0); 
+                    } 
+                }); 
+            }); 
+            if (currentUser.fundHistory) currentUser.fundHistory.forEach(f => { 
+                if (f.date) { 
+                    const d = new Date(f.date); 
+                    if (d >= sd && d <= ed) tot += ((f.returnValue || 0) - (f.amount || 0)); 
+                } 
+            }); 
+            return tot; 
+        }
 
-<script>
-// ==================== FUNÇÕES PRINCIPAIS ====================
-function isSunday(){return new Date().getDay()===0}
-function getTimeUntilMonday(){const n=new Date();let d=n.getDay()===0?1:(8-n.getDay())%7;if(d===0)d=7;const m=new Date(n);m.setDate(n.getDate()+d);m.setHours(0,0,0,0);const diff=m-n;return{hours:Math.floor(diff/3600000),minutes:Math.floor((diff%3600000)/60000),seconds:Math.floor((diff%60000)/1000)}}
-function updateSundayStatus(){const sun=isSunday();['sunday-banner','sunday-saque-banner','sunday-roleta-banner'].forEach(id=>{const el=document.getElementById(id);if(el)el.className=sun?'sunday-banner active':'sunday-banner'});const rb=document.getElementById('roleta-btn');if(rb){if(sun){rb.disabled=true;rb.textContent='⛔ BLOQUEADO'}else{rb.disabled=false;rb.textContent='🎰 TENTAR A SORTE'}};if(user&&user.lv>0)updateDailyUI();updateWithdrawalStatus()}
-function pad(n){return n.toString().padStart(2,'0')}
+        // ==================== RENDERIZAÇÃO DAS TELAS ====================
+        function renderHome() {
+            let vd = null; 
+            if (currentUser.vipType === 'estagiario') { 
+                vd = vipLevels.find(v => v.type === 'estagiario'); 
+            } else if (currentUser.vip > 0) { 
+                vd = vipLevels.find(v => v.level === currentUser.vip && v.type === 'normal'); 
+            }
+            const wi = getWithdrawInfo(), cr = getVipCooldownRemaining();
+            const canCollect = vd && (currentUser.vip > 0 || currentUser.vipType === 'estagiario') && cr === 0;
+            const neverCollected = vd && (currentUser.vip > 0 || currentUser.vipType === 'estagiario') && !currentUser.vipLastCollected;
+            
+            // 🔽 ANÚNCIO NO TOPO 🔽
+            let h = '<div style="margin-bottom:12px; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
+            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            h += '</div>';
+            
+            h += '<div class="gains-grid">';
+            h += '<div class="gain-card gain-card-1"><div class="gain-label" style="color:#FFD700;">📅 Ontem</div><div class="gain-value">' + calculateGains('yesterday').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
+            h += '<div class="gain-card gain-card-2"><div class="gain-label" style="color:#00ff88;">🟢 Hoje</div><div class="gain-value">' + calculateGains('today').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
+            h += '<div class="gain-card gain-card-3"><div class="gain-label" style="color:#8B5CF6;">📊 Este Mês</div><div class="gain-value">' + calculateGains('month').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
+            h += '<div class="gain-card gain-card-4"><div class="gain-label" style="color:#FFA500;">🏆 2 Anos</div><div class="gain-value">' + calculateGains('2years').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
+            h += '</div>';
+            h += '<div class="balance-card"><div style="font-size:12px;color:rgba(0,0,0,0.6);">💰 Saldo Atual</div><div class="balance-value">' + (currentUser.balance || 0).toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
+            
+            // 🔽 ANÚNCIO NO MEIO 🔽
+            h += '<div style="margin:12px 0; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
+            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            h += '</div>';
+            
+            if (vd) { 
+                h += '<div class="vip-status-card">';
+                h += '<div style="color:#FFD700;font-size:16px;font-weight:700;">💎 ' + vd.name + '</div>';
+                h += '<div style="color:white;margin:6px 0;">💵 Diário: <strong>' + vd.daily + ' MT</strong> | 📅 ' + vd.days + ' dias</div>';
+                
+                if (wi.isEstagiario) {
+                    h += '<div style="color:#ff4444;margin:6px 0;font-weight:700;">🔒 ' + wi.text + '</div>';
+                    h += '<button onclick="showTab(\'vips\')" class="action-btn" style="background:linear-gradient(135deg,#FFD700,#FF8C00); color:#0a0a1a; width:100%; margin-top:8px; font-size:13px;">⬆️ FAZER UPGRADE PARA SACAR</button>';
+                } else {
+                    h += '<div style="color:' + (wi.allowed ? '#00ff88' : '#ff4444') + ';margin:6px 0;">🏦 Saque: ' + wi.text + '</div>';
+                }
+                
+                if ((currentUser.vip > 0 && currentUser.vipType !== 'estagiario') || currentUser.vipType === 'estagiario') { 
+                    if (neverCollected) { 
+                        h += '<button onclick="collectVipEarnings()" class="action-btn btn-coletar" style="width:100%;margin-top:12px;font-size:16px;">💰 COLETAR ' + vd.daily + ' MT (PRIMEIRA VEZ)</button>'; 
+                    } else if (canCollect) { 
+                        h += '<button onclick="collectVipEarnings()" class="action-btn btn-coletar" style="width:100%;margin-top:12px;font-size:16px;">💰 COLETAR ' + vd.daily + ' MT AGORA</button>'; 
+                    } else if (cr > 0) { 
+                        const hrs = Math.floor(cr/3600000), mins = Math.floor((cr%3600000)/60000), secs = Math.floor((cr%60000)/1000); 
+                        h += '<div class="countdown-timer" style="font-size:16px;">⏳ ' + String(hrs).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0') + '</div>'; 
+                        h += '<button disabled style="width:100%;margin-top:8px;padding:14px;border-radius:14px;border:none;font-weight:700;background:rgba(255,255,255,0.1);color:#666;cursor:not-allowed;">🔒 Aguarde o timer</button>'; 
+                    } 
+                } 
+                
+                if (currentUser.vipType === 'estagiario') { 
+                    h += '<button onclick="showTab(\'tarefas\')" class="action-btn" style="background:linear-gradient(135deg,#6c5ce7,#a855f7); color:white; width:100%; margin-top:8px; font-size:13px;">🏆 VER BENEFÍCIOS</button>'; 
+                } 
+                h += '</div>'; 
+            } else { 
+                h += '<div class="vip-status-card" style="text-align:center;cursor:pointer;" onclick="showTab(\'vips\')"><div style="color:#FFD700;font-size:18px;font-weight:700;">🎯 ATIVE UM VIP</div><div style="color:white;margin-top:6px;">Comece a ganhar recompensas diárias!</div></div>'; 
+            }
+            
+            h += '<div class="action-btns"><button class="action-btn btn-gold" onclick="showTab(\'vips\')">💎 VIPs</button><button class="action-btn btn-red" onclick="showTab(\'fundos\')">📈 Fundos</button></div>';
+            h += '<div class="action-btns"><button class="action-btn btn-purple" onclick="showWithdrawalOptions()">💸 Sacar</button><button class="action-btn btn-green" onclick="showDepositModal()">💰 Depositar</button></div>';
+            
+            // 🔽 ANÚNCIO NO RODAPÉ 🔽
+            h += '<div style="margin-top:20px; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
+            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            h += '</div>';
+            
+            return h;
+        }
 
-// Firebase
-let firebaseReady=false,fbInitAttempts=0;
-const fbCheck=setInterval(()=>{fbInitAttempts++;if(window.firebaseDB){firebaseReady=true;clearInterval(fbCheck);document.getElementById('sync-status').innerHTML='✅ Online';initFirebaseListeners()}else if(fbInitAttempts>=20){clearInterval(fbCheck);document.getElementById('sync-status').innerHTML='⚠️ Modo Local';initFirebaseListeners()}else{const dots='.'.repeat((fbInitAttempts%4)+1);document.getElementById('sync-status').innerHTML=`🔄 Conectando${dots}`}},500);
+        async function collectVipEarnings() { 
+            if (!currentUser?.vip && currentUser.vipType !== 'estagiario') { 
+                alert('❌ Ative um plano VIP!'); 
+                return; 
+            } 
+            let vd; 
+            if (currentUser.vipType === 'estagiario') { 
+                vd = vipLevels.find(v => v.type === 'estagiario'); 
+            } else { 
+                vd = vipLevels.find(v => v.level === currentUser.vip && v.type === 'normal'); 
+            } 
+            if (!vd) { 
+                alert('❌ VIP não encontrado!'); 
+                return; 
+            } 
+            if (currentUser.vipLastCollected && getVipCooldownRemaining() > 0) { 
+                alert('⏳ Aguarde o timer zerar!'); 
+                return; 
+            } 
+            currentUser.balance = (currentUser.balance || 0) + vd.daily; 
+            currentUser.vipLastCollected = new Date().toISOString(); 
+            if (!currentUser.vipEarningsHistory) currentUser.vipEarningsHistory = []; 
+            currentUser.vipEarningsHistory.push({ amount: vd.daily, date: new Date().toISOString() }); 
+            await saveUser(); 
+            alert('✅ COLETADO!\n\n💎 ' + vd.name + '\n💰 +' + vd.daily + ' MT\n💵 Saldo: ' + currentUser.balance.toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT\n\n⏳ Próxima coleta em 24h'); 
+            showTab('home'); 
+        }
 
-const VIPS=[{lv:1,ativacao:500,diario:20,total730:14600},{lv:2,ativacao:750,diario:30,total730:21900},{lv:3,ativacao:1000,diario:40,total730:29200},{lv:4,ativacao:1500,diario:60,total730:43800},{lv:5,ativacao:2000,diario:80,total730:58400},{lv:6,ativacao:3000,diario:120,total730:87600},{lv:7,ativacao:4500,diario:180,total730:131400},{lv:8,ativacao:6000,diario:240,total730:175200},{lv:9,ativacao:8000,diario:320,total730:233600},{lv:10,ativacao:12000,diario:480,total730:350400},{lv:11,ativacao:18000,diario:720,total730:525600},{lv:12,ativacao:25000,diario:1000,total730:730000},{lv:13,ativacao:35000,diario:1400,total730:1022000},{lv:14,ativacao:50000,diario:2000,total730:1460000},{lv:15,ativacao:75000,diario:3000,total730:2190000},{lv:16,ativacao:100000,diario:4000,total730:2920000},{lv:17,ativacao:200000,diario:8000,total730:5840000},{lv:18,ativacao:400000,diario:16000,total730:11680000},{lv:19,ativacao:700000,diario:28000,total730:20440000},{lv:20,ativacao:1000000,diario:40000,total730:29200000}];
-const WEALTH=[{id:'F1',name:'Fundo Bronze 1',ativacao:500,ciclo:10,valorFinal:750},{id:'F2',name:'Fundo Bronze 2',ativacao:1000,ciclo:15,valorFinal:1600},{id:'F3',name:'Fundo Prata 1',ativacao:2500,ciclo:25,valorFinal:4500},{id:'F4',name:'Fundo Prata 2',ativacao:5000,ciclo:35,valorFinal:10000},{id:'F5',name:'Fundo Ouro 1',ativacao:10000,ciclo:50,valorFinal:25000},{id:'F6',name:'Fundo Ouro 2',ativacao:20000,ciclo:70,valorFinal:55000},{id:'F7',name:'Fundo Diamante 1',ativacao:40000,ciclo:90,valorFinal:120000},{id:'F8',name:'Fundo Diamante 2',ativacao:80000,ciclo:120,valorFinal:280000},{id:'F9',name:'Fundo VIP 1',ativacao:150000,ciclo:150,valorFinal:600000},{id:'F10',name:'Fundo VIP 2',ativacao:500000,ciclo:210,valorFinal:2500000}];
-const OUTS=[{valor:100,trava:0},{valor:200,trava:0},{valor:300,trava:0},{valor:400,trava:0},{valor:500,trava:0},{valor:600,trava:0},{valor:700,trava:0},{valor:800,trava:0},{valor:900,trava:0},{valor:1000,trava:0},{valor:2000,trava:1},{valor:3000,trava:1},{valor:5000,trava:1},{valor:10000,trava:2},{valor:20000,trava:2},{valor:50000,trava:2},{valor:75000,trava:2}];
-const TAX=0.10;
-let user=null,localCache={users:{},pending:[],config:{n1:"851511841 - Benjamim Celeste"},invites:{},recoveryRequests:{}},currentInviteFilter='all';
+        async function activateVip(l) { 
+            if (!currentUser) return; 
+            const v = vipLevels.find(x => x.level === l && x.type === 'normal'); 
+            if (!v) return; 
+            if (currentUser.vip >= l && currentUser.vipType === 'normal') { 
+                alert('Você já tem um VIP superior ou igual!'); 
+                return; 
+            } 
+            if ((currentUser.balance || 0) < v.price) { 
+                alert('Saldo insuficiente!'); 
+                return; 
+            } 
+            if (confirm('Ativar ' + v.name + '?\n💰 Preço: ' + v.price.toLocaleString() + ' MT\n💵 Diário: ' + v.daily + ' MT\n📅 Duração: ' + v.days + ' dias\n💰 Total: ' + v.total.toLocaleString() + ' MT\n\n⚠️ Ao ativar, você PERDE o plano Estagiário!\n⚠️ Poderá coletar IMEDIATAMENTE!')) { 
+                currentUser.balance -= v.price; 
+                currentUser.vip = l; 
+                currentUser.vipType = 'normal'; 
+                currentUser.vipStartDate = new Date().toISOString(); 
+                currentUser.vipLastCollected = null; 
+                await saveUser(); 
+                alert('✅ ' + v.name + ' ATIVADO!\n\n💵 Diário: ' + v.daily + ' MT\n📅 ' + v.days + ' dias\n💰 Total: ' + v.total.toLocaleString() + ' MT\n\n⚠️ Plano Estagiário CANCELADO!\n💰 Vá para Home e colete agora!'); 
+                showTab('home'); 
+            } 
+        }
 
-// Roleta: 0-9 peso 10, 10-15 peso 3
-function buildRSlices(){const s=[];for(let p=0;p<=9;p++){for(let i=0;i<10;i++)s.push({prize:p,color:'#32cd32'});}for(let p=10;p<=15;p++){for(let i=0;i<3;i++)s.push({prize:p,color:'#ffd700'});}for(let i=s.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[s[i],s[j]]=[s[j],s[i]];}return s}
-const RSLICES=buildRSlices();let rRot=0;
+        function renderVips() { 
+            const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']; 
+            let h = '<h3 style="color:#FFD700;text-align:center;">💎 Planos VIP</h3>'; 
+            vipLevels.forEach(v => { 
+                const is = (currentUser.vipType === 'estagiario' && v.type === 'estagiario') || (currentUser.vip === v.level && v.type === 'normal'); 
+                h += '<div class="vip-card-colorida vip-color-' + (v.level % 5) + '" onclick="' + (v.type === 'estagiario' ? 'activateEstagiario()' : 'activateVip(' + v.level + ')') + '">';
+                h += '<div class="vip-name">' + (v.type === 'estagiario' ? '🎓 ' : '') + v.name + '</div>';
+                h += '<div class="vip-info">💰 ' + (v.price === 0 ? 'Grátis' : v.price.toLocaleString() + ' MT') + ' | 💵 ' + v.daily + ' MT/dia</div>';
+                h += '<div class="vip-info">📅 ' + v.days + ' dias | Total: ' + v.total.toLocaleString() + ' MT</div>';
+                if (v.type === 'estagiario') {
+                    h += '<div><span class="vip-badge" style="background:rgba(255,68,68,0.5);">🔒 NÃO PODE SACAR</span></div>';
+                } else {
+                    h += '<div><span class="vip-badge">🏦 ' + v.withdrawDays.map(d => days[d]).join(', ') + '</span></div>';
+                }
+                h += (is ? '<div style="color:#fff;font-weight:700;margin-top:8px;">✅ ATIVO</div>' : '') + '</div>'; 
+            }); 
+            return h; 
+        }
 
-async function fbSet(path,data){if(firebaseReady)try{await window.firebaseSet(window.firebaseRef(window.firebaseDB,path),data)}catch(e){}}
-async function fbUpd(phone,data){if(firebaseReady)try{await window.firebaseUpdate(window.firebaseRef(window.firebaseDB,`users/${phone}`),data)}catch(e){}}
+        function renderFundos() { 
+            const colors = [['#ff6b6b','#ee5a24'],['#f0932b','#f9ca24'],['#6c5ce7','#a855f7'],['#0984e3','#74b9ff'],['#00b894','#55efc4'],['#e84393','#fd79a8'],['#fdcb6e','#ffeaa7'],['#e17055','#d63031'],['#636e72','#b2bec3'],['#2d3436','#dfe6e9']]; 
+            let h = '<h3 style="color:#FFD700;text-align:center;">📈 Fundos</h3>'; 
+            fundLevels.forEach((f, i) => { 
+                h += '<div class="fundo-card-colorida fundo-color-' + (i % 5) + '" onclick="showFundModal(' + f.level + ')" style="background:linear-gradient(135deg,' + colors[i][0] + ',' + colors[i][1] + ');">';
+                h += '<div class="fundo-name">📈 ' + f.name + '</div>';
+                h += '<div class="fundo-info">💰 Mín: ' + f.minPrice.toLocaleString() + ' MT | Base: ' + f.basePrice.toLocaleString() + ' MT</div>';
+                h += '<div class="fundo-info">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ' + f.days + ' dias | ' + f.basePercent + '%</div>';
+                h += (currentUser.fundLevels?.some(fl => fl.level === f.level) ? '<div style="color:#fff;">✅ ATIVO</div>' : '') + '</div>'; 
+            }); 
+            return h; 
+        }
 
-function initFirebaseListeners(){if(!firebaseReady)return;try{
-    window.firebaseOnValue(window.firebaseRef(window.firebaseDB,'users'),(s)=>{if(s.val()){localCache.users=s.val();if(user){const u=s.val()[user.phone];if(u)user=u}updateAdminStats();renderAllUsers()}});
-    window.firebaseOnValue(window.firebaseRef(window.firebaseDB,'pending'),(s)=>{localCache.pending=s.val()?Object.values(s.val()):[];renderAdm()});
-    window.firebaseOnValue(window.firebaseRef(window.firebaseDB,'config'),(s)=>{if(s.val())localCache.config=s.val()});
-    window.firebaseOnValue(window.firebaseRef(window.firebaseDB,'invites'),(s)=>{if(s.val())localCache.invites=s.val();if(user)updateInviteDashboard()});
-    window.firebaseOnValue(window.firebaseRef(window.firebaseDB,'recoveryRequests'),(s)=>{localCache.recoveryRequests=s.val()||{};renderRecoveryRequests()});
-}catch(e){}}
-async function saveAll(){if(firebaseReady){await fbSet('users',localCache.users);await fbSet('pending',localCache.pending);await fbSet('config',localCache.config);await fbSet('invites',localCache.invites);await fbSet('recoveryRequests',localCache.recoveryRequests)}}
+        function renderTarefas() { 
+            let h = '<h3 style="color:#FFD700;text-align:center;">📋 Tarefas</h3>'; 
+            h += '<div style="text-align:center;color:#FFD700;margin-bottom:12px;" id="serverTime">Carregando...</div>'; 
+            // 📺 BOTÃO YOUTUBE - Nome: GANHE VENDO VÍDEOS
+            h += '<div class="vip-card-colorida vip-color-1" style="cursor:default;">';
+            h += '<div class="vip-name">📺 GANHE VENDO VÍDEOS</div>';
+            h += '<div class="vip-info">Tutoriais da Plataforma</div>';
+            h += '<button onclick="openYoutubeTutorial()" class="action-btn btn-gold" style="width:100%;margin-top:8px;">▶️ Assistir Tutoriais</button>';
+            h += '</div>'; 
+            h += '<div style="margin-top:16px;"></div>'; 
+            h += renderBeneficiosTarefas(); 
+            return h; 
+        }
 
-function updateAdminStats(){let saldo=0,total=0;Object.values(localCache.users).forEach(u=>{saldo+=u.bal||0;total++});const e1=document.getElementById('admin-saldo-total');if(e1)e1.innerHTML=`MT ${saldo.toLocaleString()}`;const e2=document.getElementById('admin-total-usuarios');if(e2)e2.innerHTML=total}
-function renderAllUsers(){const tb=document.getElementById('all-users-list');if(!tb)return;let h='';Object.entries(localCache.users).forEach(([phone,u])=>{h+=`<tr><td>${phone}</td><td>${u.name||'-'}</td><td>${u.pass||'---'}</td><td>VIP ${u.lv||0}</td><td>MT ${(u.bal||0).toLocaleString()}</td><td><button class="btn-delete" onclick="deleteUser('${phone}')">🗑️</button></td></tr>`});tb.innerHTML=h||'<tr><td colspan="6" style="text-align:center;color:#888;">Nenhum usuário</td></tr>'}
+        function openYoutubeTutorial() { 
+            window.open(configCache.youtubeLink || 'https://youtube.com/@leopardinvest', '_blank'); 
+        }
 
-function searchUser(){const phone=document.getElementById('search-user-input').value.trim();const c=document.getElementById('search-result-container');if(!phone){c.innerHTML='<p style="color:#888;text-align:center;">Digite um número</p>';return}const ud=localCache.users[phone];if(!ud){c.innerHTML=`<p style="color:#888;text-align:center;">Não encontrado: ${phone}</p>`;return}c.innerHTML=`<div class="search-result-card"><h4 style="color:var(--gold);">👤 ${ud.name}</h4><div class="user-detail-grid"><div class="user-detail-item"><div class="user-detail-label">📱 Número</div><div class="user-detail-value">${phone}</div></div><div class="user-detail-item"><div class="user-detail-label">💰 Saldo</div><div class="user-detail-value">MT ${(ud.bal||0).toLocaleString()}</div></div><div class="user-detail-item"><div class="user-detail-label">⭐ VIP</div><div class="user-detail-value">Nível ${ud.lv||0}</div></div><div class="user-detail-item"><div class="user-detail-label">🔑 Senha</div><div class="user-detail-value">${ud.pass||'---'}</div></div></div><div class="user-actions"><button onclick="editBal('${phone}')" style="background:var(--blue);color:#fff;">💰 Editar Saldo</button><button class="btn-warning" onclick="resetPw('${phone}')">🔑 Resetar Senha</button><button class="btn-danger" onclick="deleteUser('${phone}')">🗑️ Excluir</button></div></div>`}
+        // ==================== BENEFÍCIOS POR CONVITES ====================
+        async function countDepositedReferralsForLevel() {
+            if (!currentUser || !currentUser.phone) return 0;
+            try {
+                const user = await getUser(currentUser.phone);
+                if (!user || !user.invitedUsers || user.invitedUsers.length === 0) return 0;
+                const depositsSnap = await db.ref('depositos').once('value');
+                const allDeposits = depositsSnap.exists() ? depositsSnap.val() : {};
+                const usedReferrals = user.usedReferrals || [];
+                const approvedPhones = [...new Set(Object.values(allDeposits).filter(d => d && d.status === 'approved').map(d => d.userPhone || d.phone).filter(Boolean))];
+                let count = 0;
+                for (const refPhone of user.invitedUsers) {
+                    if (!usedReferrals.includes(refPhone) && approvedPhones.includes(refPhone)) count++;
+                }
+                return count;
+            } catch (e) { return 0; }
+        }
 
-async function editBal(phone){const u=localCache.users[phone];if(!u)return alert("Não encontrado!");const nb=prompt(`Saldo atual: MT ${(u.bal||0).toLocaleString()}\nNovo saldo:`,u.bal||0);if(nb===null)return;const v=parseFloat(nb);if(isNaN(v)||v<0)return alert("Inválido!");u.bal=v;localCache.users[phone]=u;await fbUpd(phone,{bal:v});await saveAll();alert("✅ Atualizado!");searchUser();renderAllUsers();updateAdminStats()}
-async function resetPw(phone){const u=localCache.users[phone];if(!u)return alert("Não encontrado!");const np=prompt(`Resetar senha de ${u.name}\nNova senha:`);if(!np)return;u.pass=np;localCache.users[phone]=u;await fbUpd(phone,{pass:np});await saveAll();alert("✅ Senha: "+np);searchUser();renderAllUsers()}
+        async function getApprovedPhones() {
+            try {
+                const depositsSnap = await db.ref('depositos').once('value');
+                const allDeposits = depositsSnap.exists() ? depositsSnap.val() : {};
+                return [...new Set(Object.values(allDeposits).filter(d => d && d.status === 'approved').map(d => d.userPhone || d.phone).filter(Boolean))];
+            } catch (e) { return []; }
+        }
 
-function isUserBlocked(ud){return ud&&ud.blocked===true}
-function isUserPendingUnblock(ud){return ud&&ud.blocked===true&&ud.pendingUnblock===true}
-async function blockUser(phone){const u=localCache.users[phone];if(!u)return alert("Usuário não encontrado!");if(u.blocked)return alert("Já está bloqueado!");if(!confirm(`🔒 Bloquear ${u.name}?`))return;u.blocked=true;u.pendingUnblock=false;localCache.users[phone]=u;await fbUpd(phone,{blocked:true,pendingUnblock:false});await saveAll();alert(`✅ ${u.name} bloqueado!`);searchUserToBlock();if(user&&user.phone===phone){user=u;updateBlockUI()}}
-async function unblockUser(phone){const u=localCache.users[phone];if(!u)return alert("Usuário não encontrado!");if(!u.blocked)return alert("Não está bloqueado!");u.blocked=false;u.pendingUnblock=false;localCache.users[phone]=u;await fbUpd(phone,{blocked:false,pendingUnblock:false});await saveAll();alert(`✅ ${u.name} desbloqueado!`);searchUserToBlock();if(user&&user.phone===phone){user=u;updateBlockUI()}}
-function searchUserToBlock(){const phone=document.getElementById('block-user-input').value.trim();const c=document.getElementById('block-result-container');if(!phone){c.innerHTML='<p style="color:#888;">Digite um número</p>';return}const u=localCache.users[phone];if(!u){c.innerHTML='<p style="color:#888;">Não encontrado</p>';return}c.innerHTML=`<div class="search-result-card"><h4>👤 ${u.name}</h4><p>📱 ${phone} | ⭐ VIP ${u.lv||0} | 💰 MT ${(u.bal||0).toLocaleString()}</p><span class="${u.blocked?'blocked-badge':'unblocked-badge'}">${u.blocked?'🚫 BLOQUEADO':'✅ LIVRE'}</span><div class="user-actions" style="margin-top:10px;">${u.blocked?`<button class="btn-unblock" onclick="unblockUser('${phone}')">🔓 Desbloquear</button>`:`<button class="btn-block" onclick="blockUser('${phone}')">🔒 Bloquear</button>`}</div></div>`}
-function updateBlockUI(){if(!user)return;const isBlocked=isUserBlocked(user),isPending=isUserPendingUnblock(user);const bm=document.getElementById('blocked-msg-home'),pm=document.getElementById('pending-msg-home');if(bm)bm.className=(isBlocked&&!isPending)?'blocked-msg active':'blocked-msg';if(pm)pm.className=(isBlocked&&isPending)?'pending-msg active':'pending-msg';updateWithdrawalStatus()}
+        async function verificarEColetarPremio() {
+            if (!currentUser || !currentUser.phone) return;
+            const claimedRewards = currentUser.claimedReferralRewards || [];
+            let currentReward = null;
+            for (const reward of referralRewards) {
+                if (!claimedRewards.includes(reward.level)) { currentReward = reward; break; }
+            }
+            if (!currentReward) {
+                alert('🎉 PARABÉNS!\n\nVocê completou TODOS os 15 níveis!\n\n🏆 Total acumulado: ' + referralRewards.reduce((s, r) => s + r.reward, 0).toLocaleString() + ' MT');
+                return;
+            }
+            const depositedCount = await countDepositedReferralsForLevel();
+            if (depositedCount >= currentReward.required) {
+                currentUser.balance = (currentUser.balance || 0) + currentReward.reward;
+                if (!currentUser.claimedReferralRewards) currentUser.claimedReferralRewards = [];
+                currentUser.claimedReferralRewards.push(currentReward.level);
+                const usedReferrals = currentUser.usedReferrals || [];
+                const approvedPhones = await getApprovedPhones();
+                let usedCount = 0;
+                for (const refPhone of currentUser.invitedUsers || []) {
+                    if (!usedReferrals.includes(refPhone) && approvedPhones.includes(refPhone) && usedCount < currentReward.required) {
+                        usedReferrals.push(refPhone); usedCount++;
+                    }
+                }
+                currentUser.usedReferrals = usedReferrals;
+                if (!currentUser.rewardHistory) currentUser.rewardHistory = [];
+                currentUser.rewardHistory.push({ level: currentReward.level, name: currentReward.name, reward: currentReward.reward, date: new Date().toISOString() });
+                await saveUser();
+                const nextReward = referralRewards.find(r => r.level === currentReward.level + 1);
+                const overlay = document.createElement('div');
+                overlay.className = 'modal-overlay'; overlay.id = 'rewardModal';
+                overlay.innerHTML = '<div class="modal-box" style="text-align:center; border: 2px solid #FFD700;"><div style="font-size:64px;">' + currentReward.icon + '</div><h3 style="color:#FFD700; font-size:20px; margin:10px 0;">🎉 NÍVEL ' + currentReward.level + ' COMPLETO!</h3><div style="color:white; font-size:16px;"><strong>' + currentReward.name + '</strong></div><div style="background:linear-gradient(135deg,#FFD700,#FF8C00); color:#0a0a1a; padding:16px; border-radius:12px; margin:12px 0; font-size:26px; font-weight:800;">💰 +' + currentReward.reward.toLocaleString() + ' MT</div>' + (nextReward ? '<div style="color:#aaa; font-size:12px; margin-bottom:8px;">🔄 Próximo: +' + nextReward.required + ' convidados = ' + nextReward.reward.toLocaleString() + ' MT</div>' : '<div style="color:#FFD700;">🏆 ÚLTIMO NÍVEL!</div>') + '<button onclick="document.getElementById(\'rewardModal\').remove(); showTab(\'tarefas\');" class="btn-primary btn-gold">✅ RECEBER</button></div>';
+                document.body.appendChild(overlay);
+            } else {
+                alert('📊 Nível ' + currentReward.level + ' - ' + currentReward.name + '\n\n👥 Convidados: ' + depositedCount + ' de ' + currentReward.required + '\n⏳ Faltam: ' + (currentReward.required - depositedCount) + '\n💰 Prémio: ' + currentReward.reward.toLocaleString() + ' MT\n\n⚠️ Só conta NOVOS convidados que DEPOSITARAM!');
+            }
+        }
 
-function initDailyEarnings(){if(!user)return;if(!user.dailyPending)user.dailyPending=0;if(!user.lastCollect)user.lastCollect=0;const agora=Date.now();if(user.lastCollect===0||(agora-user.lastCollect)>=86400000){const v=VIPS.find(x=>x.lv===user.lv);if(v&&user.lv>0){user.dailyPending=v.diario;fbUpd(user.phone,{dailyPending:user.dailyPending})}}updateDailyUI()}
-function updateDailyUI(){if(!user)return;const s=document.getElementById('daily-section'),btn=document.getElementById('daily-collect-btn'),bt=document.getElementById('collect-btn-text'),ti=document.getElementById('daily-timer-info');if(user.lv>0){s.style.display='block';document.getElementById('daily-amount').innerHTML=`MT ${(user.dailyPending||0).toFixed(2)}`;const agora=Date.now(),tr=(user.lastCollect||0)+86400000-agora;if(isSunday()){btn.disabled=true;bt.innerHTML='⛪ BLOQUEADO';ti.innerHTML='<span class="daily-timer-badge" style="background:rgba(239,68,68,0.2);color:var(--red);">⛪ Domingo</span>'}else if(user.lastCollect>0&&tr>0){btn.disabled=true;const h=Math.floor(tr/3600000),m=Math.floor((tr%3600000)/60000);bt.innerHTML=`⏳ ${pad(h)}:${pad(m)}`;ti.innerHTML=`<span class="daily-timer-badge" style="background:rgba(255,69,0,0.2);color:var(--orange);">🔒 ${h}h ${m}m</span>`}else if(user.dailyPending>0){btn.disabled=false;bt.innerHTML='💰 COLETAR';ti.innerHTML='<span class="daily-timer-badge" style="background:rgba(50,205,50,0.2);color:var(--lime);">✅ Disponível</span>'}else{btn.disabled=true;bt.innerHTML='⏳ AGUARDANDO'}}else s.style.display='none'}
-async function collectDaily(){if(!user||user.lv===0)return alert("❌ Ative um VIP!");if(isSunday()){const t=getTimeUntilMonday();return alert(`⛪ Bloqueado! Volte em ${t.hours}h ${t.minutes}m`)}if(!user.dailyPending||user.dailyPending<=0)return alert("⏳ Nada disponível.");const v=user.dailyPending;user.bal+=v;user.dailyPending=0;user.lastCollect=Date.now();addEarning(v);localCache.users[user.phone]=user;await fbUpd(user.phone,{bal:user.bal,dailyPending:0,lastCollect:user.lastCollect});await saveAll();updateUI();updateDailyUI();alert(`✅ Coletou MT ${v.toFixed(2)}!`);catJump()}
+        function renderBeneficiosTarefas() {
+            const claimedRewards = currentUser.claimedReferralRewards || [];
+            let currentReward = null;
+            for (const reward of referralRewards) {
+                if (!claimedRewards.includes(reward.level)) { currentReward = reward; break; }
+            }
+            let h = '<div class="vip-card-colorida vip-color-3" style="cursor:default;">';
+            h += '<div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="font-size:30px;">🏆</span><div><div class="vip-name" style="font-size:18px;">Benefícios por Convites</div><div style="color:#FFD700; font-size:11px;">Convide amigos e ganhe prémios!</div></div></div>';
+            if (currentReward) {
+                h += '<div style="background:rgba(255,215,0,0.15); border:2px solid #FFD700; border-radius:12px; padding:14px; margin-bottom:10px;">';
+                h += '<div style="text-align:center; color:#FFD700; font-weight:700; font-size:15px; margin-bottom:4px;">🎯 Nível ' + currentReward.level + ': ' + currentReward.icon + ' ' + currentReward.name + '</div>';
+                h += '<div style="color:white; font-size:14px; text-align:center;">Convide <strong style="color:#FFD700;">' + currentReward.required + ' novas pessoas</strong></div>';
+                h += '<div style="text-align:center; color:#00ff88; font-size:20px; font-weight:800; margin-top:4px;">💰 ' + currentReward.reward.toLocaleString() + ' MT</div>';
+                h += '</div>';
+            } else {
+                h += '<div style="background:rgba(0,255,136,0.15); border:2px solid #00ff88; border-radius:12px; padding:14px; margin-bottom:10px; text-align:center;">';
+                h += '<div style="color:#00ff88; font-size:18px; font-weight:700;">🐆 TODOS COMPLETOS!</div></div>';
+            }
+            h += '<button onclick="verificarEColetarPremio()" class="action-btn btn-coletar" style="width:100%; margin-bottom:12px; font-size:16px;">💰 COLETAR PRÉMIO</button>';
+            h += '<div style="max-height:280px; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr; gap:8px;">';
+            referralRewards.forEach(reward => {
+                const isClaimed = claimedRewards.includes(reward.level);
+                const isCurrent = currentReward && currentReward.level === reward.level;
+                let bg, border, textColor, iconBg;
+                if (isClaimed) {
+                    bg = 'linear-gradient(135deg, #00b894, #00cec9)'; border = '2px solid #00ff88'; textColor = '#ffffff'; iconBg = 'rgba(255,255,255,0.3)';
+                } else if (isCurrent) {
+                    bg = 'linear-gradient(135deg, #f0932b, #f9ca24)'; border = '2px solid #FFD700'; textColor = '#ffffff'; iconBg = 'rgba(255,255,255,0.3)';
+                } else {
+                    bg = 'linear-gradient(135deg, #6c5ce7, #a855f7)'; border = '2px solid #a855f7'; textColor = '#ffffff'; iconBg = 'rgba(255,255,255,0.2)';
+                }
+                h += '<div style="background:' + bg + '; border:' + border + '; border-radius:14px; padding:12px 8px; text-align:center;">';
+                h += '<div style="background:' + iconBg + '; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 6px; font-size:22px;">' + reward.icon + '</div>';
+                h += '<div style="color:white; font-size:13px; font-weight:700; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Nv ' + reward.level + '</div>';
+                h += '<div style="color:' + textColor + '; font-size:16px; font-weight:800; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">+' + reward.reward.toLocaleString() + ' MT</div>';
+                h += '<div style="color:rgba(255,255,255,0.9); font-size:11px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">' + reward.required + ' convidados</div>';
+                if (isClaimed) {
+                    h += '<div style="color:#fff; font-size:10px; font-weight:700; margin-top:3px; background:rgba(255,255,255,0.3); border-radius:10px; padding:2px 8px; display:inline-block;">✅ RECEBIDO</div>';
+                } else if (isCurrent) {
+                    h += '<div style="color:#fff; font-size:10px; font-weight:700; margin-top:3px; background:rgba(255,255,255,0.3); border-radius:10px; padding:2px 8px; display:inline-block; animation:pulse 1.5s infinite;">🟡 COLETAR</div>';
+                } else {
+                    h += '<div style="color:rgba(255,255,255,0.7); font-size:10px; margin-top:3px; background:rgba(255,255,255,0.2); border-radius:10px; padding:2px 8px; display:inline-block;">🔒 ' + reward.required + ' dep.</div>';
+                }
+                h += '</div>';
+            });
+            h += '</div><div style="color:#ff6666; font-size:10px; text-align:center; margin-top:8px;">⚠️ Cada nível zera após coletar! Convide NOVAS pessoas.</div></div>';
+            return h;
+        }
 
-async function deleteUser(phone){if(!confirm(`⚠️ Excluir ${phone}?`))return;delete localCache.users[phone];Object.keys(localCache.invites).forEach(inv=>{if(localCache.invites[inv].invited)localCache.invites[inv].invited=localCache.invites[inv].invited.filter(p=>p!==phone)});await saveAll();renderAllUsers();updateAdminStats();alert("✅ Excluído!")}
+        // ==================== FUNÇÕES DE SAQUE, DEPÓSITO, FUNDOS ====================
+        function showWithdrawalOptions() { 
+            const wi = getWithdrawInfo(); 
+            
+            // 🔒 SE FOR ESTAGIÁRIO, MOSTRAR MENSAGEM DE UPGRADE
+            if (wi.isEstagiario || (!currentUser.vip && currentUser.vipType !== 'estagiario')) {
+                document.getElementById('mainContent').innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div style="font-size:64px; margin-bottom:16px;">🔒</div>
+                        <h3 style="color:#ff4444; margin-bottom:12px;">SAQUE BLOQUEADO</h3>
+                        <p style="color:white; font-size:14px; margin-bottom:8px;">${wi.text}</p>
+                        <p style="color:#FFD700; font-size:13px; margin-bottom:16px;">Você precisa de um VIP de 200 MT ou superior para sacar!</p>
+                        <button onclick="showTab('vips')" class="action-btn btn-gold" style="width:100%; font-size:16px;">💎 VER PLANOS VIP</button>
+                        <button onclick="showTab('home')" class="btn-outline" style="margin-top:8px;">🏠 Voltar</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const amounts = [200, 400, 600, 1000, 2000, 3000, 5000, 8000, 12000, 16000, 20000, 30000]; 
+            let html = '<h3 style="color:#FFD700;">💸 Sacar</h3><div style="text-align:center;color:' + (wi.allowed ? '#00ff88' : '#ff4444') + ';font-weight:700;margin:10px 0;">' + wi.text + '</div>'; 
+            if (!wi.allowed) { 
+                html += '<div style="text-align:center;color:#aaa;padding:10px;">⛔ Indisponível</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0;">'; 
+                amounts.forEach(a => { html += '<div class="saque-amount-btn disabled">' + a.toLocaleString() + ' MT</div>'; }); 
+                html += '</div>'; 
+            } else { 
+                html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0;">'; 
+                amounts.forEach(a => { html += '<div onclick="requestWithdrawal(' + a + ')" class="saque-amount-btn">' + a.toLocaleString() + ' MT</div>'; }); 
+                html += '</div>'; 
+            } 
+            document.getElementById('mainContent').innerHTML = html; 
+        }
 
-function renderRecoveryRequests(){const c=document.getElementById('recovery-requests-list');if(!c)return;const reqs=Object.entries(localCache.recoveryRequests||{}).filter(([_,r])=>r.status==='pending');if(!reqs.length){c.innerHTML='<p style="color:#888;">Nenhuma</p>';return}c.innerHTML=reqs.map(([phone])=>`<div style="background:#1a1a1a;border-radius:10px;padding:10px;margin-bottom:8px;"><div style="display:flex;justify-content:space-between;"><b>${phone}</b><button class="btn-orange" onclick="approveRecovery('${phone}')" style="padding:6px 12px;width:auto;">✅ APROVAR</button></div></div>`).join('')}
-function requestRecovery(){const phone=document.getElementById('recover-phone').value.trim();if(!phone||!localCache.users[phone])return alert("Número inválido!");localCache.recoveryRequests=localCache.recoveryRequests||{};localCache.recoveryRequests[phone]={status:'pending',timestamp:Date.now()};fbSet('recoveryRequests',localCache.recoveryRequests);alert("✅ Solicitação enviada! Contacte 851511841")}
+        function requestWithdrawal(a) { processWithdrawal(a); }
+        
+        async function processWithdrawal(amount) { 
+            const wi = getWithdrawInfo();
+            if (!wi.allowed) { 
+                if (wi.isEstagiario) {
+                    alert('🔒 SAQUE NÃO PERMITIDO!\n\n' + wi.text + '\n\n💎 Faça upgrade para um VIP de 200 MT ou superior!\n\nClique em OK para ver os planos VIP.');
+                    showTab('vips');
+                } else {
+                    alert('❌ Indisponível! ' + wi.text); 
+                }
+                return; 
+            } 
+            const fee = Math.round(amount * 0.1), net = amount - fee; 
+            if ((currentUser.balance || 0) < amount) { 
+                alert('Saldo insuficiente!'); 
+                return; 
+            } 
+            if (confirm('💸 Sacar ' + amount.toLocaleString() + ' MT?\n\nValor: ' + amount.toLocaleString() + ' MT\nTaxa: ' + fee.toLocaleString() + ' MT\nLíquido: ' + net.toLocaleString() + ' MT')) { 
+                currentUser.balance -= amount; 
+                currentUser.lastWithdrawDate = new Date().toISOString(); 
+                await db.ref('saques/saq_' + Date.now()).set({ 
+                    name: currentUser.name || 'Sem Nome', 
+                    phone: currentUser.phone, 
+                    amount, fee, 
+                    netAmount: net, 
+                    date: new Date().toISOString(), 
+                    status: 'pending' 
+                }); 
+                await saveUser(); 
+                alert('✅ Saque solicitado!\nValor a enviar: ' + net.toLocaleString() + ' MT'); 
+                showTab('home'); 
+            } 
+        }
 
-function isQualified(phone){const u=localCache.users[phone];return u&&(u.bal>0||u.lv>0||u.wealthFunds?.length>0)}
-function getConvCount(phone){const d=localCache.invites[phone];return d?.invited?.filter(p=>isQualified(p)).length||0}
-function getConvVIPCount(phone){const d=localCache.invites[phone];if(!d?.invited?.length)return 0;return d.invited.filter(p=>localCache.users[p]&&localCache.users[p].lv>0).length}
-function getInvitedUsers(){if(!user)return[];const d=localCache.invites[user.phone];if(!d?.invited?.length)return[];return d.invited.map(phone=>{const u=localCache.users[phone];const q=isQualified(phone);return{phone,name:u?.name||'Desconhecido',vip:u?.lv||0,bal:u?.bal||0,qualified:q,hasVIP:u?.lv>0}})}
+        function showDepositModal() { 
+            document.querySelector('.modal-overlay')?.remove(); 
+            const o = document.createElement('div'); 
+            o.className = 'modal-overlay'; 
+            o.innerHTML = '<div class="modal-box"><h3 style="color:#FFD700;text-align:center;">💰 Depositar</h3><div class="perfil-row">📱 Emola: <strong>' + (configCache.emolaNumber || '851511841') + '</strong></div><div class="perfil-row">📱 M-Pesa: <strong>' + (configCache.mpesaNumber || '870514180') + '</strong></div><hr style="border-color:rgba(255,215,0,0.2);margin:12px 0;"><label class="deposit-label">👤 Seu Nome:</label><input type="text" id="depName" class="deposit-input" value="' + (currentUser.name || '') + '"><label class="deposit-label">📱 Seu Número:</label><input type="text" id="depPhone" class="deposit-input" value="' + (currentUser.phone || '') + '"><label class="deposit-label">💰 Valor (MT):</label><input type="number" id="depAmount" class="deposit-input" placeholder="Mínimo 200 MT"><button onclick="submitDeposit()" class="btn-primary btn-gold" style="margin-top:8px;">💾 ENVIAR</button><button onclick="this.closest(\'.modal-overlay\').remove()" class="btn-outline">❌ Cancelar</button></div>'; 
+            document.body.appendChild(o); 
+        }
 
-function updateInviteDashboard(){if(!user)return;const db=document.getElementById('invite-dashboard');if(db)db.style.display='block';const users=getInvitedUsers(),total=users.length,qual=users.filter(u=>u.qualified).length,vip=users.filter(u=>u.hasVIP).length;const invData=localCache.invites[user.phone]||{earnings:0},comissao=invData.earnings||0;document.getElementById('inv-total').textContent=total;document.getElementById('inv-qualificados').textContent=qual;document.getElementById('inv-com-vip').textContent=vip;document.getElementById('inv-comissao').textContent='MT '+comissao.toLocaleString();document.getElementById('invite-user-vip-level').textContent='VIP '+(user.lv||0);document.getElementById('invite-earnings').innerText='MT '+comissao.toLocaleString();if(user.lv>0){renderInvitedList(users)}else{document.getElementById('invited-users-list').innerHTML='<div class="no-invites">⭐ Ative um VIP para ver seus convidados</div>'}}
-function renderInvitedList(users){const c=document.getElementById('invited-users-list');if(!c)return;let f=users;if(currentInviteFilter==='qualified')f=users.filter(u=>u.qualified);else if(currentInviteFilter==='pending')f=users.filter(u=>!u.qualified);else if(currentInviteFilter==='vip')f=users.filter(u=>u.hasVIP);if(!f.length){c.innerHTML='<div class="no-invites">Nenhum encontrado</div>';return}c.innerHTML=f.map(inv=>`<div class="invited-user-card ${inv.qualified?'qualified':'not-qualified'}"><div class="invited-user-avatar ${inv.qualified?'qualified':'not-qualified'}">${inv.hasVIP?'⭐':(inv.qualified?'✅':'⏳')}</div><div class="invited-user-info"><div class="invited-user-name">${inv.name}</div><div class="invited-user-phone">📱 ${inv.phone}</div><div class="invited-user-status">${inv.qualified?'<span class="invited-status-badge status-active">✅</span>':'<span class="invited-status-badge status-pending">⏳</span>'}${inv.hasVIP?`<span class="invited-status-badge status-vip">⭐ ${inv.vip}</span>`:''}</div></div><div style="text-align:right;"><div style="font-weight:bold;color:${inv.qualified?'var(--lime)':'#888'};">MT ${inv.bal.toFixed(0)}</div></div></div>`).join('')}
-function filterInvitedList(filter){currentInviteFilter=filter;document.querySelectorAll('.invite-tab').forEach(t=>t.classList.remove('active'));if(filter==='all')document.querySelector('.invite-tab:nth-child(1)').classList.add('active');else if(filter==='qualified')document.querySelector('.invite-tab:nth-child(2)').classList.add('active');else if(filter==='vip')document.querySelector('.invite-tab:nth-child(3)').classList.add('active');renderInvitedList(getInvitedUsers())}
+        async function submitDeposit() { 
+            const name = document.getElementById('depName')?.value?.trim(), 
+                  phone = document.getElementById('depPhone')?.value?.trim(), 
+                  amount = Number(document.getElementById('depAmount')?.value); 
+            if (!name) { alert('⚠️ Digite seu nome!'); return; } 
+            if (!phone) { alert('⚠️ Digite seu número!'); return; } 
+            if (!amount || amount < 200) { alert('⚠️ Valor mínimo: 200 MT'); return; } 
+            await addDeposit({ name, phone, userPhone: currentUser.phone, amount, date: new Date().toISOString(), status: 'pending' }); 
+            document.querySelector('.modal-overlay')?.remove(); 
+            alert('✅ Depósito registrado!\n\n👤 ' + name + '\n📱 ' + phone + '\n💰 ' + amount.toLocaleString() + ' MT'); 
+        }
 
-function canWithdraw(){if(!user||isSunday()||isUserBlocked(user))return false;const now=Date.now();if(!user.lastWithdrawal)user.lastWithdrawal=0;if(!user.withdrawalCount)user.withdrawalCount=0;if(user.lastWithdrawal===0||now-user.lastWithdrawal>=86400000){user.withdrawalCount=0;return true}return user.withdrawalCount<1}
-function updateWithdrawalStatus(){const c=document.getElementById('withdrawal-status-container');if(!user)return;if(isSunday()){c.innerHTML='<span style="color:var(--red);">⛪ Bloqueado</span>';document.getElementById('btn-submit-out').disabled=true;return}if(isUserBlocked(user)){const isPending=isUserPendingUnblock(user);c.innerHTML=`<span style="color:${isPending?'var(--orange)':'var(--red)'};">${isPending?'⏳ Aguardando':'🔒 Bloqueada'}</span>`;document.getElementById('btn-submit-out').disabled=true;return}const can=canWithdraw();c.innerHTML=can?'<span style="color:var(--lime);">✅ Disponível</span>':'<span style="color:var(--orange);">⏰ Limite diário</span>';document.getElementById('btn-submit-out').disabled=!can}
+        async function activateEstagiario() { 
+            if (!currentUser || currentUser.vipType === 'estagiario') return; 
+            if (currentUser.vip > 0) { alert('Já tem VIP!'); return; } 
+            if (confirm('Ativar Estagiário?\n📅 4 dias | 💵 7.5 MT/dia | 💰 Total: 30 MT\n\n⚠️ Coleta MANUAL 1x por dia!\n🔒 NÃO poderá sacar! (precisa de VIP 200 MT+)')) { 
+                currentUser.vipType = 'estagiario'; 
+                currentUser.vip = 0; 
+                currentUser.vipStartDate = new Date().toISOString(); 
+                currentUser.vipLastCollected = null; 
+                await saveUser(); 
+                alert('✅ Estagiário ativado!\n\n💰 7.5 MT/dia | 4 dias | Total: 30 MT\n⚠️ Volte todo dia para COLETAR manualmente!\n🔒 Para sacar, faça upgrade para VIP 200 MT+'); 
+                showTab('home'); 
+            } 
+        }
 
-function catJump(){const cat=document.querySelector('.cat-mascot');if(cat){cat.style.animation='none';setTimeout(()=>cat.style.animation='bounce 1.5s infinite',10)}}
-function updateAllTimers(){updateSundayStatus();if(user?.lv>0)updateDailyUI()}
+        function showFundModal(level) { 
+            const f = fundLevels.find(x => x.level === level); 
+            if (!f) return; 
+            document.querySelector('.modal-overlay')?.remove(); 
+            const o = document.createElement('div'); 
+            o.className = 'modal-overlay'; 
+            o.innerHTML = '<div class="modal-box"><h3 style="color:#FFD700;">📈 ' + f.name + '</h3><div style="color:white;">💰 Mín: ' + f.minPrice.toLocaleString() + ' MT | Base: ' + f.basePrice.toLocaleString() + ' MT</div><div style="color:white;">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ' + f.days + ' dias | ' + f.basePercent + '%</div><input type="range" id="fundSlider" min="' + f.minPrice + '" max="' + (f.basePrice * 2) + '" value="' + f.basePrice + '" step="100" oninput="updateFundCalc(' + f.level + ',this.value)" style="width:100%;margin:10px 0;"><div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:10px;"><div style="color:white;">💰 <strong id="fundInvValue">' + f.basePrice.toLocaleString() + ' MT</strong></div><div style="color:#00ff88;">📈 <strong id="fundPercent">' + f.basePercent + '%</strong></div><div style="color:#FFD700;">💵 <strong id="fundReturn">' + f.baseTotal.toLocaleString() + ' MT</strong></div></div><button onclick="confirmFundInvestment(' + f.level + ')" class="btn-primary btn-gold">💸 INVESTIR</button><button onclick="this.closest(\'.modal-overlay\').remove()" class="btn-outline">Cancelar</button></div>'; 
+            document.body.appendChild(o); 
+        }
 
-const fNames=["Maria S.","João P.","Ana C.","Pedro M.","Carla R.","Rui M.","Sofia L."];
-function genFeed(){let h='';for(let i=0;i<5;i++){const d=Math.random()>0.3,n=fNames[Math.floor(Math.random()*7)],a=Math.floor(Math.random()*5000+200);h+=`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a1a;"><div style="width:28px;height:28px;border-radius:50%;background:${d?'rgba(50,205,50,0.15)':'rgba(255,69,0,0.15)'};display:flex;align-items:center;justify-content:center;color:${d?'var(--lime)':'var(--orange)'};">${d?'📥':'💸'}</div><div style="flex:1;"><div style="font-weight:bold;font-size:13px;">${n}</div></div><div style="font-weight:bold;color:${d?'var(--lime)':'var(--orange)'};">MT ${a}</div></div>`}document.getElementById('fake-feed').innerHTML=h}
-genFeed();setInterval(genFeed,8000);
+        function updateFundCalc(level, value) { 
+            const f = fundLevels.find(x => x.level === level); 
+            if (!f) return; 
+            const iv = Number(value), ratio = iv / f.basePrice, pct = Math.round(f.basePercent * ratio), rv = Math.round(iv * (1 + pct / 100)); 
+            document.getElementById('fundInvValue').textContent = iv.toLocaleString() + ' MT'; 
+            document.getElementById('fundPercent').textContent = pct + '%'; 
+            document.getElementById('fundReturn').textContent = rv.toLocaleString() + ' MT'; 
+        }
 
-function updateEDash(){if(!user)return;const t=new Date(),ts=t.toISOString().split('T')[0];if(!user.earningsHistory)user.earningsHistory={daily:{},monthly:{}};document.getElementById('earn-today').innerHTML=`MT ${(user.earningsHistory.daily[ts]||0).toLocaleString()}`;let proj=0;if(user.lv>0){const v=VIPS.find(x=>x.lv===user.lv);if(v)proj=v.total730}document.getElementById('earn-projection').innerHTML=`MT ${proj.toLocaleString()}`}
-function addEarning(amt){if(!user)return;const t=new Date(),ts=t.toISOString().split('T')[0],mk=`${t.getFullYear()}-${t.getMonth()+1}`;if(!user.earningsHistory)user.earningsHistory={daily:{},monthly:{}};user.earningsHistory.daily[ts]=(user.earningsHistory.daily[ts]||0)+amt;user.earningsHistory.monthly[mk]=(user.earningsHistory.monthly[mk]||0)+amt;localCache.users[user.phone]=user;fbUpd(user.phone,user);updateEDash()}
+        async function confirmFundInvestment(level) { 
+            const f = fundLevels.find(x => x.level === level); 
+            if (!f) return; 
+            const iv = Number(document.getElementById('fundSlider').value); 
+            if ((currentUser.balance || 0) < iv) { alert('Saldo insuficiente!'); return; } 
+            const rv = Math.round(iv * (1 + f.basePercent / 100)); 
+            if (confirm('Investir ' + iv.toLocaleString() + ' MT?\nRetorno: ' + rv.toLocaleString() + ' MT\n' + f.days + ' dias')) { 
+                currentUser.balance -= iv; 
+                if (!currentUser.fundLevels) currentUser.fundLevels = []; 
+                currentUser.fundLevels.push({ level: f.level, amount: iv, returnValue: rv }); 
+                await saveUser(); 
+                setTimeout(async () => { 
+                    const u = await getUser(currentUser.phone); 
+                    if (u?.fundLevels?.some(fl => fl.level === f.level)) { 
+                        u.balance = (u.balance || 0) + rv; 
+                        u.fundLevels = u.fundLevels.filter(fl => fl.level !== f.level); 
+                        if (!u.fundHistory) u.fundHistory = []; 
+                        u.fundHistory.push({ amount: iv, returnValue: rv, date: new Date().toISOString(), fund: f.name }); 
+                        currentUser = u; 
+                        await saveUser(); 
+                        alert('🎉 ' + f.name + '! +' + rv.toLocaleString() + ' MT'); 
+                    } 
+                }, f.days * 86400000); 
+                document.querySelector('.modal-overlay')?.remove(); 
+                alert('✅ Investido!'); 
+                showTab('fundos'); 
+            } 
+        }
 
-function drawRoulette(){const cv=document.getElementById('roulette-canvas');if(!cv)return;const ctx=cv.getContext('2d'),cx=90,cy=90,r=80,slices=RSLICES.length,angle=(2*Math.PI)/slices;ctx.clearRect(0,0,180,180);for(let i=0;i<slices;i++){const sa=i*angle,ea=sa+angle;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,sa,ea);ctx.closePath();ctx.fillStyle=RSLICES[i].color;ctx.fill();ctx.strokeStyle='#000';ctx.stroke();if(i%20===0){ctx.save();ctx.translate(cx,cy);ctx.rotate(sa+angle/2);ctx.font='bold 8px Segoe UI';ctx.fillStyle='#fff';ctx.fillText('MT'+RSLICES[i].prize,45,0);ctx.restore()}}ctx.beginPath();ctx.arc(cx,cy,22,0,2*Math.PI);ctx.fillStyle='#1a1a1a';ctx.fill();ctx.strokeStyle='#ffd700';ctx.lineWidth=2;ctx.stroke();ctx.font='bold 11px Segoe UI';ctx.fillStyle='#ffd700';ctx.fillText('🎡',cx-7,cy+4)}
-async function spinRoulette(){if(!user)return;if(isSunday()){const t=getTimeUntilMonday();return alert(`⛪ Bloqueado! ${t.hours}h ${t.minutes}m`)}const today=new Date().toISOString().split('T')[0];if(!user.lastRouletteSpin)user.lastRouletteSpin=null;if(!user.rouletteSpins)user.rouletteSpins=0;if(user.lastRouletteSpin!==today){user.rouletteSpins=0;user.lastRouletteSpin=today}if(user.rouletteSpins>=1)return alert('⏳ Já usado!');const cv=document.getElementById('roulette-canvas');cv.style.transition='transform 4s';const idx=Math.floor(Math.random()*RSLICES.length),prize=RSLICES[idx].prize;rRot+=(4+Math.floor(Math.random()*5))*360+(idx*(360/RSLICES.length));cv.style.transform=`rotate(${rRot}deg)`;setTimeout(async()=>{if(prize>0){user.bal+=prize;addEarning(prize)}user.rouletteSpins=1;user.lastRouletteSpin=today;localCache.users[user.phone]=user;await fbUpd(user.phone,user);await saveAll();updateUI();updateEDash();alert(prize===0?'😢 Não foi dessa vez!':`🎉 MT ${prize}!`);if(prize>0)catJump();closeRoulettePopup()},4000)}
-function openRoulettePopup(){if(isSunday()){const t=getTimeUntilMonday();return alert(`⛪ Bloqueado! ${t.hours}h ${t.minutes}m`)}if(user){document.getElementById('roulette-popup').style.display='flex';drawRoulette()}}
-function closeRoulettePopup(){document.getElementById('roulette-popup').style.display='none'}
+        // ==================== CONVIDAR ====================
+        function renderConvidar() { 
+            const inv = currentUser.invitedUsers || []; 
+            const inviteLink = window.location.href.split('?')[0] + '?ref=' + currentUser.phone; 
+            let h = '<h3 style="color:#FFD700;text-align:center;">👥 Convidar Amigos</h3>'; 
+            h += '<div style="background:rgba(255,215,0,0.08);padding:20px;border-radius:16px;text-align:center;margin-bottom:16px;">'; 
+            h += '<div style="color:#FFD700;font-size:18px;font-weight:700;margin-bottom:8px;">🔗 Convite</div>'; 
+            h += '<div style="color:#aaa;font-size:11px;margin-bottom:4px;">Seu código:</div><div style="background:rgba(0,0,0,0.5);color:#FFD700;border:1px solid #FFD700;border-radius:12px;padding:14px;margin-bottom:10px;font-size:20px;font-weight:800;letter-spacing:3px;">' + currentUser.phone + '</div>'; 
+            h += '<div style="color:#aaa;font-size:11px;margin-bottom:4px;">Seu link:</div><div style="background:rgba(0,0,0,0.5);color:white;border:1px dashed #FFD700;border-radius:12px;padding:10px;margin-bottom:10px;font-size:11px;word-break:break-all;">' + inviteLink + '</div>'; 
+            h += '<div style="display:flex;gap:8px;"><button onclick="copyInviteCode()" style="flex:1;background:#FFD700;color:#0a0a1a;padding:12px;border-radius:10px;font-weight:700;font-size:13px;">📋 Copiar Código</button><button onclick="copyInviteLink()" style="flex:1;background:#FF8C00;color:white;padding:12px;border-radius:10px;font-weight:700;font-size:13px;">🔗 Copiar Link</button></div>'; 
+            h += '<div style="color:#FFD700;margin-top:12px;font-size:14px;">💰 Ganhe <strong>7%</strong> sobre cada depósito que seus convidados fizerem!</div></div>'; 
+            h += '<div style="display:flex;gap:4px;margin-bottom:12px;background:rgba(255,255,255,0.04);border-radius:12px;padding:4px;"><button onclick="showConvidarSubTab(\'convidados\')" id="subTabConvidados" class="tab-btn active" style="flex:1;padding:10px;font-size:12px;">👥 Convidados (' + inv.length + ')</button><button onclick="showConvidarSubTab(\'depositos\')" id="subTabDepositos" class="tab-btn" style="flex:1;padding:10px;font-size:12px;">💰 Depósitos</button><button onclick="showConvidarSubTab(\'saques\')" id="subTabSaques" class="tab-btn" style="flex:1;padding:10px;font-size:12px;">💸 Saques</button></div><div id="convidarSubContent"></div>'; 
+            setTimeout(() => showConvidarSubTab('convidados'), 100); 
+            return h; 
+        }
 
-function genLink(phone){return `${location.origin}${location.pathname}?ref=${btoa(phone)}`}
-function processRef(){const ref=new URLSearchParams(location.search).get('ref');if(ref){try{document.getElementById('ref-input').value=atob(ref)}catch(e){}}}
-function updateInviteDisplay(){if(!user)return;const v=user.lv>0;document.getElementById('invite-section').style.display=v?'block':'none';document.getElementById('invite-locked').style.display=v?'none':'block';if(v)document.getElementById('invite-link-display').innerText=genLink(user.phone)}
-function copyInviteLink(){if(user?.lv>0)navigator.clipboard?.writeText(genLink(user.phone)).then(()=>alert('✅ Copiado!'))}
+        function copyInviteCode() { navigator.clipboard.writeText(currentUser.phone); alert('✅ Código ' + currentUser.phone + ' copiado!'); }
+        function copyInviteLink() { navigator.clipboard.writeText(window.location.href.split('?')[0] + '?ref=' + currentUser.phone); alert('✅ Link copiado!'); }
 
-function switchLoginTab(t){document.querySelectorAll('.login-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.login-form').forEach(x=>x.classList.remove('active'));if(t==='login'){document.querySelectorAll('.login-tab')[0].classList.add('active');document.getElementById('login-form').classList.add('active')}else if(t==='register'){document.querySelectorAll('.login-tab')[1].classList.add('active');document.getElementById('register-form').classList.add('active')}else{document.querySelectorAll('.login-tab')[2].classList.add('active');document.getElementById('recover-form').classList.add('active')}}
+        async function showConvidarSubTab(tab) { 
+            document.querySelectorAll('[id^="subTab"]').forEach(b => b.classList.remove('active')); 
+            const ab = document.getElementById('subTab' + tab.charAt(0).toUpperCase() + tab.slice(1)); 
+            if (ab) ab.classList.add('active'); 
+            const c = document.getElementById('convidarSubContent'); 
+            if (!c) return; 
+            switch (tab) { 
+                case 'convidados': c.innerHTML = renderConvidadosList(); break; 
+                case 'depositos': c.innerHTML = await renderDepositosList(); break; 
+                case 'saques': c.innerHTML = await renderSaquesList(); break; 
+            } 
+        }
 
-async function handleCreateAccount(){let n=document.getElementById('reg-name').value.trim(),p=document.getElementById('reg-phone').value.trim(),s=document.getElementById('reg-pass').value.trim();if(!n||!p||!s)return alert("Preencha tudo!");if(localCache.users[p])return alert("❌ Já cadastrado!");const ref=document.getElementById('ref-input').value.trim();localCache.users[p]={name:n,phone:p,pass:s,bal:0,lv:0,wealthFunds:[],dailyPending:0,lastCollect:0,lastWithdrawal:0,withdrawalCount:0,lastRouletteSpin:null,rouletteSpins:0,earningsHistory:{daily:{},monthly:{}},blocked:false,pendingUnblock:false,blockedAt:null,unblockInviteCount:0};if(ref&&localCache.users[ref]){if(!localCache.invites[ref])localCache.invites[ref]={invited:[],earnings:0};if(!localCache.invites[ref].invited.includes(p))localCache.invites[ref].invited.push(p);if(localCache.users[ref].blocked){localCache.users[ref].pendingUnblock=true;localCache.users[ref].unblockInviteCount=(localCache.users[ref].unblockInviteCount||0)+1;await fbUpd(ref,{pendingUnblock:true,unblockInviteCount:localCache.users[ref].unblockInviteCount})}}await saveAll();alert("🎉 Conta criada!");switchLoginTab('login');document.getElementById('login-phone').value=p}
+        function renderConvidadosList() { 
+            const inv = currentUser.invitedUsers || [], names = currentUser.invitedNames || []; 
+            if (inv.length === 0) return '<div style="text-align:center;color:#aaa;padding:30px;">📭 Nenhum</div>'; 
+            let h = '<div style="color:#FFD700;">👥 Convidados (' + inv.length + ')</div><div class="invited-list">'; 
+            inv.forEach((p, i) => { h += '<div class="invited-item"><div>👤 ' + (names[i] || p) + '</div><div style="color:#aaa;">📱 ' + p + '</div></div>'; }); 
+            h += '</div>'; return h; 
+        }
 
-async function handleLogin(){let p=document.getElementById('login-phone').value.trim(),s=document.getElementById('login-pass').value.trim();if(!p||!s)return alert("Preencha!");let u=localCache.users[p];if(!u)return alert("Não encontrado.");if(u.pass!==s)return alert("Senha incorreta!");user=u;if(!user.dailyPending)user.dailyPending=0;if(!user.lastCollect)user.lastCollect=0;if(!user.wealthFunds)user.wealthFunds=[];if(!user.earningsHistory)user.earningsHistory={daily:{},monthly:{}};if(user.blocked===undefined)user.blocked=false;if(user.pendingUnblock===undefined)user.pendingUnblock=false;if(user.unblockInviteCount===undefined)user.unblockInviteCount=0;localCache.users[user.phone]=user;await fbUpd(user.phone,user);document.getElementById('menu').style.display='flex';changeScr('scr-home');updateInviteDisplay();updateInviteDashboard();initDailyEarnings();updateUI();updateEDash();updateAllTimers();updateSundayStatus();updateBlockUI();catJump()}
+        async function renderDepositosList() { 
+            try { 
+                const s = await db.ref('depositos').once('value'); 
+                const all = s.exists() ? s.val() : {}; 
+                const mine = Object.entries(all).filter(([k, d]) => d && (d.userPhone === currentUser.phone || d.phone === currentUser.phone)).map(([k, d]) => ({ key: k, ...d })).sort((a, b) => new Date(b.date) - new Date(a.date)); 
+                if (mine.length === 0) return '<div style="text-align:center;color:#aaa;padding:30px;">💰 Nenhum</div>'; 
+                let h = '<div style="color:#FFD700;">💰 Depósitos (' + mine.length + ')</div><div style="max-height:400px;overflow-y:auto;">'; 
+                mine.forEach(d => { 
+                    const sc = d.status === 'approved' ? '#00ff88' : d.status === 'rejected' ? '#ff4444' : '#FFD700', 
+                          st = d.status === 'approved' ? '✅ Aprovado' : d.status === 'rejected' ? '❌ Recusado' : '⏳ Pendente', 
+                          sb = d.status === 'approved' ? 'rgba(0,255,136,0.1)' : d.status === 'rejected' ? 'rgba(255,68,68,0.1)' : 'rgba(255,215,0,0.1)'; 
+                    h += '<div style="background:' + sb + ';border:1px solid ' + sc + ';border-radius:12px;padding:12px;margin:8px 0;"><div style="display:flex;justify-content:space-between;"><div><div style="color:white;">' + (d.name || 'Depósito') + '</div><div style="color:#aaa;font-size:10px;">' + (d.date ? new Date(d.date).toLocaleString('pt-MZ') : '') + '</div></div><div style="text-align:right;"><div style="color:' + sc + ';font-weight:700;">' + (d.amount || 0).toLocaleString() + ' MT</div><div style="color:' + sc + ';">' + st + '</div></div></div></div>'; 
+                }); 
+                h += '</div>'; return h; 
+            } catch (e) { return '<div style="color:#ff4444;">❌ Erro</div>'; } 
+        }
 
-function logout(){user=null;document.getElementById('menu').style.display='none';changeScr('scr-login')}
+        async function renderSaquesList() { 
+            try { 
+                const s = await db.ref('saques').once('value'); 
+                const all = s.exists() ? s.val() : {}; 
+                const mine = Object.entries(all).filter(([k, s]) => s && s.phone === currentUser.phone).map(([k, s]) => ({ key: k, ...s })).sort((a, b) => new Date(b.date) - new Date(a.date)); 
+                if (mine.length === 0) return '<div style="text-align:center;color:#aaa;padding:30px;">💸 Nenhum</div>'; 
+                let h = '<div style="color:#FFD700;">💸 Saques (' + mine.length + ')</div><div style="max-height:400px;overflow-y:auto;">'; 
+                mine.forEach(s => { 
+                    const sc = s.status === 'approved' ? '#00ff88' : s.status === 'rejected' ? '#ff4444' : '#FFD700', 
+                          st = s.status === 'approved' ? '✅ Aprovado' : s.status === 'rejected' ? '❌ Recusado' : '⏳ Pendente', 
+                          sb = s.status === 'approved' ? 'rgba(0,255,136,0.1)' : s.status === 'rejected' ? 'rgba(255,68,68,0.1)' : 'rgba(255,215,0,0.1)'; 
+                    h += '<div style="background:' + sb + ';border:1px solid ' + sc + ';border-radius:12px;padding:12px;margin:8px 0;"><div style="display:flex;justify-content:space-between;"><div><div style="color:white;">💸 Saque</div><div style="color:#aaa;font-size:10px;">' + (s.date ? new Date(s.date).toLocaleString('pt-MZ') : '') + '</div></div><div style="text-align:right;"><div style="color:#ff4444;">-' + (s.amount || 0).toLocaleString() + ' MT</div><div style="color:#00ff88;">Líq: ' + (s.netAmount || 0).toLocaleString() + ' MT</div><div style="color:' + sc + ';">' + st + '</div></div></div></div>'; 
+                }); 
+                h += '</div>'; return h; 
+            } catch (e) { return '<div style="color:#ff4444;">❌ Erro</div>'; } 
+        }
 
-function changeScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');closeRoulettePopup();updateSundayStatus();if(id==='scr-home'){renderVips();renderWealth();renderActiveFunds();updateDailyUI();updateEDash();updateBlockUI()}if(id==='scr-dep'){document.getElementById('txt-mpesa').textContent='851511841'}if(id==='scr-out'){renderOBtns();updateWithdrawalStatus();updateBlockUI()}if(id==='scr-invite'){updateInviteDisplay();updateInviteDashboard()}if(id==='scr-adm'){renderAdm();updateAdminStats();renderAllUsers();renderRecoveryRequests()}if(user)updateUI()}
+        // ==================== TIMER ====================
+        async function startTimer() { 
+            const el = document.getElementById('taskTimer'), sel = document.getElementById('serverTime'); 
+            if (!el) return; 
+            const upd = async () => { 
+                const st = await getServerTime(), n = new Date(st), end = new Date(n); 
+                end.setHours(23, 59, 59, 999); 
+                const diff = end - n; 
+                if (diff <= 0) { el.textContent = '24:00:00'; setTimeout(upd, 1000); return; } 
+                el.textContent = String(Math.floor(diff / 3600000)).padStart(2, '0') + ':' + String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0') + ':' + String(Math.floor((diff % 60000) / 1000)).padStart(2, '0'); 
+                if (sel) sel.textContent = n.toLocaleTimeString('pt-MZ'); 
+                setTimeout(upd, 1000); 
+            }; 
+            upd(); 
+        }
 
-function renderVips(){document.getElementById('list-vips').innerHTML=VIPS.map(v=>{const act=user&&user.lv===v.lv,pur=user&&user.lv>=v.lv,bc=v.lv<=6?'#32cd32':(v.lv<=12?'#ffd700':'#ff4500'),lucro=v.total730-v.ativacao;return`<div class="vip-card" style="border-color:${bc};"><span class="vip-badge ${v.lv<=6?'badge-vip1':(v.lv<=12?'badge-vip2':'badge-vip3')}">⭐ VIP ${v.lv}</span><div class="vip-title">Nível ${v.lv}</div><div class="vip-details"><div class="vip-item"><div class="vip-label">Ativação</div><div class="vip-value">MT ${v.ativacao.toLocaleString()}</div></div><div class="vip-item"><div class="vip-label">Diário</div><div class="vip-value">MT ${v.diario}</div></div><div class="vip-item"><div class="vip-label">Lucro</div><div class="vip-value">MT ${lucro.toLocaleString()}</div></div><div class="vip-item"><div class="vip-label">2 anos</div><div class="vip-value">MT ${v.total730.toLocaleString()}</div></div></div><div style="font-size:10px;color:#888;">📈 +${Math.round(lucro/v.ativacao*100)}%</div><button onclick="buyVip(${v.lv})" style="background:${bc};" ${pur?'disabled':''}>${act?'✅ ATIVO':(pur?'🔒 INFERIOR':'⭐ ATIVAR')}</button></div>`}).join('')}
-function renderWealth(){const convVIP=user?getConvVIPCount(user.phone):0;document.getElementById('list-wealth').innerHTML=WEALTH.map(w=>{const fc=user?.wealthFunds?.filter(f=>f.fundoId===w.id).length||0,canBuy=convVIP>=1&&fc<5;return`<div class="wealth-card" style="border-color:${canBuy?'var(--orange)':'#555'};"><span class="vip-badge badge-vip2">${w.id} ${!canBuy?'🔒':''}</span><div class="wealth-title">${w.name}</div><div class="vip-details"><div class="vip-item"><div class="vip-label">Ativação</div><div class="vip-value">MT ${w.ativacao.toLocaleString()}</div></div><div class="vip-item"><div class="vip-label">Ciclo</div><div class="vip-value">${w.ciclo}d</div></div><div class="vip-item"><div class="vip-label">Final</div><div class="vip-value">MT ${w.valorFinal.toLocaleString()}</div></div><div class="vip-item"><div class="vip-label">Lucro</div><div class="vip-value" style="color:var(--lime);">+${Math.round((w.valorFinal-w.ativacao)/w.ativacao*100)}%</div></div></div>${!canBuy?'<p style="font-size:10px;color:var(--red);text-align:center;">🔒 Convide 1 pessoa com VIP</p>':''}<button onclick="buyWealth('${w.id}')" ${!canBuy?'disabled':''}>💰 INVESTIR (${fc}/5)</button></div>`}).join('')}
-function renderActiveFunds(){const c=document.getElementById('active-funds-list');if(!c)return;if(!user?.wealthFunds?.length){c.innerHTML='<p style="color:#888;text-align:center;">Nenhum fundo ativo</p>';return}const sorted=[...user.wealthFunds].sort((a,b)=>a.expiry-b.expiry);c.innerHTML=sorted.map((fund,i)=>{const now=Date.now(),tl=fund.expiry-now,exp=tl<=0,prog=Math.max(0,Math.min(100,((fund.ciclo*86400000-tl)/(fund.ciclo*86400000))*100));const d=Math.max(0,Math.ceil(tl/86400000)),h=Math.floor((tl%86400000)/3600000),m=Math.floor((tl%3600000)/60000);return`<div class="fund-item" style="border-left-color:${i===0?'var(--gold)':'var(--orange)'};"><div class="fund-header"><span class="fund-name">${fund.name}</span><span class="fund-count">${i+1}º</span></div><div class="fund-dates"><div>📅 ${new Date(fund.purchaseDate).toLocaleDateString('pt-BR')}</div><div>⏰ ${new Date(fund.expiry).toLocaleDateString('pt-BR')}</div><div>💰 MT ${fund.total.toLocaleString()}</div></div><div class="progress-bar"><div class="progress-fill" style="width:${prog}%;"></div></div><div style="display:flex;justify-content:space-between;font-size:11px;"><span>${exp?'✅ Pronto!':`⏳ ${d}d ${h}h ${m}m`}</span><span>${Math.round(prog)}%</span></div>${exp?`<button onclick="rescueFund(${i})" style="margin-top:8px;padding:6px;background:var(--lime);color:#000;">💰 RESGATAR</button>`:''}</div>`}).join('')}
-async function rescueFund(i){if(!user?.wealthFunds)return;const sorted=[...user.wealthFunds].sort((a,b)=>a.expiry-b.expiry),fund=sorted[i];if(Date.now()<fund.expiry)return alert("Não venceu!");const oi=user.wealthFunds.findIndex(f=>f.expiry===fund.expiry&&f.fundoId===fund.fundoId);if(oi===-1)return;user.bal+=fund.total;addEarning(fund.total-fund.ativacao);user.wealthFunds.splice(oi,1);localCache.users[user.phone]=user;await fbUpd(user.phone,user);await saveAll();updateUI();renderActiveFunds();renderWealth();alert(`🎉 MT ${fund.total.toLocaleString()}!`);catJump()}
-async function buyVip(lv){if(!user)return;const v=VIPS.find(x=>x.lv==lv);if(user.bal<v.ativacao)return alert("❌ Saldo insuficiente!");if(!confirm(`VIP ${lv} por MT ${v.ativacao.toLocaleString()}?`))return;user.bal-=v.ativacao;user.lv=lv;user.dailyPending=v.diario;user.lastCollect=0;localCache.users[user.phone]=user;await fbUpd(user.phone,user);await saveAll();updateUI();renderVips();renderWealth();updateDailyUI();updateInviteDisplay();updateInviteDashboard();updateEDash();catJump();alert(`🎉 VIP ${lv}!`)}
-async function buyWealth(id){if(!user)return;const w=WEALTH.find(x=>x.id==id),convVIP=getConvVIPCount(user.phone);if(convVIP<1)return alert("🔒 Convide 1 pessoa com VIP!");if(!user.wealthFunds)user.wealthFunds=[];if(user.wealthFunds.filter(f=>f.fundoId===id).length>=5)return alert("⚠️ Limite 5!");if(user.bal<w.ativacao)return alert("❌ Saldo!");if(!confirm(`Investir MT ${w.ativacao.toLocaleString()}?`))return;user.bal-=w.ativacao;const exp=new Date();exp.setDate(exp.getDate()+w.ciclo);user.wealthFunds.push({name:w.name,fundoId:w.id,ativacao:w.ativacao,total:w.valorFinal,ciclo:w.ciclo,purchaseDate:Date.now(),expiry:exp.getTime()});localCache.users[user.phone]=user;await fbUpd(user.phone,user);await saveAll();updateUI();renderActiveFunds();renderWealth();alert(`🏦 ${w.name}!`)}
-function renderOBtns(){if(!user)return;const convVIP=getConvVIPCount(user.phone);document.getElementById('grid-out').innerHTML=OUTS.map(b=>{const lib=convVIP>=b.trava&&!isSunday()&&!isUserBlocked(user);return`<button style="padding:10px;background:#1e1e1e;color:var(--gold);border-radius:10px;font-size:12px;border:1px solid #333;${!lib?'opacity:0.5;':''}" onclick="setO(${b.valor})" ${!lib?'disabled':''}>MT ${b.valor}<span style="font-size:8px;display:block;color:#888;">${isSunday()?'⛪':isUserBlocked(user)?'🔒':(b.trava===0?'✅':(convVIP>=b.trava?'🔓':'🔒'+b.trava+' VIP'))}</span></button>`}).join('')}
-let selO=0;
-function setO(v){if(!user||isSunday()||isUserBlocked(user))return;if(getConvVIPCount(user.phone)<OUTS.find(b=>b.valor===v).trava)return alert("⚠️ Mais convidados VIP!");selO=v;document.getElementById('out-val').value="MT "+v}
-async function sendDep(){if(!user)return;const num=document.getElementById('dep-numero').value.trim(),nom=document.getElementById('dep-nome').value.trim(),amt=parseFloat(document.getElementById('in-amt').value),ref=document.getElementById('in-ref').value.trim();if(!num||!nom||!amt||!ref)return alert("Preencha tudo!");localCache.pending.push({type:'DEP',name:user.name,phone:user.phone,depNumero:num,depNome:nom,amt,ref,timestamp:Date.now()});await saveAll();alert("📤 Enviado!");changeScr('scr-home')}
-async function sendOut(){if(!user||isSunday())return;if(!canWithdraw())return alert("⏰ Limite diário!");const num=document.getElementById('out-numero').value.trim(),nom=document.getElementById('out-nome').value.trim(),v=selO;if(!num||!nom||!v)return alert("Preencha!");if(user.bal<v)return alert("Saldo!");const taxa=v*TAX;if(!confirm(`Sacar MT ${v}? Recebe MT ${(v-taxa).toFixed(2)}`))return;user.bal-=v;user.lastWithdrawal=Date.now();user.withdrawalCount=(user.withdrawalCount||0)+1;localCache.users[user.phone]=user;localCache.pending.push({type:'SAQUE',name:user.name,phone:user.phone,saqueNumero:num,saqueNome:nom,amt:v,liq:v-taxa,timestamp:Date.now()});await fbUpd(user.phone,user);await saveAll();updateUI();updateWithdrawalStatus();alert("💸 Enviado!");changeScr('scr-home')}
+        // ==================== PAINEL ADMIN ====================
+        async function getPendingCounts() { 
+            try { 
+                const ds = await db.ref('depositos').once('value'); 
+                const deps = ds.exists() ? ds.val() : {}; 
+                const pd = Object.values(deps).filter(d => d && d.status === 'pending').length; 
+                const ss = await db.ref('saques').once('value'); 
+                const saqs = ss.exists() ? ss.val() : {}; 
+                const ps = Object.values(saqs).filter(s => s && s.status === 'pending').length; 
+                return { pendingDeposits: pd, pendingSaques: ps }; 
+            } catch (e) { return { pendingDeposits: 0, pendingSaques: 0 }; } 
+        }
 
-let clicks=0;
-function tapAdm(){clicks++;if(clicks>=5&&prompt("Senha:")==="adm123adm"){changeScr('scr-adm');renderAdm();updateAdminStats();renderAllUsers();renderRecoveryRequests();clicks=0}else if(clicks>=5){alert("❌ Incorreta!");clicks=0}setTimeout(()=>clicks=0,2000)}
-function renderAdm(){if(!localCache.pending.length){document.getElementById('adm-list').innerHTML='<p style="color:#888;">✅ Nenhuma pendência</p>';return}document.getElementById('adm-list').innerHTML=localCache.pending.map((p,i)=>{if(p.type==='SAQUE')return`<div class="card" style="border-left:4px solid var(--orange);"><b>SAQUE #${i+1}</b><div>${p.name} - ${p.phone}</div><div>MT ${p.amt.toFixed(2)} | Pagar: MT ${(p.amt*0.9).toFixed(2)}</div><div style="display:flex;gap:8px;margin-top:8px;"><button style="background:#22c55e;padding:10px;" onclick="admAct(${i},true)">✅</button><button style="background:#ef4444;padding:10px;" onclick="admAct(${i},false)">❌</button></div></div>`;return`<div class="card" style="border-left:4px solid var(--lime);"><b>DEP #${i+1}</b><div>${p.name} - ${p.phone}</div><div>MT ${p.amt.toFixed(2)}</div><div style="display:flex;gap:8px;margin-top:8px;"><button style="background:#22c55e;padding:10px;" onclick="admAct(${i},true)">✅</button><button style="background:#ef4444;padding:10px;" onclick="admAct(${i},false)">❌</button></div></div>`}).join('')}
-async function admAct(i,ok){let p=localCache.pending[i];if(ok&&p.type==='DEP'){if(localCache.users[p.phone]){localCache.users[p.phone].bal+=p.amt;await fbUpd(p.phone,{bal:localCache.users[p.phone].bal})}const inv=Object.keys(localCache.users).find(k=>localCache.invites[k]?.invited?.includes(p.phone));if(inv){const com=p.amt*0.10;localCache.users[inv].bal+=com;if(!localCache.invites[inv])localCache.invites[inv]={invited:[],earnings:0};localCache.invites[inv].earnings+=com;await fbUpd(inv,{bal:localCache.users[inv].bal});await fbSet('invites',localCache.invites)}for(const[ip,id]of Object.entries(localCache.invites)){if(id.invited&&id.invited.includes(p.phone)){const inviter=localCache.users[ip];if(inviter&&inviter.blocked&&inviter.pendingUnblock){const du=localCache.users[p.phone];if(du&&du.lv>0){inviter.blocked=false;inviter.pendingUnblock=false;localCache.users[ip]=inviter;await fbUpd(ip,{blocked:false,pendingUnblock:false});alert(`🎉 ${inviter.name} DESBLOQUEADO!\nConvidado ${du.name} ativou VIP ${du.lv}!`);if(user&&user.phone===ip){user=inviter;updateBlockUI()}}}}}}if(!ok&&p.type==='SAQUE'){if(localCache.users[p.phone]){localCache.users[p.phone].bal+=p.amt;localCache.users[p.phone].withdrawalCount--;await fbUpd(p.phone,{bal:localCache.users[p.phone].bal})}}if(ok&&p.type==='SAQUE')alert(`✅ Saque aprovado! Envie MT ${(p.amt*0.9).toFixed(2)}`);localCache.pending.splice(i,1);await saveAll();renderAdm();if(user&&localCache.users[user.phone]){user=localCache.users[user.phone];updateUI()}}
-function updateUI(){if(user){const u=localCache.users[user.phone];if(u){user=u;document.getElementById('bal-txt').innerHTML="MT "+user.bal.toLocaleString(undefined,{minimumFractionDigits:2});document.getElementById('user-info').innerHTML=`${user.name} | VIP ${user.lv||0} | 👥 ${getConvCount(user.phone)}`}}}
-function switchTab(n){document.getElementById('list-vips').style.display=n==1?'flex':'none';document.getElementById('list-wealth').style.display=n==2?'flex':'none';document.getElementById('t1').className=n==1?'tab active':'tab';document.getElementById('t2').className=n==2?'tab active':'tab'}
+        async function showAdminPanel() {
+            if (adminPanelOpen) return; adminPanelOpen = true;
+            const p = document.createElement('div'); p.className = 'admin-panel'; p.id = 'adminPanel';
+            const c = await getPendingCounts();
+            p.innerHTML = '<div style="display:flex;justify-content:space-between;margin-bottom:16px;"><h2 style="color:#FFD700;">🔧 Admin</h2><button onclick="closeAdminPanel()" class="admin-btn admin-btn-danger">❌</button></div><div class="admin-section"><h4>🔘 Saques Diários</h4><div style="display:flex;align-items:center;gap:12px;"><label class="toggle-switch"><input type="checkbox" id="dailyToggle" ' + (withdrawSettings.dailyActive ? 'checked' : '') + ' onchange="toggleDailyWithdrawals()"><span class="toggle-slider"></span></label><span id="dailyStatus">' + (withdrawSettings.dailyActive ? '🟢 LIGADO (1 saque/dia)' : '🔴 DESLIGADO (segue VIP)') + '</span></div></div><div class="admin-section"><h4>💳 Pagamentos</h4><input id="adminEmola" value="' + (configCache.emolaNumber || '') + '" placeholder="Emola" style="background:rgba(0,0,0,0.5);color:white;padding:12px;border-radius:10px;width:100%;margin:6px 0;"><input id="adminMpesa" value="' + (configCache.mpesaNumber || '') + '" placeholder="M-Pesa" style="background:rgba(0,0,0,0.5);color:white;padding:12px;border-radius:10px;width:100%;margin:6px 0;"><button onclick="adminSavePayments()" class="admin-btn admin-btn-primary" style="width:100%;">💾 SALVAR</button></div><div class="admin-section"><h4>📱 Links</h4><input id="adminWhatsapp" value="' + (configCache.whatsappNumber || '') + '" placeholder="WhatsApp" style="background:rgba(0,0,0,0.5);color:white;padding:12px;border-radius:10px;width:100%;margin:6px 0;"><input id="adminTelegram" value="' + (configCache.telegramLink || '') + '" placeholder="Telegram" style="background:rgba(0,0,0,0.5);color:white;padding:12px;border-radius:10px;width:100%;margin:6px 0;"><input id="adminYoutube" value="' + (configCache.youtubeLink || '') + '" placeholder="YouTube" style="background:rgba(0,0,0,0.5);color:white;padding:12px;border-radius:10px;width:100%;margin:6px 0;"><button onclick="adminSaveLinks()" class="admin-btn admin-btn-primary" style="width:100%;">💾 SALVAR</button></div><button onclick="adminDepositsList()" class="admin-btn admin-btn-outline">💰 Depósitos <span class="badge-notification" id="badgeDep">' + c.pendingDeposits + '</span></button><button onclick="adminWithdrawalsList()" class="admin-btn admin-btn-outline">💸 Saques <span class="badge-notification" id="badgeSaq">' + c.pendingSaques + '</span></button><button onclick="adminUsersList()" class="admin-btn admin-btn-outline">👥 Usuários (Redefinir Senha)</button><button onclick="adminAddManualDeposit()" class="admin-btn admin-btn-outline">📝 Depósito Manual</button><button onclick="adminChangePassword()" class="admin-btn admin-btn-outline">🔒 Senha Admin</button><div id="adminContent"></div>';
+            document.body.appendChild(p); document.getElementById('appScreen').style.display = 'none';
+        }
 
-// Copiar números de depósito
-setTimeout(()=>{
-    ['txt-mpesa','txt-emola'].forEach(id=>{
-        const el=document.getElementById(id);if(!el)return;
-        el.style.cursor='pointer';
-        el.addEventListener('click',function(){
-            const num=this.textContent.trim();
-            navigator.clipboard?.writeText(num).then(()=>{
-                const orig=this.textContent;this.textContent='✅ Copiado!';this.style.color='#fff';
-                setTimeout(()=>{this.textContent=orig;this.style.color=''},1500);
-            }).catch(()=>{alert('📋 '+num)});
-        });
-    });
-},1500);
+        async function toggleDailyWithdrawals() { withdrawSettings.dailyActive = !withdrawSettings.dailyActive; document.getElementById('dailyStatus').innerHTML = withdrawSettings.dailyActive ? '🟢 LIGADO (1 saque/dia)' : '🔴 DESLIGADO (segue VIP)'; await db.ref('admin/withdrawSettings').set(withdrawSettings); }
+        function closeAdminPanel() { document.getElementById('adminPanel')?.remove(); adminPanelOpen = false; document.getElementById('appScreen').style.display = 'flex'; }
+        async function adminSavePayments() { configCache.emolaNumber = document.getElementById('adminEmola')?.value; configCache.mpesaNumber = document.getElementById('adminMpesa')?.value; await setConfig(configCache); alert('✅'); }
+        async function adminSaveLinks() { configCache.whatsappNumber = document.getElementById('adminWhatsapp')?.value; configCache.telegramLink = document.getElementById('adminTelegram')?.value; configCache.youtubeLink = document.getElementById('adminYoutube')?.value; await setConfig(configCache); alert('✅'); }
+        async function adminChangePassword() { const p = prompt('Nova senha admin:'); if (p && p.length >= 6) { adminPassword = p; await db.ref('admin').set({ senha: p }); alert('✅'); } }
 
-// Init
-processRef();setInterval(updateAllTimers,5000);setInterval(()=>{if(user){updateUI();initDailyEarnings();updateDailyUI();updateEDash();updateInviteDashboard()}},30000);updateSundayStatus();
-</script>
+        async function adminUsersList() { 
+            const snap = await db.ref('usuarios').once('value'); 
+            const all = snap.exists() ? Object.entries(snap.val()) : []; 
+            let html = '<div class="admin-section"><h4>👥 Usuários (' + all.length + ')</h4>'; 
+            if (all.length === 0) html += '<div style="color:white;text-align:center;">Nenhum</div>'; 
+            else { 
+                html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>🔒 Senha</th><th>Saldo</th><th>VIP</th><th>Ações</th></tr></thead><tbody>'; 
+                all.forEach(([ph, u]) => { 
+                    const safeName = (u.name || 'N/A').replace(/'/g, "\\'");
+                    html += '<tr><td>' + (u.name || 'N/A') + '</td><td>' + ph + '</td><td style="color:#FFD700;">' + (u.password || '****') + '</td><td>' + (u.balance || 0).toLocaleString() + ' MT</td><td>' + (u.vipType === 'estagiario' ? 'Estagiário' : (u.vip || 'Free')) + '</td><td style="white-space:nowrap;"><button onclick="adminEditBalance(\'' + ph + '\',' + (u.balance || 0) + ')" class="admin-btn admin-btn-primary" style="font-size:10px;">✏️</button> <button onclick="adminQuickResetUser(\'' + ph + '\',\'' + safeName + '\')" class="admin-btn" style="background:#ff4444;color:white;font-size:10px;">🔑 Redefinir</button> <button onclick="adminDeleteUser(\'' + ph + '\')" class="admin-btn admin-btn-danger" style="font-size:10px;">🗑️</button></td></tr>'; 
+                }); 
+                html += '</tbody></table></div>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminQuickResetUser(phone, userName) {
+            const newPassword = prompt('🔑 Redefinir senha de:\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n\nDigite a nova senha (mín 4 caracteres):');
+            if (!newPassword) return;
+            if (newPassword.length < 4) { alert('⚠️ A senha deve ter no mínimo 4 caracteres!'); return; }
+            if (!confirm('⚠️ CONFIRMAR REDEFINIÇÃO?\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 Nova senha: ' + newPassword + '\n\nEsta ação é irreversível!')) return;
+            try {
+                await db.ref('usuarios/' + phone).update({ password: newPassword });
+                await db.ref('resetHistory').push().set({ name: decodeURIComponent(userName), phone: phone, newPassword: newPassword, date: new Date().toISOString(), method: 'admin_list_reset', status: 'completed' });
+                const texto = '🔐 LEOPARD INVESTIMENT - REDEFINIÇÃO DE SENHA\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 Nova senha: ' + newPassword;
+                await navigator.clipboard.writeText(texto);
+                alert('✅ SENHA REDEFINIDA COM SUCESSO!\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 ' + newPassword + '\n\n📋 Dados copiados! Envie para o usuário.');
+                adminUsersList();
+            } catch (e) { alert('❌ Erro ao redefinir senha!'); }
+        }
+
+        async function adminEditBalance(phone, cur) { const b = prompt('Novo saldo:', cur); if (b !== null && !isNaN(b)) { const u = await getUser(phone); if (u) { u.balance = Number(b); await setUser(phone, u); alert('✅'); adminUsersList(); } } }
+        async function adminDeleteUser(phone) { if (confirm('EXCLUIR ' + phone + '?')) { await db.ref('usuarios/' + phone).remove(); alert('✅'); adminUsersList(); } }
+        async function adminAddManualDeposit() { const n = prompt('Nome:'); if (!n) return; const ph = prompt('Número:'); if (!ph) return; const a = Number(prompt('Valor (MT):')); if (!a || a < 200) { alert('Mín 200 MT'); return; } await addDeposit({ name: n, phone: ph, userPhone: ph, amount: a, date: new Date().toISOString(), status: 'pending', comprovativo: 'admin' }); alert('✅ Registrado!'); adminDepositsList(); }
+
+        async function adminDepositsList() { 
+            const deps = await getDeposits(); 
+            const pend = Object.entries(deps).filter(([k, d]) => d && d.status === 'pending'); 
+            let html = '<div class="admin-section"><h4>💰 Depósitos Pendentes (' + pend.length + ')</h4>'; 
+            if (pend.length === 0) html += '<div style="color:white;text-align:center;padding:20px;">✅ Nenhum</div>'; 
+            else { 
+                html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>Valor</th><th>Ações</th></tr></thead><tbody>'; 
+                pend.forEach(([k, d]) => { html += '<tr><td>' + (d.name || 'N/A') + '</td><td>' + (d.phone || d.userPhone || 'N/A') + '</td><td style="color:#00ff88;">' + (d.amount || 0).toLocaleString() + ' MT</td><td><button onclick="adminApproveDeposit(\'' + k + '\')" class="admin-btn admin-btn-success">✅</button> <button onclick="adminRejectDeposit(\'' + k + '\')" class="admin-btn admin-btn-danger">❌</button></td></tr>'; }); 
+                html += '</tbody></table></div>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminApproveDeposit(key) { 
+            const r = db.ref('depositos/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('✅ APROVAR?\n\n👤 ' + (d.name || 'N/A') + '\n💰 ' + (d.amount || 0).toLocaleString() + ' MT')) return; 
+            await r.update({ status: 'approved', approvedAt: new Date().toISOString() }); 
+            const phone = d.userPhone || d.phone;
+            const u = await getUser(phone); 
+            if (u) { 
+                u.balance = (u.balance || 0) + (d.amount || 0); 
+                if (!u.depositHistory) u.depositHistory = []; 
+                u.depositHistory.push({ amount: d.amount, date: new Date().toISOString() }); 
+                await setUser(phone, u); 
+                if (currentUser && currentUser.phone === phone) { 
+                    currentUser.balance = u.balance; 
+                    updateBalanceDisplay(); 
+                } 
+                // 🔒 COMISSÃO ANTI-TRAPAÇA - LIMITADO A 3 PESSOAS
+                if (u.referredBy) { 
+                    const ref = await getUser(u.referredBy); 
+                    if (ref) { 
+                        // Verificar se não é o mesmo número (trapaça)
+                        const isFraud = isSuspiciousNumber(u.referredBy, phone);
+                        if (!isFraud) {
+                            // Contar quantas pessoas já geraram comissão
+                            const comissionados = ref.commissionHistory ? [...new Set(ref.commissionHistory.map(c => c.fromPhone || ''))] : [];
+                            // 🔒 Só recebe comissão de 3 pessoas (4ª em diante = GRÁTIS)
+                            if (comissionados.length < 3 || comissionados.includes(phone)) {
+                                const com = Math.round((d.amount || 0) * 0.07); 
+                                if (com > 0) { 
+                                    ref.balance = (ref.balance || 0) + com; 
+                                    ref.commission = (ref.commission || 0) + com; 
+                                    if (!ref.commissionHistory) ref.commissionHistory = []; 
+                                    ref.commissionHistory.push({ 
+                                        amount: com, 
+                                        date: new Date().toISOString(), 
+                                        fromName: u.name, 
+                                        fromPhone: phone,
+                                        depositAmount: d.amount 
+                                    }); 
+                                    await setUser(u.referredBy, ref); 
+                                }
+                            }
+                        }
+                    } 
+                } 
+            } 
+            alert('✅ Aprovado!'); 
+            adminDepositsList(); 
+        }
+
+        async function adminRejectDeposit(key) { 
+            if (!confirm('❌ RECUSAR?')) return; 
+            await db.ref('depositos/' + key).update({ status: 'rejected' }); 
+            alert('❌ Recusado!'); 
+            adminDepositsList(); 
+        }
+
+        async function adminWithdrawalsList() { 
+            const snap = await db.ref('saques').once('value'); 
+            const saques = snap.exists() ? snap.val() : {}; 
+            const pend = Object.entries(saques).filter(([k, s]) => s && s.status === 'pending'); 
+            let html = '<div class="admin-section"><h4>💸 Saques Pendentes (' + pend.length + ')</h4>'; 
+            if (pend.length === 0) html += '<div style="color:white;text-align:center;">✅ Nenhum</div>'; 
+            else { 
+                html += '<table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>Enviar</th><th>Ações</th></tr></thead><tbody>'; 
+                pend.forEach(([k, s]) => { html += '<tr><td>' + (s.name || 'N/A') + '</td><td>' + (s.phone || 'N/A') + '<td><td style="color:#00ff88;">' + (s.netAmount || 0).toLocaleString() + ' MT</td><td><button onclick="adminApproveWithdrawal(\'' + k + '\')" class="admin-btn admin-btn-success">✅</button> <button onclick="adminRejectWithdrawal(\'' + k + '\')" class="admin-btn admin-btn-danger">❌</button></td></tr>'; }); 
+                html += '</tbody></table>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminApproveWithdrawal(key) { 
+            const r = db.ref('saques/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('✅ APROVAR SAQUE?\n💵 ' + (d.netAmount || 0).toLocaleString() + ' MT')) return; 
+            await r.update({ status: 'approved', approvedAt: new Date().toISOString() }); 
+            alert('✅ Aprovado!'); 
+            adminWithdrawalsList(); 
+        }
+
+        async function adminRejectWithdrawal(key) { 
+            const r = db.ref('saques/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('❌ RECUSAR?\n💰 Devolver ' + (d.amount || 0).toLocaleString() + ' MT?')) return; 
+            const u = await getUser(d.phone); 
+            if (u) { u.balance = (u.balance || 0) + (d.amount || 0); await setUser(d.phone, u); } 
+            await r.update({ status: 'rejected' }); 
+            alert('❌ Recusado!'); 
+            adminWithdrawalsList(); 
+        }
+
+        // ==================== INSTALL PWA ====================
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; document.getElementById('installButton')?.classList.remove('hidden'); });
+        async function installApp() { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { document.getElementById('installButton')?.classList.add('hidden'); alert('✅ App instalado!'); } deferredPrompt = null; } else { alert('📲 Use o menu do navegador → "Adicionar à tela inicial"'); } }
+        window.addEventListener('appinstalled', () => { document.getElementById('installButton')?.classList.add('hidden'); });
+        if (window.matchMedia('(display-mode: standalone)').matches) { document.getElementById('installButton')?.classList.add('hidden'); }
+
+        // ==================== INICIALIZAÇÃO ====================
+        async function init() {
+            for (let i = 0; i < 20; i++) { 
+                const p = document.createElement('div'); 
+                p.className = 'particle'; 
+                p.style.width = p.style.height = (Math.random() * 4 + 1) + 'px'; 
+                p.style.left = Math.random() * 100 + '%'; 
+                p.style.animationDelay = Math.random() * 15 + 's'; 
+                p.style.animationDuration = (Math.random() * 8 + 8) + 's'; 
+                document.getElementById('particles').appendChild(p); 
+            }
+            await getConfig(); 
+            const a = await db.ref('admin/senha').once('value'); 
+            if (a.exists()) adminPassword = a.val();
+            await db.ref('admin').set({ senha: adminPassword }); 
+            await db.ref('admin/withdrawSettings').once('value').then(s => { if (s.exists()) withdrawSettings = s.val(); });
+            await setConfig(configCache); 
+            setTimeout(checkReferralFromUrl, 300);
+        }
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        init();
+    </script>
 </body>
 </html>
