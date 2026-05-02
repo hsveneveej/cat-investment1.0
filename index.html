@@ -10,7 +10,6 @@
     <meta name="apple-mobile-web-app-title" content="LEOPARD">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1032002019870730" crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         body { background: linear-gradient(135deg, #0a0a1a, #1a1a35, #0d0d2b); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-y: auto; position: relative; }
@@ -27,7 +26,6 @@
         .form-section { margin-top: 8px; }
         .form-title { font-size: 14px; color: rgba(255,215,0,0.9); text-align: center; margin-bottom: 12px; font-weight: 600; }
         
-        /* ===== BOTÕES DA TELA INICIAL COM SELOS ===== */
         .initial-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
         .initial-btn { position: relative; padding: 18px 14px; border-radius: 16px; border: none; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .initial-btn:active { transform: scale(0.95); }
@@ -35,10 +33,8 @@
         .btn-entrar { background: transparent; color: rgba(255,255,255,0.7); border: 1.5px solid rgba(255,255,255,0.2); }
         .btn-entrar:hover { border-color: rgba(255,255,255,0.4); }
         
-        /* SELOS NUMERADOS */
         .selo { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #0a0a1a; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; box-shadow: 0 3px 10px rgba(255,215,0,0.5); z-index: 5; }
         
-        /* ===== RESTANTE DO CSS ===== */
         .input-wrapper { margin: 10px 0; position: relative; }
         .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; z-index: 1; }
         .auth-input { width: 100%; padding: 14px 14px 14px 42px; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px; background: rgba(255,255,255,0.04); color: white; font-size: 14px; transition: all 0.3s; }
@@ -141,8 +137,6 @@
         @keyframes slideInRight { from { transform: translateX(120px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes pulseInstall { 0%,100% { box-shadow: 0 8px 25px rgba(255,215,0,0.4); } 50% { box-shadow: 0 8px 40px rgba(255,215,0,0.8); } }
         .install-icon { font-size: 20px; }
-
-        /* ===== LOGO DA TELA INICIAL AUMENTADA ===== */
         .brand-logo-large { font-size: 80px; display: inline-block; animation: pulse 2s infinite; margin-bottom: 8px; }
     </style>
 </head>
@@ -158,7 +152,6 @@
                 <div class="brand-slogan">Plataforma de Investimentos</div>
             </div>
 
-            <!-- ===== BOTÕES PRINCIPAIS COM SELOS ===== -->
             <div id="initialButtons" class="initial-buttons">
                 <button class="initial-btn btn-criar-conta" onclick="showRegisterForm()">
                     <span class="selo">1</span>
@@ -170,7 +163,6 @@
                 </button>
             </div>
 
-            <!-- ===== FORMULÁRIO DE LOGIN ===== -->
             <div id="formLogin" class="form-section hidden">
                 <div class="form-title">🔐 Acesse sua conta</div>
                 <div id="referralMessage" class="referral-msg hidden"></div>
@@ -183,7 +175,6 @@
                 <div class="switch-text" style="margin-top:8px;"><span class="switch-link" onclick="goBackToInitial()">⬅️ Voltar</span></div>
             </div>
 
-            <!-- ===== FORMULÁRIO DE REGISTRO ===== -->
             <div id="formRegister" class="form-section hidden">
                 <div class="form-title">✨ Criar nova conta</div>
                 <div id="referralMessageReg" class="referral-msg hidden"></div>
@@ -261,39 +252,45 @@
         const vipLevels = [
             { level: 0, price: 0, daily: 7.5, days: 4, total: 30, name: 'Estagiário', type: 'estagiario', withdrawDays: [] },
             { level: 1, price: 200, daily: 10, days: 730, total: 7300, name: 'VIP 1', type: 'normal', withdrawDays: [5] },
-            { level: 2, price: 750, daily: 30, days: 730, total: 21900, name: 'VIP 2', type: 'normal', withdrawDays: [5] },
-            { level: 3, price: 1200, daily: 48, days: 730, total: 35040, name: 'VIP 3', type: 'normal', withdrawDays: [5] },
-            { level: 4, price: 1600, daily: 64, days: 730, total: 46720, name: 'VIP 4', type: 'normal', withdrawDays: [4,5] },
-            { level: 5, price: 2000, daily: 80, days: 730, total: 58400, name: 'VIP 5', type: 'normal', withdrawDays: [4,5] },
-            { level: 6, price: 2500, daily: 100, days: 730, total: 73000, name: 'VIP 6', type: 'normal', withdrawDays: [4,5] },
-            { level: 7, price: 3000, daily: 120, days: 730, total: 87600, name: 'VIP 7', type: 'normal', withdrawDays: [4,5] },
-            { level: 8, price: 3500, daily: 140, days: 730, total: 102200, name: 'VIP 8', type: 'normal', withdrawDays: [3,4,5] },
-            { level: 9, price: 4000, daily: 160, days: 730, total: 116800, name: 'VIP 9', type: 'normal', withdrawDays: [3,4,5] },
-            { level: 10, price: 4500, daily: 180, days: 730, total: 131400, name: 'VIP 10', type: 'normal', withdrawDays: [3,4,5] },
-            { level: 11, price: 5000, daily: 200, days: 730, total: 146000, name: 'VIP 11', type: 'normal', withdrawDays: [3,4,5] },
-            { level: 12, price: 6000, daily: 240, days: 730, total: 175200, name: 'VIP 12', type: 'normal', withdrawDays: [3,4,5] },
-            { level: 13, price: 7000, daily: 280, days: 730, total: 204400, name: 'VIP 13', type: 'normal', withdrawDays: [2,3,4,5] },
-            { level: 14, price: 8000, daily: 320, days: 730, total: 233600, name: 'VIP 14', type: 'normal', withdrawDays: [2,3,4,5] },
-            { level: 15, price: 9000, daily: 360, days: 730, total: 262800, name: 'VIP 15', type: 'normal', withdrawDays: [2,3,4,5] },
-            { level: 16, price: 10000, daily: 400, days: 730, total: 292000, name: 'VIP 16', type: 'normal', withdrawDays: [2,3,4,5] },
-            { level: 17, price: 15000, daily: 600, days: 730, total: 438000, name: 'VIP 17', type: 'normal', withdrawDays: [2,3,4,5] },
-            { level: 18, price: 20000, daily: 800, days: 730, total: 584000, name: 'VIP 18', type: 'normal', withdrawDays: [1,2,3,4,5] },
-            { level: 19, price: 30000, daily: 1200, days: 730, total: 876000, name: 'VIP 19', type: 'normal', withdrawDays: [1,2,3,4,5] },
-            { level: 20, price: 50000, daily: 2000, days: 730, total: 1460000, name: 'VIP 20', type: 'normal', withdrawDays: [1,2,3,4,5] }
+            { level: 2, price: 400, daily: 35, days: 730, total: 25550, name: 'VIP 2', type: 'normal', withdrawDays: [5] },
+            { level: 3, price: 600, daily: 55, days: 730, total: 40150, name: 'VIP 3', type: 'normal', withdrawDays: [5] },
+            { level: 4, price: 750, daily: 75, days: 730, total: 54750, name: 'VIP 4', type: 'normal', withdrawDays: [5] },
+            { level: 5, price: 1000, daily: 145, days: 730, total: 105850, name: 'VIP 5', type: 'normal', withdrawDays: [4,5] },
+            { level: 6, price: 1500, daily: 225, days: 730, total: 164250, name: 'VIP 6', type: 'normal', withdrawDays: [4,5] },
+            { level: 7, price: 2000, daily: 310, days: 730, total: 226300, name: 'VIP 7', type: 'normal', withdrawDays: [4,5] },
+            { level: 8, price: 2500, daily: 395, days: 730, total: 288350, name: 'VIP 8', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 9, price: 3000, daily: 485, days: 730, total: 354050, name: 'VIP 9', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 10, price: 3500, daily: 575, days: 730, total: 419750, name: 'VIP 10', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 11, price: 4000, daily: 665, days: 730, total: 485450, name: 'VIP 11', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 12, price: 5000, daily: 850, days: 730, total: 620500, name: 'VIP 12', type: 'normal', withdrawDays: [3,4,5] },
+            { level: 13, price: 6000, daily: 1040, days: 730, total: 759200, name: 'VIP 13', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 14, price: 7000, daily: 1230, days: 730, total: 897900, name: 'VIP 14', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 15, price: 8000, daily: 1425, days: 730, total: 1040250, name: 'VIP 15', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 16, price: 9000, daily: 1620, days: 730, total: 1182600, name: 'VIP 16', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 17, price: 10000, daily: 1820, days: 730, total: 1328600, name: 'VIP 17', type: 'normal', withdrawDays: [2,3,4,5] },
+            { level: 18, price: 15000, daily: 2800, days: 730, total: 2044000, name: 'VIP 18', type: 'normal', withdrawDays: [1,2,3,4,5] },
+            { level: 19, price: 20000, daily: 3800, days: 730, total: 2774000, name: 'VIP 19', type: 'normal', withdrawDays: [1,2,3,4,5] },
+            { level: 20, price: 30000, daily: 5800, days: 730, total: 4234000, name: 'VIP 20', type: 'normal', withdrawDays: [1,2,3,4,5] },
+            { level: 21, price: 50000, daily: 9800, days: 730, total: 7154000, name: 'VIP 21', type: 'normal', withdrawDays: [1,2,3,4,5] }
         ];
 
-        // ==================== NÍVEIS DE FUNDOS ====================
+        // ==================== NÍVEIS DE FUNDOS (565% retorno | 15-30 minutos) ====================
         const fundLevels = [
-            { level: 1, minPrice: 200, basePrice: 500, baseTotal: 650, days: 10, name: 'Fundo 1', basePercent: 30 },
-            { level: 2, minPrice: 400, basePrice: 1000, baseTotal: 1300, days: 10, name: 'Fundo 2', basePercent: 30 },
-            { level: 3, minPrice: 800, basePrice: 2000, baseTotal: 3400, days: 17, name: 'Fundo 3', basePercent: 70 },
-            { level: 4, minPrice: 2000, basePrice: 5000, baseTotal: 5500, days: 22, name: 'Fundo 4', basePercent: 10 },
-            { level: 5, minPrice: 3000, basePrice: 8000, baseTotal: 9600, days: 30, name: 'Fundo 5', basePercent: 20 },
-            { level: 6, minPrice: 5000, basePrice: 12000, baseTotal: 15600, days: 30, name: 'Fundo 6', basePercent: 30 },
-            { level: 7, minPrice: 8000, basePrice: 20000, baseTotal: 28000, days: 30, name: 'Fundo 7', basePercent: 40 },
-            { level: 8, minPrice: 10000, basePrice: 25000, baseTotal: 37500, days: 60, name: 'Fundo 8', basePercent: 50 },
-            { level: 9, minPrice: 15000, basePrice: 40000, baseTotal: 64000, days: 60, name: 'Fundo 9', basePercent: 60 },
-            { level: 10, minPrice: 20000, basePrice: 50000, baseTotal: 85000, days: 60, name: 'Fundo 10', basePercent: 70 }
+            { level: 1,  minPrice: 200,  basePrice: 500,   baseTotal: 3325,  durationMinutes: 30, name: 'Fundo 1',  basePercent: 565 },
+            { level: 2,  minPrice: 300,  basePrice: 750,   baseTotal: 4987,  durationMinutes: 29, name: 'Fundo 2',  basePercent: 565 },
+            { level: 3,  minPrice: 400,  basePrice: 1000,  baseTotal: 6650,  durationMinutes: 28, name: 'Fundo 3',  basePercent: 565 },
+            { level: 4,  minPrice: 500,  basePrice: 1500,  baseTotal: 9975,  durationMinutes: 27, name: 'Fundo 4',  basePercent: 565 },
+            { level: 5,  minPrice: 600,  basePrice: 2000,  baseTotal: 13300, durationMinutes: 26, name: 'Fundo 5',  basePercent: 565 },
+            { level: 6,  minPrice: 800,  basePrice: 2500,  baseTotal: 16625, durationMinutes: 25, name: 'Fundo 6',  basePercent: 565 },
+            { level: 7,  minPrice: 1000, basePrice: 3000,  baseTotal: 19950, durationMinutes: 24, name: 'Fundo 7',  basePercent: 565 },
+            { level: 8,  minPrice: 1500, basePrice: 4000,  baseTotal: 26600, durationMinutes: 23, name: 'Fundo 8',  basePercent: 565 },
+            { level: 9,  minPrice: 2000, basePrice: 5000,  baseTotal: 33250, durationMinutes: 22, name: 'Fundo 9',  basePercent: 565 },
+            { level: 10, minPrice: 3000, basePrice: 7000,  baseTotal: 46550, durationMinutes: 21, name: 'Fundo 10', basePercent: 565 },
+            { level: 11, minPrice: 4000, basePrice: 10000, baseTotal: 66500, durationMinutes: 20, name: 'Fundo 11', basePercent: 565 },
+            { level: 12, minPrice: 5000, basePrice: 15000, baseTotal: 99750, durationMinutes: 19, name: 'Fundo 12', basePercent: 565 },
+            { level: 13, minPrice: 8000, basePrice: 20000, baseTotal: 133000, durationMinutes: 18, name: 'Fundo 13', basePercent: 565 },
+            { level: 14, minPrice: 10000, basePrice: 30000, baseTotal: 199500, durationMinutes: 17, name: 'Fundo 14', basePercent: 565 },
+            { level: 15, minPrice: 15000, basePrice: 50000, baseTotal: 332500, durationMinutes: 15, name: 'Fundo 15', basePercent: 565 }
         ];
 
         // ==================== BENEFÍCIOS POR CONVITES ====================
@@ -561,16 +558,6 @@
             updateBalanceDisplay(); 
         }
         
-        function loadAds() {
-            try {
-                if (typeof adsbygoogle !== 'undefined') {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                }
-            } catch(e) {
-                console.log('AdSense error:', e);
-            }
-        }
-        
         function showTab(tab) { 
             document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active')); 
             const c = document.getElementById('mainContent'); 
@@ -580,8 +567,7 @@
                 case 'fundos': document.getElementById('navFundos')?.classList.add('active'); c.innerHTML = renderFundos(); break; 
                 case 'tarefas': document.getElementById('navTarefas')?.classList.add('active'); c.innerHTML = renderTarefas(); break; 
                 case 'convidar': document.getElementById('navConvidar')?.classList.add('active'); c.innerHTML = renderConvidar(); break; 
-            }
-            setTimeout(loadAds, 100);
+            } 
         }
 
         function handleConvidarClick() { 
@@ -596,7 +582,6 @@
 
         // ==================== SAQUE - BLOQUEIO PARA ESTAGIÁRIO ====================
         function getWithdrawInfo() { 
-            // 🔒 ESTAGIÁRIO NUNCA PODE SACAR
             if (currentUser.vipType === 'estagiario') {
                 return { 
                     allowed: false, 
@@ -605,7 +590,6 @@
                 };
             }
             
-            // Verificar se tem VIP
             if (!currentUser.vip || currentUser.vip === 0) {
                 return { 
                     allowed: false, 
@@ -685,23 +669,13 @@
             const canCollect = vd && (currentUser.vip > 0 || currentUser.vipType === 'estagiario') && cr === 0;
             const neverCollected = vd && (currentUser.vip > 0 || currentUser.vipType === 'estagiario') && !currentUser.vipLastCollected;
             
-            // 🔽 ANÚNCIO NO TOPO (DISCRETO) 🔽
-            let h = '<div style="margin-bottom:12px; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
-            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-            h += '</div>';
-            
-            h += '<div class="gains-grid">';
+            let h = '<div class="gains-grid">';
             h += '<div class="gain-card gain-card-1"><div class="gain-label" style="color:#FFD700;">📅 Ontem</div><div class="gain-value">' + calculateGains('yesterday').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
             h += '<div class="gain-card gain-card-2"><div class="gain-label" style="color:#00ff88;">🟢 Hoje</div><div class="gain-value">' + calculateGains('today').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
             h += '<div class="gain-card gain-card-3"><div class="gain-label" style="color:#8B5CF6;">📊 Este Mês</div><div class="gain-value">' + calculateGains('month').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
             h += '<div class="gain-card gain-card-4"><div class="gain-label" style="color:#FFA500;">🏆 2 Anos</div><div class="gain-value">' + calculateGains('2years').toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
             h += '</div>';
             h += '<div class="balance-card"><div style="font-size:12px;color:rgba(0,0,0,0.6);">💰 Saldo Atual</div><div class="balance-value">' + (currentUser.balance || 0).toLocaleString('pt-MZ',{minimumFractionDigits:2}) + ' MT</div></div>';
-            
-            // 🔽 ANÚNCIO NO MEIO 🔽
-            h += '<div style="margin:12px 0; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
-            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-            h += '</div>';
             
             if (vd) { 
                 h += '<div class="vip-status-card">';
@@ -737,12 +711,6 @@
             
             h += '<div class="action-btns"><button class="action-btn btn-gold" onclick="showTab(\'vips\')">💎 VIPs</button><button class="action-btn btn-red" onclick="showTab(\'fundos\')">📈 Fundos</button></div>';
             h += '<div class="action-btns"><button class="action-btn btn-purple" onclick="showWithdrawalOptions()">💸 Sacar</button><button class="action-btn btn-green" onclick="showDepositModal()">💰 Depositar</button></div>';
-            
-            // 🔽 ANÚNCIO NO RODAPÉ 🔽
-            h += '<div style="margin-top:20px; text-align:center; background:rgba(0,0,0,0.15); border-radius:12px; padding:6px;">';
-            h += '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1032002019870730" data-ad-slot="5480692460" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-            h += '</div>';
-            
             return h;
         }
 
@@ -818,13 +786,14 @@
         }
 
         function renderFundos() { 
-            const colors = [['#ff6b6b','#ee5a24'],['#f0932b','#f9ca24'],['#6c5ce7','#a855f7'],['#0984e3','#74b9ff'],['#00b894','#55efc4'],['#e84393','#fd79a8'],['#fdcb6e','#ffeaa7'],['#e17055','#d63031'],['#636e72','#b2bec3'],['#2d3436','#dfe6e9']]; 
-            let h = '<h3 style="color:#FFD700;text-align:center;">📈 Fundos</h3>'; 
+            const colors = [['#ff6b6b','#ee5a24'],['#f0932b','#f9ca24'],['#6c5ce7','#a855f7'],['#0984e3','#74b9ff'],['#00b894','#55efc4'],['#e84393','#fd79a8'],['#fdcb6e','#ffeaa7'],['#e17055','#d63031'],['#636e72','#b2bec3'],['#2d3436','#dfe6e9'],['#6c5ce7','#a855f7'],['#0984e3','#74b9ff'],['#00b894','#55efc4'],['#e84393','#fd79a8'],['#fdcb6e','#ffeaa7']]; 
+            let h = '<h3 style="color:#FFD700;text-align:center;">📈 Fundos de Riqueza</h3>'; 
+            h += '<div style="text-align:center;color:#aaa;font-size:11px;margin-bottom:12px;">⏱️ Retorno em 15 a 30 minutos | 📈 565% de lucro</div>';
             fundLevels.forEach((f, i) => { 
                 h += '<div class="fundo-card-colorida fundo-color-' + (i % 5) + '" onclick="showFundModal(' + f.level + ')" style="background:linear-gradient(135deg,' + colors[i][0] + ',' + colors[i][1] + ');">';
                 h += '<div class="fundo-name">📈 ' + f.name + '</div>';
                 h += '<div class="fundo-info">💰 Mín: ' + f.minPrice.toLocaleString() + ' MT | Base: ' + f.basePrice.toLocaleString() + ' MT</div>';
-                h += '<div class="fundo-info">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ' + f.days + ' dias | ' + f.basePercent + '%</div>';
+                h += '<div class="fundo-info">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ⏱️ ' + f.durationMinutes + ' min | ' + f.basePercent + '%</div>';
                 h += (currentUser.fundLevels?.some(fl => fl.level === f.level) ? '<div style="color:#fff;">✅ ATIVO</div>' : '') + '</div>'; 
             }); 
             return h; 
@@ -833,7 +802,6 @@
         function renderTarefas() { 
             let h = '<h3 style="color:#FFD700;text-align:center;">📋 Tarefas</h3>'; 
             h += '<div style="text-align:center;color:#FFD700;margin-bottom:12px;" id="serverTime">Carregando...</div>'; 
-            // 📺 BOTÃO YOUTUBE - Nome: GANHE VENDO VÍDEOS
             h += '<div class="vip-card-colorida vip-color-1" style="cursor:default;">';
             h += '<div class="vip-name">📺 GANHE VENDO VÍDEOS</div>';
             h += '<div class="vip-info">Tutoriais da Plataforma</div>';
@@ -965,7 +933,6 @@
         function showWithdrawalOptions() { 
             const wi = getWithdrawInfo(); 
             
-            // 🔒 SE FOR ESTAGIÁRIO, MOSTRAR MENSAGEM DE UPGRADE
             if (wi.isEstagiario || (!currentUser.vip && currentUser.vipType !== 'estagiario')) {
                 document.getElementById('mainContent').innerHTML = `
                     <div style="text-align:center; padding:20px;">
@@ -1069,16 +1036,17 @@
             document.querySelector('.modal-overlay')?.remove(); 
             const o = document.createElement('div'); 
             o.className = 'modal-overlay'; 
-            o.innerHTML = '<div class="modal-box"><h3 style="color:#FFD700;">📈 ' + f.name + '</h3><div style="color:white;">💰 Mín: ' + f.minPrice.toLocaleString() + ' MT | Base: ' + f.basePrice.toLocaleString() + ' MT</div><div style="color:white;">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ' + f.days + ' dias | ' + f.basePercent + '%</div><input type="range" id="fundSlider" min="' + f.minPrice + '" max="' + (f.basePrice * 2) + '" value="' + f.basePrice + '" step="100" oninput="updateFundCalc(' + f.level + ',this.value)" style="width:100%;margin:10px 0;"><div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:10px;"><div style="color:white;">💰 <strong id="fundInvValue">' + f.basePrice.toLocaleString() + ' MT</strong></div><div style="color:#00ff88;">📈 <strong id="fundPercent">' + f.basePercent + '%</strong></div><div style="color:#FFD700;">💵 <strong id="fundReturn">' + f.baseTotal.toLocaleString() + ' MT</strong></div></div><button onclick="confirmFundInvestment(' + f.level + ')" class="btn-primary btn-gold">💸 INVESTIR</button><button onclick="this.closest(\'.modal-overlay\').remove()" class="btn-outline">Cancelar</button></div>'; 
+            o.innerHTML = '<div class="modal-box"><h3 style="color:#FFD700;">📈 ' + f.name + '</h3><div style="color:white;">💰 Mín: ' + f.minPrice.toLocaleString() + ' MT | Base: ' + f.basePrice.toLocaleString() + ' MT</div><div style="color:white;">💵 Retorno: ' + f.baseTotal.toLocaleString() + ' MT | ⏱️ ' + f.durationMinutes + ' min | ' + f.basePercent + '%</div><input type="range" id="fundSlider" min="' + f.minPrice + '" max="' + (f.basePrice * 2) + '" value="' + f.basePrice + '" step="100" oninput="updateFundCalc(' + f.level + ',this.value)" style="width:100%;margin:10px 0;"><div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:10px;"><div style="color:white;">💰 <strong id="fundInvValue">' + f.basePrice.toLocaleString() + ' MT</strong></div><div style="color:#00ff88;">📈 <strong id="fundPercent">' + f.basePercent + '%</strong></div><div style="color:#FFD700;">💵 <strong id="fundReturn">' + f.baseTotal.toLocaleString() + ' MT</strong></div></div><button onclick="confirmFundInvestment(' + f.level + ')" class="btn-primary btn-gold">💸 INVESTIR</button><button onclick="this.closest(\'.modal-overlay\').remove()" class="btn-outline">Cancelar</button></div>'; 
             document.body.appendChild(o); 
         }
 
         function updateFundCalc(level, value) { 
             const f = fundLevels.find(x => x.level === level); 
             if (!f) return; 
-            const iv = Number(value), ratio = iv / f.basePrice, pct = Math.round(f.basePercent * ratio), rv = Math.round(iv * (1 + pct / 100)); 
+            const iv = Number(value);
+            const rv = Math.round(iv * 6.65); // 565% de retorno
             document.getElementById('fundInvValue').textContent = iv.toLocaleString() + ' MT'; 
-            document.getElementById('fundPercent').textContent = pct + '%'; 
+            document.getElementById('fundPercent').textContent = '565%'; 
             document.getElementById('fundReturn').textContent = rv.toLocaleString() + ' MT'; 
         }
 
@@ -1087,8 +1055,8 @@
             if (!f) return; 
             const iv = Number(document.getElementById('fundSlider').value); 
             if ((currentUser.balance || 0) < iv) { alert('Saldo insuficiente!'); return; } 
-            const rv = Math.round(iv * (1 + f.basePercent / 100)); 
-            if (confirm('Investir ' + iv.toLocaleString() + ' MT?\nRetorno: ' + rv.toLocaleString() + ' MT\n' + f.days + ' dias')) { 
+            const rv = Math.round(iv * 6.65); // 565% de retorno
+            if (confirm('💸 INVESTIR ' + iv.toLocaleString() + ' MT?\n\n📈 Retorno: ' + rv.toLocaleString() + ' MT\n💎 Lucro: 565%\n⏱️ Duração: ' + f.durationMinutes + ' minutos\n\n⚠️ O retorno será creditado automaticamente!')) { 
                 currentUser.balance -= iv; 
                 if (!currentUser.fundLevels) currentUser.fundLevels = []; 
                 currentUser.fundLevels.push({ level: f.level, amount: iv, returnValue: rv }); 
@@ -1102,11 +1070,12 @@
                         u.fundHistory.push({ amount: iv, returnValue: rv, date: new Date().toISOString(), fund: f.name }); 
                         currentUser = u; 
                         await saveUser(); 
-                        alert('🎉 ' + f.name + '! +' + rv.toLocaleString() + ' MT'); 
+                        alert('🎉 ' + f.name + ' CONCLUÍDO!\n\n💰 Investido: ' + iv.toLocaleString() + ' MT\n💵 Retorno: ' + rv.toLocaleString() + ' MT\n📈 Lucro: 565%\n⏱️ Tempo: ' + f.durationMinutes + ' minutos'); 
+                        showTab('fundos'); 
                     } 
-                }, f.days * 86400000); 
+                }, f.durationMinutes * 60000); // Minutos em vez de dias
                 document.querySelector('.modal-overlay')?.remove(); 
-                alert('✅ Investido!'); 
+                alert('✅ Investido com sucesso!\n\n⏱️ Retorno em ' + f.durationMinutes + ' minutos\n💰 Você receberá ' + rv.toLocaleString() + ' MT'); 
                 showTab('fundos'); 
             } 
         }
@@ -1237,4 +1206,170 @@
                 html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>🔒 Senha</th><th>Saldo</th><th>VIP</th><th>Ações</th></tr></thead><tbody>'; 
                 all.forEach(([ph, u]) => { 
                     const safeName = (u.name || 'N/A').replace(/'/g, "\\'");
-                    html += '<tr><td>' + (u.name || 'N/A') + '</td><td>' + ph + '</td><td style="color:#FFD700;">' + (u.password || '****') + '
+                    html += '<tr><td>' + (u.name || 'N/A') + '</td><td>' + ph + '</td><td style="color:#FFD700;">' + (u.password || '****') + '</td><td>' + (u.balance || 0).toLocaleString() + ' MT</td><td>' + (u.vipType === 'estagiario' ? 'Estagiário' : (u.vip || 'Free')) + '</td><td style="white-space:nowrap;"><button onclick="adminEditBalance(\'' + ph + '\',' + (u.balance || 0) + ')" class="admin-btn admin-btn-primary" style="font-size:10px;">✏️</button> <button onclick="adminQuickResetUser(\'' + ph + '\',\'' + safeName + '\')" class="admin-btn" style="background:#ff4444;color:white;font-size:10px;">🔑 Redefinir</button> <button onclick="adminDeleteUser(\'' + ph + '\')" class="admin-btn admin-btn-danger" style="font-size:10px;">🗑️</button></td></tr>'; 
+                }); 
+                html += '</tbody></table></div>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminQuickResetUser(phone, userName) {
+            const newPassword = prompt('🔑 Redefinir senha de:\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n\nDigite a nova senha (mín 4 caracteres):');
+            if (!newPassword) return;
+            if (newPassword.length < 4) { alert('⚠️ A senha deve ter no mínimo 4 caracteres!'); return; }
+            if (!confirm('⚠️ CONFIRMAR REDEFINIÇÃO?\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 Nova senha: ' + newPassword + '\n\nEsta ação é irreversível!')) return;
+            try {
+                await db.ref('usuarios/' + phone).update({ password: newPassword });
+                await db.ref('resetHistory').push().set({ name: decodeURIComponent(userName), phone: phone, newPassword: newPassword, date: new Date().toISOString(), method: 'admin_list_reset', status: 'completed' });
+                const texto = '🔐 LEOPARD INVESTIMENT - REDEFINIÇÃO DE SENHA\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 Nova senha: ' + newPassword;
+                await navigator.clipboard.writeText(texto);
+                alert('✅ SENHA REDEFINIDA COM SUCESSO!\n\n👤 ' + decodeURIComponent(userName) + '\n📱 ' + phone + '\n🔑 ' + newPassword + '\n\n📋 Dados copiados! Envie para o usuário.');
+                adminUsersList();
+            } catch (e) { alert('❌ Erro ao redefinir senha!'); }
+        }
+
+        async function adminEditBalance(phone, cur) { const b = prompt('Novo saldo:', cur); if (b !== null && !isNaN(b)) { const u = await getUser(phone); if (u) { u.balance = Number(b); await setUser(phone, u); alert('✅'); adminUsersList(); } } }
+        async function adminDeleteUser(phone) { if (confirm('EXCLUIR ' + phone + '?')) { await db.ref('usuarios/' + phone).remove(); alert('✅'); adminUsersList(); } }
+        async function adminAddManualDeposit() { const n = prompt('Nome:'); if (!n) return; const ph = prompt('Número:'); if (!ph) return; const a = Number(prompt('Valor (MT):')); if (!a || a < 200) { alert('Mín 200 MT'); return; } await addDeposit({ name: n, phone: ph, userPhone: ph, amount: a, date: new Date().toISOString(), status: 'pending', comprovativo: 'admin' }); alert('✅ Registrado!'); adminDepositsList(); }
+
+        async function adminDepositsList() { 
+            const deps = await getDeposits(); 
+            const pend = Object.entries(deps).filter(([k, d]) => d && d.status === 'pending'); 
+            let html = '<div class="admin-section"><h4>💰 Depósitos Pendentes (' + pend.length + ')</h4>'; 
+            if (pend.length === 0) html += '<div style="color:white;text-align:center;padding:20px;">✅ Nenhum</div>'; 
+            else { 
+                html += '<div style="overflow-x:auto;"><table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>Valor</th><th>Ações</th></tr></thead><tbody>'; 
+                pend.forEach(([k, d]) => { html += '<tr><td>' + (d.name || 'N/A') + '</td><td>' + (d.phone || d.userPhone || 'N/A') + '</td><td style="color:#00ff88;">' + (d.amount || 0).toLocaleString() + ' MT</td><td><button onclick="adminApproveDeposit(\'' + k + '\')" class="admin-btn admin-btn-success">✅</button> <button onclick="adminRejectDeposit(\'' + k + '\')" class="admin-btn admin-btn-danger">❌</button></td></tr>'; }); 
+                html += '</tbody></table></div>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminApproveDeposit(key) { 
+            const r = db.ref('depositos/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('✅ APROVAR?\n\n👤 ' + (d.name || 'N/A') + '\n💰 ' + (d.amount || 0).toLocaleString() + ' MT')) return; 
+            await r.update({ status: 'approved', approvedAt: new Date().toISOString() }); 
+            const phone = d.userPhone || d.phone;
+            const u = await getUser(phone); 
+            if (u) { 
+                u.balance = (u.balance || 0) + (d.amount || 0); 
+                if (!u.depositHistory) u.depositHistory = []; 
+                u.depositHistory.push({ amount: d.amount, date: new Date().toISOString() }); 
+                await setUser(phone, u); 
+                if (currentUser && currentUser.phone === phone) { 
+                    currentUser.balance = u.balance; 
+                    updateBalanceDisplay(); 
+                } 
+                if (u.referredBy) { 
+                    const ref = await getUser(u.referredBy); 
+                    if (ref) { 
+                        const isFraud = isSuspiciousNumber(u.referredBy, phone);
+                        if (!isFraud) {
+                            const comissionados = ref.commissionHistory ? [...new Set(ref.commissionHistory.map(c => c.fromPhone || ''))] : [];
+                            if (comissionados.length < 3 || comissionados.includes(phone)) {
+                                const com = Math.round((d.amount || 0) * 0.07); 
+                                if (com > 0) { 
+                                    ref.balance = (ref.balance || 0) + com; 
+                                    ref.commission = (ref.commission || 0) + com; 
+                                    if (!ref.commissionHistory) ref.commissionHistory = []; 
+                                    ref.commissionHistory.push({ 
+                                        amount: com, 
+                                        date: new Date().toISOString(), 
+                                        fromName: u.name, 
+                                        fromPhone: phone,
+                                        depositAmount: d.amount 
+                                    }); 
+                                    await setUser(u.referredBy, ref); 
+                                }
+                            }
+                        }
+                    } 
+                } 
+            } 
+            alert('✅ Aprovado!'); 
+            adminDepositsList(); 
+        }
+
+        async function adminRejectDeposit(key) { 
+            if (!confirm('❌ RECUSAR?')) return; 
+            await db.ref('depositos/' + key).update({ status: 'rejected' }); 
+            alert('❌ Recusado!'); 
+            adminDepositsList(); 
+        }
+
+        async function adminWithdrawalsList() { 
+            const snap = await db.ref('saques').once('value'); 
+            const saques = snap.exists() ? snap.val() : {}; 
+            const pend = Object.entries(saques).filter(([k, s]) => s && s.status === 'pending'); 
+            let html = '<div class="admin-section"><h4>💸 Saques Pendentes (' + pend.length + ')</h4>'; 
+            if (pend.length === 0) html += '<div style="color:white;text-align:center;">✅ Nenhum</div>'; 
+            else { 
+                html += '<table class="admin-table"><thead><tr><th>Nome</th><th>Número</th><th>Enviar</th><th>Ações</th></tr></thead><tbody>'; 
+                pend.forEach(([k, s]) => { html += '<tr><td>' + (s.name || 'N/A') + '</td><td>' + (s.phone || 'N/A') + '</td><td style="color:#00ff88;">' + (s.netAmount || 0).toLocaleString() + ' MT</td><td><button onclick="adminApproveWithdrawal(\'' + k + '\')" class="admin-btn admin-btn-success">✅</button> <button onclick="adminRejectWithdrawal(\'' + k + '\')" class="admin-btn admin-btn-danger">❌</button></td></tr>'; }); 
+                html += '</tbody></table>'; 
+            } 
+            html += '</div>'; 
+            document.getElementById('adminContent').innerHTML = html; 
+        }
+
+        async function adminApproveWithdrawal(key) { 
+            const r = db.ref('saques/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('✅ APROVAR SAQUE?\n💵 ' + (d.netAmount || 0).toLocaleString() + ' MT')) return; 
+            await r.update({ status: 'approved', approvedAt: new Date().toISOString() }); 
+            alert('✅ Aprovado!'); 
+            adminWithdrawalsList(); 
+        }
+
+        async function adminRejectWithdrawal(key) { 
+            const r = db.ref('saques/' + key); 
+            const s = await r.once('value'); 
+            if (!s.exists()) return; 
+            const d = s.val(); 
+            if (!confirm('❌ RECUSAR?\n💰 Devolver ' + (d.amount || 0).toLocaleString() + ' MT?')) return; 
+            const u = await getUser(d.phone); 
+            if (u) { u.balance = (u.balance || 0) + (d.amount || 0); await setUser(d.phone, u); } 
+            await r.update({ status: 'rejected' }); 
+            alert('❌ Recusado!'); 
+            adminWithdrawalsList(); 
+        }
+
+        // ==================== INSTALL PWA ====================
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; document.getElementById('installButton')?.classList.remove('hidden'); });
+        async function installApp() { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { document.getElementById('installButton')?.classList.add('hidden'); alert('✅ App instalado!'); } deferredPrompt = null; } else { alert('📲 Use o menu do navegador → "Adicionar à tela inicial"'); } }
+        window.addEventListener('appinstalled', () => { document.getElementById('installButton')?.classList.add('hidden'); });
+        if (window.matchMedia('(display-mode: standalone)').matches) { document.getElementById('installButton')?.classList.add('hidden'); }
+
+        // ==================== INICIALIZAÇÃO ====================
+        async function init() {
+            for (let i = 0; i < 20; i++) { 
+                const p = document.createElement('div'); 
+                p.className = 'particle'; 
+                p.style.width = p.style.height = (Math.random() * 4 + 1) + 'px'; 
+                p.style.left = Math.random() * 100 + '%'; 
+                p.style.animationDelay = Math.random() * 15 + 's'; 
+                p.style.animationDuration = (Math.random() * 8 + 8) + 's'; 
+                document.getElementById('particles').appendChild(p); 
+            }
+            await getConfig(); 
+            const a = await db.ref('admin/senha').once('value'); 
+            if (a.exists()) adminPassword = a.val();
+            await db.ref('admin').set({ senha: adminPassword }); 
+            await db.ref('admin/withdrawSettings').once('value').then(s => { if (s.exists()) withdrawSettings = s.val(); });
+            await setConfig(configCache); 
+            setTimeout(checkReferralFromUrl, 300);
+        }
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        init();
+    </script>
+</body>
+</html>
